@@ -1,7 +1,8 @@
-public class Animal {
+public abstract class Animal {
 
     private Position pos;
     private double sight;
+    private Animal nearestEnemy;
 
     public Position getPos() {
         return pos;
@@ -25,5 +26,6 @@ public class Animal {
         this.sight = sight;
     }
 
-    public moveTo(Position p);
+    public abstract moveTo(Position p);
+
 }
