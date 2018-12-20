@@ -2,17 +2,17 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.ui;///*
+package java.project.ui;///*
 // * Copyright (c) 2018 Max Henkes
 // */
 //
 //package com.maxhenkes.com.maxhenkes.projectai.ui;
 //
 //import com.maxhenkes.com.maxhenkes.projectai.engine.IBoardListener;
-//import com.maxhenkes.com.maxhenkes.projectai.engine.MainLoop;
-//import com.maxhenkes.com.maxhenkes.projectai.engine.tile.EmptyTile;
-//import com.maxhenkes.com.maxhenkes.projectai.engine.tile.Prey;
-//import com.maxhenkes.com.maxhenkes.projectai.engine.tile.Tile;
+//import com.maxhenkes.MainLoop;
+//import com.maxhenkes.EmptyTile;
+//import com.maxhenkes.Prey;
+//import com.maxhenkes.Tile;
 //import javafx.event.ActionEvent;
 //import javafx.fxml.FXML;
 //import javafx.fxml.Initializable;

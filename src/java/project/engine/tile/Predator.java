@@ -2,10 +2,10 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.engine.tile;
+package java.project.engine.tile;
 
-import com.maxhenkes.projectai.engine.IAnimal;
-import com.maxhenkes.projectai.engine.util.Point2;
+import java.project.engine.IAnimal;
+import java.project.engine.util.Point2;
 
 public class Predator extends Tile implements IAnimal {
 

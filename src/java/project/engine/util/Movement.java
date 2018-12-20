@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.engine.util;
+package java.project.engine.util;
 
 import java.util.Random;
 

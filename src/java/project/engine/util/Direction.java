@@ -1,4 +1,4 @@
-package com.maxhenkes.projectai.engine.util;
+package java.project.engine.util;
 
 /**
  * * Created by Max on 12/18/2018.

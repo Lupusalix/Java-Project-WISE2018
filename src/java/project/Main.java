@@ -2,13 +2,13 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai;
+package java.project;
 
-import com.maxhenkes.projectai.engine.MainLoop;
-import com.maxhenkes.projectai.engine.tile.EmptyTile;
-import com.maxhenkes.projectai.engine.tile.Predator;
-import com.maxhenkes.projectai.engine.tile.Prey;
-import com.maxhenkes.projectai.engine.tile.Tile;
+import java.project.engine.MainLoop;
+import java.project.engine.tile.EmptyTile;
+import java.project.engine.tile.Predator;
+import java.project.engine.tile.Prey;
+import java.project.engine.tile.Tile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;

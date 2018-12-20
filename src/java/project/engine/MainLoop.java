@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.engine;
+package java.project.engine;
 
 public class MainLoop implements Runnable {
 

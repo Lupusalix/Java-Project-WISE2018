@@ -2,13 +2,13 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.engine.tile;
+package java.project.engine.tile;
 
 
-import com.maxhenkes.projectai.engine.IAnimal;
-import com.maxhenkes.projectai.engine.MainLoop;
-import com.maxhenkes.projectai.engine.util.Movement;
-import com.maxhenkes.projectai.engine.util.Point2;
+import java.project.engine.IAnimal;
+import java.project.engine.MainLoop;
+import java.project.engine.util.Movement;
+import java.project.engine.util.Point2;
 
 public class Prey extends Tile implements IAnimal {
 

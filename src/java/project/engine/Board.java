@@ -2,15 +2,15 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package com.maxhenkes.projectai.engine;
+package java.project.engine;
 
 
-import com.maxhenkes.projectai.engine.tile.EmptyTile;
-import com.maxhenkes.projectai.engine.tile.Predator;
-import com.maxhenkes.projectai.engine.tile.Prey;
-import com.maxhenkes.projectai.engine.tile.Tile;
-import com.maxhenkes.projectai.engine.util.Point2;
-import com.maxhenkes.projectai.engine.util.Spawn;
+import java.project.engine.tile.EmptyTile;
+import java.project.engine.tile.Predator;
+import java.project.engine.tile.Prey;
+import java.project.engine.tile.Tile;
+import java.project.engine.util.Point2;
+import java.project.engine.util.Spawn;
 
 import java.util.ArrayList;
 import java.util.List;
