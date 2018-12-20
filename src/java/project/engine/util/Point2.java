@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2018 Max Henkes
- */
+
 
 package java.project.engine.util;
 
