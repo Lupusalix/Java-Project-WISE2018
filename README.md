@@ -1,6 +1,5 @@
 # Java-Project-WISE2018
-
-_testing branch.
+Development branch.
 
 General engine structure laid out.
 Currently has placeholder logic.
