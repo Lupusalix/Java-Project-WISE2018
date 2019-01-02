@@ -1,3 +1,7 @@
+package Tiles;
+
+import java.util.Random;
+
 public class Position {
     private int x;
     private int y;
@@ -18,9 +22,18 @@ public class Position {
         this.y = y;
     }
 
+    public Position() {
+    }
+
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Position ranPos(int x, int y) {
+        Random rand = new Random();
+        return new Position(rand.nextInt(x), rand.nextInt(y));
     }
 
     public double getDistance(Position d) {
