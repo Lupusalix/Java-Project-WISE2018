@@ -11,7 +11,7 @@ public class Movement {
     public static Point2 randomDirection() {
         Random rand = new Random();
 
-        switch (rand.nextInt(2)) {
+        switch (rand.nextInt(3)) {
 
             case 0:
                 return new Point2(1, 0);

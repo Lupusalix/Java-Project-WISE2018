@@ -16,8 +16,8 @@ public class Spawn {
         while (true) {
             Random rand = new Random();
 
-            int x = rand.nextInt(MainLoop.board.getSizeX() + 1);
-            int y = rand.nextInt(MainLoop.board.getSizeY() + 1);
+            int x = rand.nextInt(MainLoop.board.getSizeX());
+            int y = rand.nextInt(MainLoop.board.getSizeY());
 
             Point2 position = new Point2(x, y);
 

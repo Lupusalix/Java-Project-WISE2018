@@ -54,8 +54,8 @@ public class Prey extends Tile implements IAnimal {
     public void move() {
 
         while(true) {
-            Point2 newPosition1 = Movement.randomDirection().mult1D(speed);
-            Point2 newPosition = newPosition1.add(pos);
+            Point2 newPosition1 = Movement.randomDirection().mult1D(speed);//Get Rand Direction and multiply with Speed
+            Point2 newPosition = newPosition1.add(pos); // move to new Pos
 
             if (MainLoop.board.isEmpty(newPosition)) {
                 MainLoop.board.moveTile(pos, newPosition);

@@ -16,24 +16,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application implements Runnable {
 
-
-
     /*
     Currently only renders simulation, no extra windows. Should be separated into proper classes and not run in main.
      */
-
-
     //Base Gridpane used for rendering
     GridPane root = new GridPane();
 
     //2D Array of rectangles (easy to change color) that we match with our engine array
     private Rectangle[][] board;
-
     //To update our UI we need a thread
     private Thread thread;
 
     private Color preyColor = Color.GREEN;
-    private Color floorColor = Color.SADDLEBROWN;
+    private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
     private int sleep = 50;
