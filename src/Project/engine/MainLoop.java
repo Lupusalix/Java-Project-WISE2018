@@ -1,5 +1,5 @@
 
-package java.project.engine;
+package Project.engine;
 
 public class MainLoop implements Runnable {
 

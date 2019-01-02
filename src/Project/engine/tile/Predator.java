@@ -1,9 +1,9 @@
 
 
-package java.project.engine.tile;
+package Project.engine.tile;
 
-import java.project.engine.IAnimal;
-import java.project.engine.util.Point2;
+import Project.engine.util.Point2;
+import Project.engine.IAnimal;
 
 public class Predator extends Tile implements IAnimal {
 

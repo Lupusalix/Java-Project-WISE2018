@@ -1,13 +1,13 @@
 
-package java.project.engine;
+package Project.engine;
 
 
-import java.project.engine.tile.EmptyTile;
-import java.project.engine.tile.Predator;
-import java.project.engine.tile.Prey;
-import java.project.engine.tile.Tile;
-import java.project.engine.util.Point2;
-import java.project.engine.util.Spawn;
+import Project.engine.tile.EmptyTile;
+import Project.engine.tile.Predator;
+import Project.engine.tile.Prey;
+import Project.engine.tile.Tile;
+import Project.engine.util.Point2;
+import Project.engine.util.Spawn;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package java.project.ui;
+package Project.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

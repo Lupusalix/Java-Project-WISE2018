@@ -1,12 +1,12 @@
 
 
-package java.project;
+package Project;
 
-import java.project.engine.MainLoop;
-import java.project.engine.tile.EmptyTile;
-import java.project.engine.tile.Predator;
-import java.project.engine.tile.Prey;
-import java.project.engine.tile.Tile;
+import Project.engine.MainLoop;
+import Project.engine.tile.EmptyTile;
+import Project.engine.tile.Predator;
+import Project.engine.tile.Prey;
+import Project.engine.tile.Tile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -124,7 +124,6 @@ public class Main extends Application implements Runnable {
         /*
         Doesn't check for changes, too slow. Simply sets the color of every rectangle to the one found in our Board.
          */
-
 
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {

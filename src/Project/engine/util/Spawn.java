@@ -1,7 +1,7 @@
 
-package java.project.engine.util;
+package Project.engine.util;
 
-import java.project.engine.MainLoop;
+import Project.engine.MainLoop;
 
 import java.util.Random;
 

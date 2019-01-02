@@ -1,6 +1,6 @@
 
 
-package java.project.engine.tile;
+package Project.engine.tile;
 
 public class EmptyTile extends Tile{
 }
