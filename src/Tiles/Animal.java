@@ -1,16 +1,21 @@
 package Tiles;
 
 
-public class Animal extends EmptyTile {
+public class Animal extends EmptyTile implements Comparable<Animal> {
 
     private Position pos;
     private double sight;
     private final double initiative;
+    private int speed;
 
-    public Animal(Position pos, double sight){
-        this.pos=pos;
-        this.initiative=Math.random();
-        this.sight=sight;
+    public double getInitiative() {
+        return this.initiative;
+    }
+
+    public Animal(Position pos, double sight) {
+        this.pos = pos;
+        this.initiative = Math.random();
+        this.sight = sight;
     }
 
     public Position getPos() {
@@ -30,7 +35,14 @@ public class Animal extends EmptyTile {
     }
 
 
-    public void act(){
+    public void act() {
 
+    }
+
+
+    //Comparable Method for sorting descending by the initiative.
+    @Override
+    public int compareTo(Animal o) {
+        return Double.compare(o.getInitiative(), this.initiative);
     }
 }

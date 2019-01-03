@@ -31,6 +31,7 @@ public class Position {
         this.y = y;
     }
 
+    //creating a random position within boundaries x and y
     public Position ranPos(int x, int y) {
         Random rand = new Random();
         return new Position(rand.nextInt(x), rand.nextInt(y));
