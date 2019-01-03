@@ -24,9 +24,10 @@ public class BoardManager implements Runnable {
            while(true) {
                pos = pos.ranPos(board.length, board[0].length);
                if (!(board[pos.getX()][pos.getY()] instanceof Animal)) {
-                   board[pos.getX()][pos.getY()] = new Predator(pos, 10);
-                   animals.add(board[pos.getX()][pos.getY()]);
-                   predators.add(board[pos.getX()][pos.getY()]);
+                   Predator pred = new Predator(pos, 10);
+                   board[pos.getX()][pos.getY()] = pred;
+                   animals.add(pred);
+                   predators.add(pred);
                    break;
                }
            }
