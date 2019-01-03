@@ -26,7 +26,7 @@ public class Main {
             if (!(x instanceof Animal)) {
                 System.out.println("Empty");
             }
-
+//slökjdfglksdfjglöksdfjgl
         }
 
     }
