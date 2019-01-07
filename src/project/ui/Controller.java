@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package Project.ui;///*
+package project.ui;///*
 // * Copyright (c) 2018 Max Henkes
 // */
 //
@@ -10,8 +10,8 @@ package Project.ui;///*
 //
 //import com.maxhenkes.com.maxhenkes.projectai.engine.IBoardListener;
 //import com.maxhenkes.MainLoop;
-//import com.maxhenkes.EmptyTile;
-//import com.maxhenkes.Prey;
+//import com.maxhenkes.TileEmpty;
+//import com.maxhenkes.TilePrey;
 //import com.maxhenkes.Tile;
 //import javafx.event.ActionEvent;
 //import javafx.fxml.FXML;
@@ -108,9 +108,9 @@ package Project.ui;///*
 //            for (int i = 0; i <= x; i++) {
 //                for (int f = 0; f <= y; f++) {
 //                    Pane pane = new Pane();
-//                    if (MainLoop.board.getTiles()[i][f] instanceof EmptyTile) {
+//                    if (MainLoop.board.getGrid()[i][f] instanceof TileEmpty) {
 //                        pane.setStyle(COLOREMPTY);
-//                    } else if (MainLoop.board.getTiles()[i][f] instanceof Prey) {
+//                    } else if (MainLoop.board.getGrid()[i][f] instanceof TilePrey) {
 //                        pane.setStyle(COLORPREY);
 //                    }
 //
@@ -140,9 +140,9 @@ package Project.ui;///*
 //            for (int f = 0; f <= y; f++) {
 //
 //                Pane pane = new Pane();
-//                if (MainLoop.board.getTiles()[i][f] instanceof EmptyTile) {
+//                if (MainLoop.board.getGrid()[i][f] instanceof TileEmpty) {
 //                    pane.setStyle(COLOREMPTY);
-//                } else if (MainLoop.board.getTiles()[i][f] instanceof Prey) {
+//                } else if (MainLoop.board.getGrid()[i][f] instanceof TilePrey) {
 //                    pane.setStyle(COLORPREY);
 //                }
 //

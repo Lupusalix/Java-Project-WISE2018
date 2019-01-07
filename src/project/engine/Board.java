@@ -2,131 +2,122 @@
 package project.engine;
 
 
-import project.engine.tile.EmptyTile;
-import project.engine.tile.Predator;
-import project.engine.tile.Prey;
+import project.engine.tile.TileEmpty;
+import project.engine.tile.TilePredator;
+import project.engine.tile.TilePrey;
 import project.engine.tile.Tile;
 import project.engine.util.Point2;
-import project.engine.util.Spawn;
+import project.engine.util.Spawner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
 
-    private final int x;
-    private final int y;
+    private final int sizeX;
+    private final int sizeY;
     private int predatorCount;
     private int preyCount;
 
     /*
-    Tile is our custom board piece, both Predator and Prey extend Tile. Can be replaced with any other Object.
+    The game board object.
      */
     private Tile[][] board;
 
     /*
-    Currently active Prey and Predator Lists to make updating and moving easier.
+    Currently active TilePrey and TilePredator Lists to make updating and moving easier.
      */
-    public List<Prey> preyList = new ArrayList<>();
-    public List<Predator> predatorList = new ArrayList<>();
+    public List<TilePrey> preyList = new ArrayList<>();
+    public List<TilePredator> predatorList = new ArrayList<>();
 
     public Board(int x, int y, int prey, int predator) {
-        this.x = x;
-        this.y = y;
+        this.sizeX = x;
+        this.sizeY = y;
         predatorCount = predator;
         preyCount = prey;
     }
 
     public void init() {
-
         buildBoard();
-
-        /*
-        Currently spawns prey with random position
-         */
-        for (int i = 0; i < preyCount; i++) {
-            new Prey(Spawn.getFreePosition());
-        }
-
-        /*
-        Not implemented yet
-         */
-        for (int i = 0; i < predatorCount; i++) {
-            new Predator(Spawn.getFreePosition());
-        }
+        initPrey(preyCount);
+        initPredator(predatorCount);
     }
-
-    /*
-            Builds the board with empty tiles.
-    */
-    private void buildBoard() {
-        board = new Tile[x][y];
-        for (int i = 0; i < x; i++) {
-            for (int f = 0; f < y; f++) {
-                board[i][f] = new EmptyTile();
-            }
-        }
-    }
-
 
 
     public int getSizeX() {
-        return x;
+        return sizeX;
     }
 
     public int getSizeY() {
-        return y;
+        return sizeY;
     }
 
 
-    /*
-    Only used during init
-     */
-    public void setTile(Point2 pos, Tile tile) {
-        board[pos.x][pos.y] = tile;
-    }
-
-
-
-    /*
-    Moves tiles, WIP. Just used for testing. Tiles should ONLY check if its valid and move themselves.
-
-     */
-    public void moveTile(Point2 posOld, Point2 posNew) {
-        Tile old = board[posOld.x][posOld.y];
-
-        Point2 newPos = new Point2((posOld.x + posNew.x) % x, (posOld.y + posNew.y) % y);
-
-        Tile newT = board[newPos.x][newPos.y];
-
-        board[posOld.x][posOld.y] = newT;
-        board[newPos.x][newPos.y] = old;
-
-        if (old instanceof Prey) {
-            ((Prey) old).setPosition(newPos);
-        }
-    }
-
-    public boolean isEmpty(Point2 pos) {
-        return board[pos.x][pos.y] instanceof EmptyTile;
-    }
-
-    public Tile[][] getTiles() {
+    public Tile[][] getGrid() {
         return board;
     }
 
     public void turnPrey() {
-        for (Prey prey : preyList) {
+        for (TilePrey prey : preyList) {
             prey.move();
         }
     }
 
     public void turnPredator() {
+        for (TilePredator predator : predatorList) {
+            predator.move();
+        }
+    }
+
+
+
+    /*
+    Init stuff
+     */
+
+    private void initPredator(int x) {
+
+        for (int i = 0; i < x; i++) {
+            new TilePredator(Spawner.getFreePosition());
+        }
+    }
+
+    private void initPrey(int x) {
+
+        /*
+        Currently spawns prey with random position
+         */
+        for (int i = 0; i < x; i++) {
+            new TilePrey(Spawner.getFreePosition());
+            if(Misc.debug){
+                System.out.println("Spawned Prey");
+            }
+        }
 
     }
 
-    public boolean moveValid(Point2 pos) {
-        return (pos.x > x && pos.x >= 0) || (pos.y > y && pos.y >= 0);
+    public void spawnPreyRandomly() {
+
+        initPrey(1);
+    }
+
+    /*
+        Builds the board with empty tiles.
+    */
+    private void buildBoard() {
+        board = new Tile[sizeX][sizeY];
+        for (int i = 0; i < sizeX; i++) {
+            for (int f = 0; f < sizeY; f++) {
+                board[i][f] = new TileEmpty();
+            }
+        }
+    }
+
+    /*
+    Only used during init
+    */
+    public void setTile(Point2 pos, Tile tile) {
+        board[pos.x][pos.y] = tile;
     }
 
 }

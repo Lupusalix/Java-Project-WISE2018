@@ -1,12 +1,12 @@
 
 
-package Project;
+package project;
 
-import Project.engine.MainLoop;
-import Project.engine.tile.EmptyTile;
-import Project.engine.tile.Predator;
-import Project.engine.tile.Prey;
-import Project.engine.tile.Tile;
+import project.engine.MainLoop;
+import project.engine.tile.TileEmpty;
+import project.engine.tile.TilePredator;
+import project.engine.tile.TilePrey;
+import project.engine.tile.Tile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -73,7 +73,7 @@ public class Main extends Application implements Runnable {
         /*
         Starts the simulation
          */
-        mainLoop.startSimulation(size, size, 1, 0);
+        mainLoop.startSimulation(size, size, 4, 0);
 
         /*
         Starts the thread for updating
@@ -128,14 +128,14 @@ public class Main extends Application implements Runnable {
                 Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
                 Detection distance not implemented yet.
                  */
-                Tile tile = MainLoop.board.getTiles()[row][col];
+                Tile tile = MainLoop.board.getGrid()[row][col];
                 Rectangle square = board[row][col];
 
-                if (tile instanceof EmptyTile) {
+                if (tile instanceof TileEmpty) {
                     square.setFill(floorColor);
-                } else if (tile instanceof Prey) {
+                } else if (tile instanceof TilePrey) {
                     square.setFill(preyColor);
-                } else if (tile instanceof Predator) {
+                } else if (tile instanceof TilePredator) {
                     square.setFill(predatorColor);
                 }
             }

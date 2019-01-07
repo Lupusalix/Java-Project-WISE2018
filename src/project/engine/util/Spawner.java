@@ -5,9 +5,9 @@ import project.engine.MainLoop;
 
 import java.util.Random;
 
-public class Spawn {
+public class Spawner {
 
-    private Spawn() {
+    private Spawner() {
     }
 
     public static Point2 getFreePosition() {
@@ -21,7 +21,7 @@ public class Spawn {
 
             Point2 position = new Point2(x, y);
 
-            if (MainLoop.board.isEmpty(position)) {
+            if (BoardUtil.isEmpty(position)) {
                 return position;
             }
         }

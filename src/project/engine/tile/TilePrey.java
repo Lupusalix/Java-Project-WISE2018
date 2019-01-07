@@ -1,14 +1,15 @@
 
 
-package Project.engine.tile;
+package project.engine.tile;
 
 
-import Project.engine.util.Movement;
-import Project.engine.util.Point2;
-import Project.engine.IAnimal;
-import Project.engine.MainLoop;
+import project.engine.util.BoardUtil;
+import project.engine.util.Point2;
+import project.engine.IAnimal;
+import project.engine.MainLoop;
+import project.engine.util.Vector2;
 
-public class Prey extends Tile implements IAnimal {
+public class TilePrey extends Tile implements IAnimal {
 
     private final int speed = 2;
     private boolean isHunted = false;
@@ -19,15 +20,15 @@ public class Prey extends Tile implements IAnimal {
 
     private Point2 pos;
 
-    public Prey(Point2 pos) {
+    public TilePrey(Point2 pos) {
         this(pos, 1);
     }
 
-    public Prey(Point2 pos, int size) {
+    public TilePrey(Point2 pos, int size) {
         this(pos, size, false);
     }
 
-    public Prey(Point2 pos, int size, boolean active) {
+    public TilePrey(Point2 pos, int size, boolean active) {
         this.size = size;
         this.active = active;
         this.pos = pos;
@@ -54,13 +55,14 @@ public class Prey extends Tile implements IAnimal {
     public void move() {
 
         while(true) {
-            Point2 newPosition1 = Movement.randomDirection().mult1D(speed);//Get Rand Direction and multiply with Speed
-            Point2 newPosition = newPosition1.add(pos); // move to new Pos
+            Vector2 vec = new Vector2(BoardUtil.randomDirection(), speed);
+            Point2 newPosition = pos.addVector2(vec);
 
-            if (MainLoop.board.isEmpty(newPosition)) {
-                MainLoop.board.moveTile(pos, newPosition);
+
+                if(BoardUtil.move(pos, new Vector2(BoardUtil.randomDirection(), speed))){
                 break;
             }
+
         }
     }
 

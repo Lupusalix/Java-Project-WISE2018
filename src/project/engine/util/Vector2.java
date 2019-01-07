@@ -1,28 +1,22 @@
-package Project.engine.util;
+package project.engine.util;
 
 public class Vector2 {
 
-    final int x;
-    final int y;
-    final Direction direction;
-    final int distance;
 
-    public Vector2(int x, int y, Direction direction, int distance) {
+    private int magnitude;
+    private Point2 direction;
 
-        this.x = x;
-        this.y = y;
+
+    public Vector2(Point2 direction, int magnitude){
         this.direction = direction;
-        this.distance = distance;
-
+        this.magnitude = magnitude;
     }
 
-
-    public Vector2 add(Vector2 toAdd) {
-        Vector2 newVector = null;
-
-
-        return newVector;
-
+    public int getMagnitude() {
+        return magnitude;
     }
 
+    public Point2 getDirection() {
+        return direction;
+    }
 }
