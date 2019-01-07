@@ -1,6 +1,8 @@
-import Tiles.Animal;
-import Tiles.EmptyTile;
-import Tiles.Predator;
+package javaproject;
+
+import javaproject.tiles.Animal;
+import javaproject.tiles.EmptyTile;
+import javaproject.tiles.Predator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -25,13 +27,13 @@ public class Main extends Application implements Runnable {
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
-    private int sleep = 50;
+    private int sleep = 1000;
 
     BoardManager b;
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 100;
+    private final int size = 10;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -50,7 +52,7 @@ public class Main extends Application implements Runnable {
                 root.add(tile, row, col);
 
                 /*
-                Binds the size of the individual tiles to the window size, has some issues
+                Binds the size of the individual javaproject.tiles to the window size, has some issues
                  */
                 tile.widthProperty().bind(root.widthProperty().divide(size));
                 tile.heightProperty().bind(root.heightProperty().divide(size));
@@ -98,9 +100,10 @@ public class Main extends Application implements Runnable {
             Renders the changes to our board every x seconds.
              */
             renderChanges();
+            b.run();
 
             try {
-                thread.sleep(sleep);
+                Thread.sleep(sleep);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

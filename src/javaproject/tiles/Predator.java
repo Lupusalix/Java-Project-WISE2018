@@ -1,4 +1,4 @@
-package tiles;
+package javaproject.tiles;
 
 public class Predator extends Animal {
 
@@ -46,10 +46,28 @@ public class Predator extends Animal {
         this.defenceChance = defenceChance;
     }
 
-    @Override
-    public void act() {
+   /* @Override
+    public Position act() {
 
+
+
+/*        for (EmptyTile[] aBoard : BoardManager.getBoard()) {
+            for (int j = 0; j < aBoard.length; j++) {
+                if (aBoard[j] instanceof Animal) {
+                    if (aBoard[j] instanceof Predator) System.out.print("P");
+                    else System.out.print("A");
+                } else System.out.print("E");
+
+            }
+            System.out.print("\n");
+        }
+
+        System.out.print("\n");
+
+
+        return null;
     }
-
+    */
 
 }
+

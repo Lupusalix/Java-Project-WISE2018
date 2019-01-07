@@ -1,4 +1,4 @@
-package tiles;
+package javaproject.tiles;
 
 
 public class Animal extends EmptyTile implements Comparable<Animal> {
@@ -7,6 +7,15 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     private double sight;
     private final double initiative;
     private int speed;
+    private boolean alive;
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 
     public double getInitiative() {
         return this.initiative;
@@ -16,6 +25,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         this.pos = pos;
         this.initiative = Math.random();
         this.sight = sight;
+        this.alive = true;
     }
 
     public Position getPos() {
@@ -35,8 +45,8 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     }
 
 
-    public void act() {
-
+    public Position act() {
+        return pos.getRandMovement();
     }
 
 

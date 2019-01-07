@@ -1,4 +1,4 @@
-package tiles;
+package javaproject.tiles;
 
 public class EmptyTile{
 }

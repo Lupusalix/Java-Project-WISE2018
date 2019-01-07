@@ -1,8 +1,9 @@
+package javaproject;
 
-import tiles.Animal;
-import tiles.EmptyTile;
-import tiles.Position;
-import tiles.Predator;
+import javaproject.tiles.Animal;
+import javaproject.tiles.EmptyTile;
+import javaproject.tiles.Position;
+import javaproject.tiles.Predator;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class BoardManager implements Runnable {
     ArrayList<Animal> animals;
     ArrayList<Animal> prey;
     ArrayList<Predator> predators;
+    public Thread thread;
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -28,6 +30,9 @@ public class BoardManager implements Runnable {
         this.predators = new ArrayList<>();
         this.prey = new ArrayList<>();
         initialize(numPrey, numPred); //initialize the field
+        thread = new Thread(this);//Thread for running the javaproject.BoardManager
+        thread.setDaemon(true);
+        thread.start();
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -80,12 +85,51 @@ public class BoardManager implements Runnable {
     }
 
 
-    public EmptyTile[][] getTiles(){
+    public synchronized EmptyTile[][] getTiles() {
         return board;
     }
 
+
+    //Each Tick the Thread runs 1time
     @Override
-    public void run() {
+    public synchronized void run() {
+        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
+        for (int i = 0; i < animals.size(); i++) {
+            Position pos = animals.get(i).act();
+
+            if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
+                move(pos, animals.get(i));
+            }
+        }
 
     }
+
+    private void move(Position pos, Animal an) {
+        board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
+
+        //here check if killed or attacked
+        board[pos.getX()][pos.getY()] = an;
+
+        an.setPos(pos);
+    }
+
+    private void garbage() {
+        for (Animal a : animals) {
+            if (!a.isAlive()) {
+                animals.remove(a);
+            }
+        }
+        for (Predator pred : predators) {
+            if (!pred.isAlive()) {
+                predators.remove(pred);
+            }
+        }
+        for (Animal a : prey) {
+            if (!a.isAlive()) {
+                prey.remove(a);
+            }
+        }
+    }
+
+
 }

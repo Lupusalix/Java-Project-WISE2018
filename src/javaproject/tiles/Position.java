@@ -1,4 +1,4 @@
-package tiles;
+package javaproject.tiles;
 
 import java.util.Random;
 
@@ -31,6 +31,23 @@ public class Position {
 
     public double getDistance(int a, int b) {
         return Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
+    }
+
+    //for testing purpose
+    public Position getRandMovement() {
+        Random ran = new Random();
+        int a = ran.nextInt(4);
+        switch (a) {
+            case 1:
+                return new Position(this.x + 1, this.y);
+            case 2:
+                return new Position(this.x, this.y + 1);
+            case 3:
+                return new Position(this.x - 1, this.y);
+            default:
+                return new Position(this.x, this.y - 1);
+
+        }
     }
 
 }
