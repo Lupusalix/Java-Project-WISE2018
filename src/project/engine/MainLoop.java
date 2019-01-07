@@ -22,7 +22,6 @@ public class MainLoop implements Runnable {
         thread.start();
     }
 
-
     /*
     Runs our main gameloop
      */
