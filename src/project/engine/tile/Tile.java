@@ -1,6 +1,6 @@
 
 
-package project.engine.tile;
+package Project.engine.tile;
 
 public abstract class Tile {
 }

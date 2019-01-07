@@ -1,4 +1,4 @@
-# Java-Project-WISE2018
+# Java-project-WISE2018
 Development branch.
 
 General engine structure laid out.

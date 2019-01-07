@@ -1,12 +1,12 @@
 
 
-package project;
+package Project;
 
-import project.engine.MainLoop;
-import project.engine.tile.EmptyTile;
-import project.engine.tile.Predator;
-import project.engine.tile.Prey;
-import project.engine.tile.Tile;
+import Project.engine.MainLoop;
+import Project.engine.tile.EmptyTile;
+import Project.engine.tile.Predator;
+import Project.engine.tile.Prey;
+import Project.engine.tile.Tile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;

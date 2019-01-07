@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Max Henkes
  */
 
-package project.ui;///*
+package Project.ui;///*
 // * Copyright (c) 2018 Max Henkes
 // */
 //

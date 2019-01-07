@@ -1,4 +1,4 @@
-package project.engine.util;
+package Project.engine.util;
 
 public class Vector2 {
 

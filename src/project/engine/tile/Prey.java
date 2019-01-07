@@ -1,12 +1,12 @@
 
 
-package project.engine.tile;
+package Project.engine.tile;
 
 
-import project.engine.util.Movement;
-import project.engine.util.Point2;
-import project.engine.IAnimal;
-import project.engine.MainLoop;
+import Project.engine.util.Movement;
+import Project.engine.util.Point2;
+import Project.engine.IAnimal;
+import Project.engine.MainLoop;
 
 public class Prey extends Tile implements IAnimal {
 

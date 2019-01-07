@@ -1,7 +1,7 @@
 
-package project.engine;
+package Project.engine;
 
-import project.engine.util.Point2;
+import Project.engine.util.Point2;
 
 public interface IAnimal {
 

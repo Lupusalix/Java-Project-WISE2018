@@ -1,6 +1,6 @@
 
 
-package project.engine.util;
+package Project.engine.util;
 
 public class Point2 {
 
