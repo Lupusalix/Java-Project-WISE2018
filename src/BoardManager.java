@@ -79,6 +79,11 @@ public class BoardManager implements Runnable {
         }
     }
 
+
+    public EmptyTile[][] getTiles(){
+        return board;
+    }
+
     @Override
     public void run() {
 
