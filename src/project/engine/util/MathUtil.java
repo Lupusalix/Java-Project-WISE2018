@@ -47,11 +47,11 @@ public class MathUtil {
             Point2 current = queue.remove();
             System.out.println(current);
             explored.add(current);
-            if(current.x == target.x && current.y == target.y){
+            if(current.equals(target)){
                 return prev;
             }else{
                 for(Point2 p : current.getNeighbours()){
-                    if(!explored.contains(p) && BoardUtil.isMoveInGrid(p) && (BoardUtil.isEmpty(p) || (p.x == target.x && p.y == target.y)) && !queue.contains(p)){
+                    if(!explored.contains(p) && BoardUtil.isMoveInGrid(p) && (BoardUtil.isEmpty(p) || p.equals(target)) && !queue.contains(p)){
                         queue.add(p);
                         prev.put(p, current);
                         System.out.println(p + " Q:" + queue.size());
