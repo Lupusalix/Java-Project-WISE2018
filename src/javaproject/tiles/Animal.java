@@ -8,6 +8,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     private final double initiative;
     private int speed;
     private boolean alive;
+    private boolean targetted;
 
     public boolean isAlive() {
         return alive;

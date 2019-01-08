@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
-public class BoardManager implements Runnable {
+public class BoardManager {
 
     private static EmptyTile[][] board;
     ArrayList<Animal> animals;
     ArrayList<Animal> prey;
     ArrayList<Predator> predators;
-    public Thread thread;
+
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -30,9 +30,7 @@ public class BoardManager implements Runnable {
         this.predators = new ArrayList<>();
         this.prey = new ArrayList<>();
         initialize(numPrey, numPred); //initialize the field
-        thread = new Thread(this);//Thread for running the javaproject.BoardManager
-        thread.setDaemon(true);
-        thread.start();
+
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -85,14 +83,12 @@ public class BoardManager implements Runnable {
     }
 
 
-    public synchronized EmptyTile[][] getTiles() {
+    public EmptyTile[][] getTiles() {
         return board;
     }
 
 
-    //Each Tick the Thread runs 1time
-    @Override
-    public synchronized void run() {
+    public void tick() {
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
         for (int i = 0; i < animals.size(); i++) {
             Position pos = animals.get(i).act();
@@ -116,6 +112,7 @@ public class BoardManager implements Runnable {
     private void garbage() {
         for (Animal a : animals) {
             if (!a.isAlive()) {
+
                 animals.remove(a);
             }
         }

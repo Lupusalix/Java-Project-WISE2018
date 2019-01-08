@@ -33,7 +33,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 10;
+    private final int size = 50;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -100,7 +100,7 @@ public class Main extends Application implements Runnable {
             Renders the changes to our board every x seconds.
              */
             renderChanges();
-            b.run();
+            b.tick();
 
             try {
                 Thread.sleep(sleep);
