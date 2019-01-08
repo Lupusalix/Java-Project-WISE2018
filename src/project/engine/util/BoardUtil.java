@@ -1,34 +1,14 @@
 
 package project.engine.util;
 
-import project.engine.IAnimal;
 import project.engine.MainLoop;
 import project.engine.tile.Tile;
+import project.engine.tile.TileAnimal;
 import project.engine.tile.TileEmpty;
-
-import java.util.Random;
 
 public class BoardUtil {
 
     private BoardUtil() {
-    }
-
-    public static Point2 randomDirection() {
-        Random rand = new Random();
-
-        switch (rand.nextInt(3)) {
-
-            case 0:
-                return new Point2(1, 0);
-            case 1:
-                return new Point2(0, 1);
-            case 2:
-                return new Point2(-1, 0);
-            case 3:
-                return new Point2(0, -1);
-        }
-        return new Point2(0, 0);
-
     }
 
 
@@ -45,8 +25,6 @@ public class BoardUtil {
 
     public static boolean move(Point2 pos, Vector2 vec){
 
-        //TODO: Rewrite for TileStack?
-
         Tile[][] board = MainLoop.board.getGrid();
 
         Tile oldTile = board[pos.x][pos.y];
@@ -58,17 +36,55 @@ public class BoardUtil {
             board[pos.x][pos.y] = newTile;
             board[newPos.x][newPos.y] = oldTile;
 
-            if(oldTile instanceof IAnimal) {
-                ((IAnimal) oldTile).setPosition(newPos);
+            if(oldTile instanceof TileAnimal) {
+                ((TileAnimal) oldTile).setPosition(newPos);
             }
 
-            if(newTile instanceof IAnimal){
-                ((IAnimal) newTile).setPosition(pos);
+            if(newTile instanceof TileAnimal){
+                ((TileAnimal) newTile).setPosition(pos);
             }
             return true;
         }
         return false;
     }
 
+    public static boolean move(Point2 pos, Point2 newPos){
+
+        Tile[][] board = MainLoop.board.getGrid();
+
+        Tile oldTile = board[pos.x][pos.y];
+
+        if(isMoveInGrid(newPos)) {
+            Tile newTile = board[newPos.x][newPos.y];
+
+            board[pos.x][pos.y] = newTile;
+            board[newPos.x][newPos.y] = oldTile;
+
+            if(oldTile instanceof TileAnimal) {
+                ((TileAnimal) oldTile).setPosition(newPos);
+            }
+
+            if(newTile instanceof TileAnimal){
+                ((TileAnimal) newTile).setPosition(pos);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void moveRandom(Point2 pos, int speed){
+
+        while(true) {
+            Vector2 vec = new Vector2(Point2.randomDirection(), speed);
+            Point2 newPosition = pos.addVector2(vec);
+
+
+            if(BoardUtil.move(pos, new Vector2(Point2.randomDirection(), speed))){
+                break;
+            }
+
+        }
+    }
 
 }

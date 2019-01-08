@@ -1,5 +1,6 @@
 package project;
 
+import javafx.application.Platform;
 import project.engine.MainLoop;
 import project.engine.tile.TileEmpty;
 import project.engine.tile.TilePredator;
@@ -33,7 +34,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 100;
+    private final int size = 15;
 
 
     public void start(Stage primaryStage) {
@@ -71,7 +72,7 @@ public class Main extends Application implements Runnable {
         /*
         Starts the simulation
          */
-        mainLoop.startSimulation(size, size, 4, 0);
+        mainLoop.startSimulation(size, size, 1, 1);
 
         /*
         Starts the thread for updating
@@ -114,46 +115,34 @@ public class Main extends Application implements Runnable {
 
     private void renderChanges() {
 
-        /*
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                       /*
         Doesn't check for changes, too slow. Simply sets the color of every rectangle to the one found in our Board.
          */
 
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+                for (int row = 0; row < size; row++) {
+                    for (int col = 0; col < size; col++) {
 
                 /*
                 Replace with own Array from own mainloop.
                 Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
                 Detection distance not implemented yet.
                  */
-                Tile tile = MainLoop.board.getGrid()[row][col];
-                Rectangle square = board[row][col];
+                        Tile tile = MainLoop.board.getGrid()[row][col];
+                        Rectangle square = board[row][col];
 
-                if (tile instanceof TileEmpty) {
-                    square.setFill(floorColor);
-                } else if (tile instanceof TilePrey) {
-                    square.setFill(preyColor);
-                } else if (tile instanceof TilePredator) {
-                    square.setFill(predatorColor);
+                        if (tile instanceof TileEmpty) {
+                            square.setFill(floorColor);
+                        } else if (tile instanceof TilePrey) {
+                            square.setFill(preyColor);
+                        } else if (tile instanceof TilePredator) {
+                            square.setFill(predatorColor);
+                        }
+                    }
                 }
             }
-        }
+        });
     }
-
-
-
-/*    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ui/sample2.fxml"));
-        primaryStage.setTitle("Simulation");
-        primaryStage.setScene(new Scene(root, 400, 400));
-        primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }*/
-
-
 }

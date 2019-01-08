@@ -59,13 +59,13 @@ public class Board {
 
     public void turnPrey() {
         for (TilePrey prey : preyList) {
-            prey.move();
+            prey.turn();
         }
     }
 
     public void turnPredator() {
         for (TilePredator predator : predatorList) {
-            predator.move();
+            predator.turn();
         }
     }
 

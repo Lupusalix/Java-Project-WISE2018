@@ -6,6 +6,10 @@ public class MainLoop implements Runnable {
     public static Board board;
     private Thread thread;
     private boolean spawnPrey = false;
+    private int sleepTimer = 500;
+    private int preyInterval = 5;
+    private int oneSecond = (preyInterval * 1000)/sleepTimer;
+    private int preyTimer = 0;
 
     public MainLoop() {
     }
@@ -30,14 +34,17 @@ public class MainLoop implements Runnable {
 
         while (true) {
 
-            if(!spawnPrey){
-                //TODO: Spawner random prey
+            if(spawnPrey && preyTimer >= oneSecond){
+                board.spawnPreyRandomly();
+                preyTimer = 0;
             }
+            preyTimer++;
+
             board.turnPrey();
             board.turnPredator();
 
             try {
-                thread.sleep(50);
+                thread.sleep(sleepTimer);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
