@@ -9,7 +9,9 @@ public class Tests {
         Point2 p1 = new Point2(2,2);
         Point2 p2 = new Point2(2,2);
 
-        if(p1.equals(p2))System.out.println("Matches");
+        if(p1.equals(p2))System.out.println("Equals");
+        if(p1==p2)System.out.println("==");
+
 
     }
 
