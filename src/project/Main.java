@@ -34,7 +34,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 15;
+    private final int size = 120;
 
 
     public void start(Stage primaryStage) {
@@ -72,7 +72,7 @@ public class Main extends Application implements Runnable {
         /*
         Starts the simulation
          */
-        mainLoop.startSimulation(size, size, 1, 1);
+        mainLoop.startSimulation(size, size, 30, 25);
 
         /*
         Starts the thread for updating

@@ -5,9 +5,9 @@ public class MainLoop implements Runnable {
 
     public static Board board;
     private Thread thread;
-    private boolean spawnPrey = false;
-    private int sleepTimer = 500;
-    private int preyInterval = 5;
+    private boolean spawnPrey = true;
+    private int sleepTimer = 100;
+    private int preyInterval = 2;
     private int oneSecond = (preyInterval * 1000)/sleepTimer;
     private int preyTimer = 0;
 

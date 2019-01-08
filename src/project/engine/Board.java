@@ -67,6 +67,7 @@ public class Board {
         for (TilePredator predator : predatorList) {
             predator.turn();
         }
+
     }
 
 
@@ -98,7 +99,7 @@ public class Board {
 
     public void spawnPreyRandomly() {
 
-        initPrey(1);
+        initPrey(15);
     }
 
     /*
@@ -118,6 +119,15 @@ public class Board {
     */
     public void setTile(Point2 pos, Tile tile) {
         board[pos.x][pos.y] = tile;
+    }
+
+    public void checkStarvation(){
+        for(TilePredator p : predatorList){
+            if (!p.isAlive()){
+                predatorList.remove(p);
+                setTile(p.getPosition(), new TileEmpty());
+            }
+        }
     }
 
 }

@@ -72,6 +72,7 @@ public class MathUtil {
             boolean found = false;
             ArrayList<Point2> way = new ArrayList<>();
 
+            way.add(target);
             Point2 prevPos = prev.get(target);
             System.out.println("prev: " +prevPos);
 
@@ -81,14 +82,18 @@ public class MathUtil {
                     Point2 pre = prev.get(way.get(way.size()-1));
                     System.out.println(pre);
                     if (pre != null) {
-                        way.add(prev.get(pos));
+                        way.add(pre);
                     } else {
                         found = true;
                     }
                 }
             }
 
+
+
             Collections.reverse(way);
+
+            System.out.println("way: " +way);
 
             return way;
         }
