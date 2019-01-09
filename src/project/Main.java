@@ -2,6 +2,7 @@ package project;
 
 import javafx.application.Platform;
 import project.engine.GameLoop;
+import project.engine.misc.Misc;
 import project.engine.tile.TileEmpty;
 import project.engine.tile.TilePredator;
 import project.engine.tile.TilePrey;
@@ -29,8 +30,9 @@ public class Main extends Application implements Runnable {
     private Color preyColor = Color.GREEN;
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
+    private GameLoop gameLoop;
 
-    private int sleep = 50;
+    public static int sleep = 50;
 
 
     //TODO: Board size, change to take input from UI
@@ -67,12 +69,12 @@ public class Main extends Application implements Runnable {
         /*
         Create our initial gameloop object.
          */
-        GameLoop gameloop = new GameLoop();
+        gameLoop = new GameLoop();
 
         /*
         Starts the simulation
          */
-        gameloop.startSimulation(size, size, 30, 25);
+        gameLoop.startSimulation(size, size, 30, 25);
 
         /*
         Starts the thread for updating
@@ -99,6 +101,11 @@ public class Main extends Application implements Runnable {
         while (true) {
 
             /*
+            Processes Logic
+             */
+            gameLoop.tick();
+
+            /*
             Renders the changes to our board every x seconds.
              */
             renderChanges();
@@ -114,6 +121,10 @@ public class Main extends Application implements Runnable {
 
 
     private void renderChanges() {
+
+        if(Misc.debugLevel > 0){
+            System.out.println("[RENDER]");
+        }
 
         Platform.runLater(new Runnable() {
             @Override
