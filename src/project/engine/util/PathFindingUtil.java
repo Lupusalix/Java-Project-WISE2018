@@ -1,5 +1,7 @@
 package project.engine.util;
 
+import project.engine.misc.Misc;
+
 import java.util.*;
 
 public class PathFindingUtil {
@@ -36,9 +38,10 @@ public class PathFindingUtil {
          */
         queue.add(pos);
 
-//        System.out.println("Target: " + target);
-//        System.out.println("Start: " + pos);
-
+        if(Misc.debugLevel > 3) {
+        System.out.println("Path Start: " + pos);
+        System.out.println("Path Target: " + target);
+        }
         /*
         We loop over the queue until it is empty.
         If it finds the target before that, a path is possible.
@@ -58,7 +61,9 @@ public class PathFindingUtil {
                     if(!explored.contains(p) && BoardUtil.isMoveInGrid(p) && (BoardUtil.isEmpty(p) || p.equals(target)) && !queue.contains(p)){
                         queue.add(p);
                         prev.put(p, current);
-//                        System.out.println(p + " Q:" + queue.size());
+                        if(Misc.debugLevel > 3) {
+                        System.out.println(p + " Size: " + queue.size());
+                        }
                     }
                 }
             }
@@ -77,14 +82,14 @@ public class PathFindingUtil {
         HashMap<Point2, Point2> prev =  searchPath(pos, target);
         ArrayList<Point2> way = new ArrayList<>();
 
-//        System.out.println("reverse + " + prev);
-
         if(prev != null && !prev.isEmpty()) {
 
             way.add(target);
             Point2 prevPos = prev.get(target);
 
-            System.out.println("prev: " +prevPos);
+            if(Misc.debugLevel > 3) {
+                System.out.println("Previous Movepath: " + prevPos);
+            }
 
             if (prevPos != null) {
                 way.add(prevPos);
@@ -99,7 +104,9 @@ public class PathFindingUtil {
 
             Collections.reverse(way);
 
-            System.out.println("way: " +way);
+            if(Misc.debugLevel > 3) {
+                System.out.println("MovePathList: " + way);
+            }
 
             return way;
         }
