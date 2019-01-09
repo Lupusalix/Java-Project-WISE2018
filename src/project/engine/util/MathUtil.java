@@ -32,72 +32,72 @@ public class MathUtil {
         return list;
     }
 
-    private static HashMap<Point2, Point2> bfs(Point2 pos, Point2 target){
-
-        Queue<Point2> queue = new LinkedList<>();
-        ArrayList<Point2> explored = new ArrayList<>();
-        HashMap<Point2, Point2> prev = new HashMap<>();
-
-        queue.add(pos);
-        explored.add(pos);
-        System.out.println("Target: " + target);
-        System.out.println("Start: " + pos);
-
-        while(!queue.isEmpty()){
-            Point2 current = queue.remove();
-            System.out.println(current);
-            explored.add(current);
-            if(current.equals(target)){
-                return prev;
-            }else{
-                for(Point2 p : current.getNeighbours()){
-                    if(!explored.contains(p) && BoardUtil.isMoveInGrid(p) && (BoardUtil.isEmpty(p) || p.equals(target)) && !queue.contains(p)){
-                        queue.add(p);
-                        prev.put(p, current);
-                        System.out.println(p + " Q:" + queue.size());
-                    }
-                }
-            }
-
-        }
-        System.out.println("returned null");
-        return null;
-    }
-
-    public static List<Point2> reverseBFS(Point2 pos, Point2 target){
-        HashMap<Point2, Point2> prev = bfs(pos, target);
-
-        System.out.println("reverse + " + prev);
-        if(prev != null) {
-            boolean found = false;
-            ArrayList<Point2> way = new ArrayList<>();
-
-            way.add(target);
-            Point2 prevPos = prev.get(target);
-            System.out.println("prev: " +prevPos);
-
-            if (prevPos != null) {
-                way.add(prevPos);
-                while (!found) {
-                    Point2 pre = prev.get(way.get(way.size()-1));
-                    System.out.println(pre);
-                    if (pre != null) {
-                        way.add(pre);
-                    } else {
-                        found = true;
-                    }
-                }
-            }
-
-
-
-            Collections.reverse(way);
-
-            System.out.println("way: " +way);
-
-            return way;
-        }
-        return null;
-    }
+//    private static HashMap<Point2, Point2> bfs(Point2 pos, Point2 target){
+//
+//        Queue<Point2> queue = new LinkedList<>();
+//        ArrayList<Point2> explored = new ArrayList<>();
+//        HashMap<Point2, Point2> prev = new HashMap<>();
+//
+//        queue.add(pos);
+//        explored.add(pos);
+//        System.out.println("Target: " + target);
+//        System.out.println("Start: " + pos);
+//
+//        while(!queue.isEmpty()){
+//            Point2 current = queue.remove();
+//            System.out.println(current);
+//            explored.add(current);
+//            if(current.equals(target)){
+//                return prev;
+//            }else{
+//                for(Point2 p : current.getNeighbours()){
+//                    if(!explored.contains(p) && BoardUtil.isMoveInGrid(p) && (BoardUtil.isEmpty(p) || p.equals(target)) && !queue.contains(p)){
+//                        queue.add(p);
+//                        prev.put(p, current);
+//                        System.out.println(p + " Q:" + queue.size());
+//                    }
+//                }
+//            }
+//
+//        }
+//        System.out.println("returned null");
+//        return null;
+//    }
+//
+//    public static List<Point2> reverseBFS(Point2 pos, Point2 target){
+//        HashMap<Point2, Point2> prev = bfs(pos, target);
+//
+//        System.out.println("reverse + " + prev);
+//        if(prev != null) {
+//            boolean found = false;
+//            ArrayList<Point2> way = new ArrayList<>();
+//
+//            way.add(target);
+//            Point2 prevPos = prev.get(target);
+//            System.out.println("prev: " +prevPos);
+//
+//            if (prevPos != null) {
+//                way.add(prevPos);
+//                while (!found) {
+//                    Point2 pre = prev.get(way.get(way.size()-1));
+//                    System.out.println(pre);
+//                    if (pre != null) {
+//                        way.add(pre);
+//                    } else {
+//                        found = true;
+//                    }
+//                }
+//            }
+//
+//
+//
+//            Collections.reverse(way);
+//
+//            System.out.println("way: " +way);
+//
+//            return way;
+//        }
+//        return null;
+//    }
 
 }

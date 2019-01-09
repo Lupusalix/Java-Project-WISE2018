@@ -1,10 +1,10 @@
 package project.engine.tile;
 
-import javafx.application.Platform;
 import project.engine.HuntingGroup;
 import project.engine.MainLoop;
 import project.engine.util.BoardUtil;
 import project.engine.util.MathUtil;
+import project.engine.util.PathFindingUtil;
 import project.engine.util.Point2;
 
 import java.util.ArrayList;
@@ -59,9 +59,9 @@ public class TilePredator extends TileAnimal {
 
     private Point2 move() {
 
-        List<Point2> moveList = MathUtil.reverseBFS(pos, target.getPosition());
+        List<Point2> moveList = PathFindingUtil.getPathList(pos, target.getPosition());
         System.out.println(moveList);
-        if (moveList == null) {
+        if (moveList.isEmpty()) {
             System.out.println("move was null");
             return null;
         } else if (moveList.size() < speed * 2) {
