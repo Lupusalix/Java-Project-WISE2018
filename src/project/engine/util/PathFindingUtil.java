@@ -96,18 +96,7 @@ public class PathFindingUtil {
                     pre  = prev.get(way.get(way.size()-1));
                 }
 
-//                while (!found) {
-//                    Point2 pre = prev.get(way.get(way.size()-1));
-//                    System.out.println(pre);
-//                    if (pre != null) {
-//                        way.add(pre);
-//                    } else {
-//                        found = true;
-//                    }
-//                }
             }
-
-
 
             Collections.reverse(way);
 
@@ -117,6 +106,5 @@ public class PathFindingUtil {
         }
         return way;
     }
-
 
 }
