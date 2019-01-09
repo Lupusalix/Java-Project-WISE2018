@@ -3,7 +3,6 @@ package project.engine.tile;
 import project.engine.GameLoop;
 import project.engine.HuntingGroup;
 import project.engine.util.BoardUtil;
-import project.engine.util.MathUtil;
 import project.engine.util.PathFindingUtil;
 import project.engine.util.Point2;
 
@@ -77,7 +76,7 @@ public class TilePredator extends TileAnimal {
     }
 
     private TilePrey findTarget() {
-        ArrayList<Point2> box = MathUtil.gridBox(pos, detectionRadius);
+        ArrayList<Point2> box = PathFindingUtil.gridBox(pos, detectionRadius);
 
         for (Point2 p : box) {
             if (GameLoop.board.getGrid()[p.x][p.y] instanceof TilePrey) {
