@@ -5,11 +5,11 @@ import javaproject.BoardManager;
 
 public class Animal extends EmptyTile implements Comparable<Animal> {
 
-    private Position pos;
-    private double sight;
-    private final double initiative;
-    private int speed;
-    private boolean alive;
+    protected Position pos;
+    protected int sight;
+    protected final double initiative;
+    protected int speed;
+    protected boolean alive;
 
 
     public boolean isAlive() {
@@ -24,7 +24,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return this.initiative;
     }
 
-    public Animal(Position pos, double sight) {
+    public Animal(Position pos, int sight) {
         this.pos = pos;
         this.initiative = Math.random();
         this.sight = sight;
@@ -43,7 +43,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return sight;
     }
 
-    public void setSight(double sight) {
+    public void setSight(int sight) {
         this.sight = sight;
     }
 
@@ -56,6 +56,9 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         this.alive = false;
         BoardManager.delete(this);
     }
+
+
+    public void kill(Animal an) {}
 
     //Comparable Method for sorting descending by the initiative.
     @Override

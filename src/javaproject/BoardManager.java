@@ -1,9 +1,6 @@
 package javaproject;
 
-import javaproject.tiles.Animal;
-import javaproject.tiles.EmptyTile;
-import javaproject.tiles.Position;
-import javaproject.tiles.Predator;
+import javaproject.tiles.*;
 
 import java.util.ArrayList;
 
@@ -12,9 +9,9 @@ import java.util.Collections;
 public class BoardManager {
 
     private static EmptyTile[][] board;
-    ArrayList <Animal> animals;
-    ArrayList <Animal> prey;
-    ArrayList <Predator> predators;
+    private static ArrayList <Animal> animals;
+    private static ArrayList <Prey> prey;
+    private static ArrayList <Predator> predators;
 
 
     public static EmptyTile[][] getBoard() {
@@ -36,6 +33,12 @@ public class BoardManager {
     public static void delete(Animal animal) {
 
         //delete animal from the lists
+        animals.remove(animal);
+        if(animal instanceof Predator){
+            predators.remove(animal);
+        }else{
+            prey.remove(animal);
+        }
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -56,7 +59,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length);//Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) {//Check if Position is free
-                    Animal an = new Animal(pos, 10);//Create Animal
+                    Prey an = new Prey(pos, 10);//Create Animal
                     board[pos.getX()][pos.getY()] = an;//Place Animal
                     animals.add(an);
                     prey.add(an); //Add Prey to the lists

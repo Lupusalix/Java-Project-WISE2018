@@ -28,7 +28,7 @@ public class Main extends Application implements Runnable {
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
-    private int sleep = 10000;
+    private int sleep = 100;
 
     BoardManager b;
 
