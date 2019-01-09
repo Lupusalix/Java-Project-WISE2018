@@ -15,13 +15,11 @@ public class TilePredator extends TileAnimal {
     private TilePrey target = null;
     private int health = 15;
     private int defence;
-    private TilePredator me;
 
 
     public TilePredator(Point2 pos) {
         super(pos, 2, 7);
         GameLoop.board.predatorList.add(this);
-        me = this;
     }
 
     @Override
