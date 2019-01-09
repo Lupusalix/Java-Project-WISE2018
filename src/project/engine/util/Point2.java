@@ -40,11 +40,6 @@ public class Point2{
         return new Point2(x * i, y * i);
     }
 
-
-    public Point2 addVector2(Vector2 vec) {
-        return this.add(vec.getDirection().mult1D(vec.getMagnitude()));
-    }
-
     public static Point2 randomDirection() {
         Random rand = new Random();
 

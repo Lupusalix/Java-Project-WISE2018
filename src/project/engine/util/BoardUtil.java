@@ -24,32 +24,6 @@ public class BoardUtil {
         return GameLoop.board.getGrid()[pos.x][pos.y] instanceof TileEmpty;
     }
 
-
-    public static boolean move(Point2 pos, Vector2 vec){
-
-        Tile[][] board = GameLoop.board.getGrid();
-
-        Tile oldTile = board[pos.x][pos.y];
-        Point2 newPos = pos.addVector2(vec);
-
-        if(isMoveInGrid(newPos)) {
-            Tile newTile = board[newPos.x][newPos.y];
-
-            board[pos.x][pos.y] = newTile;
-            board[newPos.x][newPos.y] = oldTile;
-
-            if(oldTile instanceof TileAnimal) {
-                ((TileAnimal) oldTile).setPosition(newPos);
-            }
-
-            if(newTile instanceof TileAnimal){
-                ((TileAnimal) newTile).setPosition(pos);
-            }
-            return true;
-        }
-        return false;
-    }
-
     public static boolean move(Point2 pos, Point2 newPos){
 
         Tile[][] board = GameLoop.board.getGrid();
@@ -74,15 +48,13 @@ public class BoardUtil {
         return false;
     }
 
-
     public static void moveRandom(Point2 pos, int speed){
 
-        while(true) {
-            Vector2 vec = new Vector2(Point2.randomDirection(), speed);
-            Point2 newPosition = pos.addVector2(vec);
+            while(true) {
 
+            Random rand = new Random();
 
-            if(BoardUtil.move(pos, new Vector2(Point2.randomDirection(), speed))){
+            if(BoardUtil.move(pos, pos.getNeighbours().get(rand.nextInt(4)))){
                 break;
             }
 
