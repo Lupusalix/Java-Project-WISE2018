@@ -92,10 +92,9 @@ public class Board {
         for (int i = 0; i < x; i++) {
             new TilePrey(Spawner.getFreePosition());
             if(Misc.debug){
-                System.out.println("Spawned Prey");
             }
         }
-
+        System.out.println("Spawned Prey");
     }
 
     public void spawnPreyRandomly() {

@@ -60,7 +60,6 @@ public class TilePredator extends TileAnimal {
     private Point2 move() {
 
         List<Point2> moveList = PathFindingUtil.getPathList(pos, target.getPosition());
-        System.out.println(moveList);
         if (moveList.isEmpty()) {
             System.out.println("move was null");
             return null;
@@ -79,8 +78,6 @@ public class TilePredator extends TileAnimal {
 
     private TilePrey findTarget() {
         ArrayList<Point2> box = MathUtil.gridBox(pos, detectionRadius);
-
-        System.out.println("Finding Target");
 
         for (Point2 p : box) {
             if (GameLoop.board.getGrid()[p.x][p.y] instanceof TilePrey) {

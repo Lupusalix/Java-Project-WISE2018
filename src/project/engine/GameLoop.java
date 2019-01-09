@@ -36,6 +36,7 @@ public class GameLoop {
 
         board.turnPrey();
         board.turnPredator();
+//        board.checkStarvation();
 
         if (Misc.debug) {
             System.out.println("Turn passed");
