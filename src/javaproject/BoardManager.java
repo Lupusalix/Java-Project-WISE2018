@@ -12,9 +12,9 @@ import java.util.Collections;
 public class BoardManager {
 
     private static EmptyTile[][] board;
-    ArrayList<Animal> animals;
-    ArrayList<Animal> prey;
-    ArrayList<Predator> predators;
+    ArrayList <Animal> animals;
+    ArrayList <Animal> prey;
+    ArrayList <Predator> predators;
 
 
     public static EmptyTile[][] getBoard() {
@@ -26,11 +26,16 @@ public class BoardManager {
             throw new Exception("Too Many Animals for the Field!");
         }
         board = new EmptyTile[x][y];
-        this.animals = new ArrayList<>();
-        this.predators = new ArrayList<>();
-        this.prey = new ArrayList<>();
+        this.animals = new ArrayList <>();
+        this.predators = new ArrayList <>();
+        this.prey = new ArrayList <>();
         initialize(numPrey, numPred); //initialize the field
 
+    }
+
+    public static void delete(Animal animal) {
+
+        //delete animal from the lists
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -60,6 +65,8 @@ public class BoardManager {
             }
         }
 
+        Collections.sort(animals);
+
     }
 
     //just a testing Method for sorting and printing the field without gui
@@ -83,19 +90,20 @@ public class BoardManager {
     }
 
 
-    public EmptyTile[][] getTiles() {
-        return board;
-    }
-
-
     public void tick() {
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
         for (int i = 0; i < animals.size(); i++) {
             Position pos = animals.get(i).act();
 
             if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
+
                 move(pos, animals.get(i));
             }
+            /* Placeholder for kill logic
+            if (false){
+               pred.kill(board[x][y]);
+               move to killed
+            }*/
         }
 
     }

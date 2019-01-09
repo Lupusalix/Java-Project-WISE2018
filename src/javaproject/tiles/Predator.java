@@ -5,6 +5,7 @@ public class Predator extends Animal {
     private int starvation;
     private int health;
     private double defenceChance;
+    private Animal target;
     private HuntingGroup huntingGroup;
 
     public int getStarvation() {
@@ -44,6 +45,13 @@ public class Predator extends Animal {
         this.starvation = health;
         this.health = health;
         this.defenceChance = defenceChance;
+    }
+
+    public void kill(Animal an) {
+        //kill animal get health refresh
+
+        //placeholder
+        an.killed();
     }
 
    /* @Override

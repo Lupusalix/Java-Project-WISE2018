@@ -1,6 +1,8 @@
 package javaproject.tiles;
 
 
+import javaproject.BoardManager;
+
 public class Animal extends EmptyTile implements Comparable<Animal> {
 
     private Position pos;
@@ -50,6 +52,10 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return pos.getRandMovement();
     }
 
+    public void killed() {
+        this.alive = false;
+        BoardManager.delete(this);
+    }
 
     //Comparable Method for sorting descending by the initiative.
     @Override

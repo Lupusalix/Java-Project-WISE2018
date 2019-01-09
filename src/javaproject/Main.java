@@ -27,13 +27,13 @@ public class Main extends Application implements Runnable {
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
-    private int sleep = 1000;
+    private int sleep = 10000;
 
     BoardManager b;
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 50;
+    private final int size = 10;
 
 
     public void start(Stage primaryStage) throws Exception {
