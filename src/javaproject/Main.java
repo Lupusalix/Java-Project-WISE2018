@@ -34,7 +34,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 10;
+    private final int size = 50;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -127,7 +127,7 @@ public class Main extends Application implements Runnable {
                 Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
                 Detection distance not implemented yet.
                  */
-                EmptyTile tile = b.getBoard()[row][col];
+                EmptyTile tile = BoardManager.getBoard()[row][col];
                 Rectangle square = board[row][col];
 
                 if (tile instanceof Predator) {

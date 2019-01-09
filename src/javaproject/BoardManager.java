@@ -25,6 +25,10 @@ public class BoardManager {
         return a;
     }
 
+    public static EmptyTile bGetPos(Position pos) {
+        return board[pos.getX()][pos.getY()];
+    }
+
     public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
@@ -38,14 +42,11 @@ public class BoardManager {
     }
 
     public static void delete(Animal animal) {
-
-        //delete animal from the lists
+        board[animal.getPos().getX()][animal.getPos().getY()] = new EmptyTile();
         animals.remove(animal);
-        if (animal instanceof Predator) {
-            predators.remove(animal);
-        } else {
-            prey.remove(animal);
-        }
+        prey.remove(animal);
+        predators.remove(animal);
+
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -79,51 +80,34 @@ public class BoardManager {
 
     }
 
-    /*//just a testing Method for sorting and printing the field without gui
-    public void test() {
-        Collections.sort(animals);
-        for (Animal a : animals) {
-            System.out.println(a.getInitiative());
-        }
-        System.out.println();
-
-        for (EmptyTile[] aBoard : board) {
-            for (int j = 0; j < aBoard.length; j++) {
-                if (aBoard[j] instanceof Animal) {
-                    if (aBoard[j] instanceof Predator) System.out.print("P");
-                    else System.out.print("A");
-                } else System.out.print("E");
-
-            }
-            System.out.print("\n");
-        }
-    }*/
-
 
     public void tick() {
 
         for (int i = 0; i < animals.size(); i++) {
-            Position pos = animals.get(i).act();
+            Animal an = animals.get(i);
+            an.setSpeed(an.getSpeedMax());
+            do {
+                Position pos = an.act();
+                if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
+                    if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
+                        ((Predator) an).kill((Prey) bGetPos(pos));
+                        System.out.println("Prey killed");
+                    }
+                    move(pos, an);
+                    an.setSpeed(an.getSpeed() - 1);
+                }
+            } while (an.getSpeed() > 0);
 
-            if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
+            if (an instanceof Predator) ((Predator) an).starve();
 
-                move(pos, animals.get(i));
-            }
-            /* Placeholder for kill logic
-            if (false){
-               pred.kill(board[x][y]);
-               move to killed
-            }*/
         }
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
     }
 
+    //simply moves the animal to the new position
     private void move(Position pos, Animal an) {
         board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
-
-        //here check if killed or attacked
         board[pos.getX()][pos.getY()] = an;
-
         an.setPos(pos);
     }
 

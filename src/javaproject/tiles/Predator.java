@@ -19,8 +19,11 @@ public class Predator extends Animal {
         return starvation;
     }
 
-    public void setStarvation(int starvation) {
-        this.starvation = starvation;
+    public void starve() {
+        this.starvation -= 1;
+        if (this.starvation == 0) {
+            this.killed();
+        }
     }
 
     public int getHealth() {
@@ -40,11 +43,11 @@ public class Predator extends Animal {
     }
 
     public Predator(Position pos, int sight) {
-        this(pos, sight, 20, 0.7);
+        this(pos, sight, 250, 0.7);
     }
 
     public Predator(int x, int y, int sight) {
-        this(new Position(x, y), sight, 20, 0.7);
+        this(new Position(x, y), sight, 250, 0.7);
     }
 
     public Predator(Position pos, int sight, int health, double defenceChance) {
@@ -70,6 +73,7 @@ public class Predator extends Animal {
 
     @Override
     public Position act() {
+        boolean foundTarget = false;
         if (attacked) return escape();
 
         if (starvation == health) {
@@ -77,7 +81,7 @@ public class Predator extends Animal {
         }
 
         //if no target search one
-        if (target == null) {
+        if (!hasTarget()) {
             //search new Target
             searchTarget();
         } else if (!target.isAlive()) { //if target isn't alive search one
@@ -86,13 +90,23 @@ public class Predator extends Animal {
         }
         if (huntingGroup == null) {
             //search adjacent position that is the nearest to the target
-            ArrayList<Position> surPos = pos.getSurrroundingPositions();
-            Position erg;
-            for (int i = 0; i < surPos.size(); i++) {
-                if (i == 0) erg = surPos.get(i);
-                if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos())) erg = surPos.get(i);
-            }
-            return erg;
+            if (hasTarget()) {
+                ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
+                if (surPos.size() > 0) {
+                    Position erg = surPos.get(0);
+
+                    for (int i = 0; i < surPos.size(); i++) {
+                        try {
+                            if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos()))
+                                erg = surPos.get(i);
+                        } catch (Exception e) {
+                            System.out.println(e.getCause());
+                        }
+                    }
+                    return erg;
+                } else return this.pos;
+
+            } else return this.pos.getRandMovement();
         } else {
             //TODO:Logic when in Group
         }
@@ -118,6 +132,11 @@ public class Predator extends Animal {
             }
         }
 
+
+    }
+
+    private boolean hasTarget() {
+        return this.target != null;
     }
 }
 

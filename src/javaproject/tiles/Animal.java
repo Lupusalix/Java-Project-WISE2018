@@ -70,6 +70,18 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         BoardManager.delete(this);
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeedMax() {
+        return speedMax;
+    }
+
     //Returns Arraylist of prey or predators according to boolean
     public ArrayList inSight(boolean isprey) {
         int[] size = BoardManager.getSize();
