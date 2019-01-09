@@ -80,7 +80,6 @@ public class PathFindingUtil {
 //        System.out.println("reverse + " + prev);
 
         if(prev != null && !prev.isEmpty()) {
-            boolean found = false;
 
             way.add(target);
             Point2 prevPos = prev.get(target);
