@@ -2,6 +2,8 @@ package javaproject.tiles;
 
 import javaproject.BoardManager;
 
+import java.util.ArrayList;
+
 public class Predator extends Animal {
 
     private int starvation;
@@ -9,6 +11,7 @@ public class Predator extends Animal {
     private double defenceChance;
     private Prey target;
     private HuntingGroup huntingGroup;
+    private boolean attacked;
 
 
     public int getStarvation() {
@@ -48,32 +51,34 @@ public class Predator extends Animal {
         this.starvation = health;
         this.health = health;
         this.defenceChance = defenceChance;
-        this.target=null;
+        this.target = null;
+        this.attacked = false;
     }
 
     public void kill(Prey an) {
 
-        this.starvation+=an.getNutrition();
+        this.starvation += an.getNutrition();
         //placeholder
-        this.target=null;
+        this.target = null;
         an.killed();
     }
 
 
     @Override
-    public Position act(){
-        if(target == null){
+    public Position act() {
+        //if no target search one
+        if (target == null) {
             //search new Target
             searchTarget();
-        }else
-            if(!target.isAlive()){
-                target=null;
-                searchTarget();
-            }
+        } else if (!target.isAlive()) { //if target isn't alive search one
+            target = null;
+            searchTarget();
+        }
+
+        if (attacked) return escape();
 
 
-
-            if(starvation==health) {
+        if (starvation == health) {
             return pos.getRandMovement();
         }
         return pos.getRandMovement();
@@ -81,53 +86,23 @@ public class Predator extends Animal {
 
     }
 
+    private Position escape() {
+        //TODO: escaping algorithm
+    }
 
-    private void searchTarget(){
-        int startx,endx,starty,endy;
-        Prey nearestPrey=null;
+    //sets the target of predator to the nearest Pres
+    private void searchTarget() {
+        ArrayList<Prey> targets = this.inSight(true);
 
-        if(pos.getX()-sight < 0 )startx=0;
-        else startx=pos.getX()-sight;
-        if(pos.getX()+sight>BoardManager.getBoard().length)endx=BoardManager.getBoard().length-1;
-        else endx=pos.getX()+sight;
-        if(pos.getY()-sight < 0 )starty=0;
-        else starty=pos.getY()-sight;
-        if(pos.getY()+sight>BoardManager.getBoard()[0].length)endy=BoardManager.getBoard().length-1;
-        else endy=pos.getY()+sight;
-
-        for (int i = startx; i < endx; i++) {
-            for (int j = starty; j < endy; j++) {
-                if (BoardManager.getBoard()[i][j] instanceof Prey){
-                    if(nearestPrey == null)nearestPrey= (Prey) BoardManager.getBoard()[i][j];
+        for (int i = 0; i < targets.size(); i++) {
+            if (i == 0) this.target = targets.get(i);
+            else {
+                if (targets.get(i).pos.getDistance(this.pos) < target.pos.getDistance(this.pos)) {
+                    this.target = targets.get(i);
                 }
             }
         }
 
     }
-
-
-   /* @Override
-    public Position act() {
-
-
-
-/*        for (EmptyTile[] aBoard : BoardManager.getBoard()) {
-            for (int j = 0; j < aBoard.length; j++) {
-                if (aBoard[j] instanceof Animal) {
-                    if (aBoard[j] instanceof Predator) System.out.print("P");
-                    else System.out.print("A");
-                } else System.out.print("E");
-
-            }
-            System.out.print("\n");
-        }
-
-        System.out.print("\n");
-
-
-        return null;
-    }
-    */
-
 }
 

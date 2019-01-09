@@ -7,24 +7,24 @@ public class Prey extends Animal {
     private int nutrition;
 
 
-    private boolean targetted=false;
-
-    public Prey(Position pos, int sight) {
-        super(pos, sight);
-        this.nutrition= 10;
-    }
-
-    @Override
-    public Position act() {
-        return super.act();
-    }
-
-    @Override
-    public void kill(Animal an){
-        an.killed();
-    }
+    private boolean targetted;
 
     public int getNutrition() {
         return this.nutrition;
     }
+
+    public Prey(Position pos, int sight) {
+        super(pos, sight);
+        this.targetted = false;
+        this.nutrition = 10;
+    }
+
+    @Override
+    public Position act() {
+
+
+        return super.act();
+    }
+
+
 }
