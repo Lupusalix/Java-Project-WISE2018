@@ -1,5 +1,6 @@
 package javaproject.tiles;
 
+import javafx.geometry.Pos;
 import javaproject.BoardManager;
 
 import java.util.ArrayList;
@@ -53,6 +54,9 @@ public class Predator extends Animal {
         this.defenceChance = defenceChance;
         this.target = null;
         this.attacked = false;
+        this.huntingGroup = null;
+        this.speed -= 2;
+        this.speedMax = this.speed;
     }
 
     public void kill(Prey an) {
@@ -66,6 +70,12 @@ public class Predator extends Animal {
 
     @Override
     public Position act() {
+        if (attacked) return escape();
+
+        if (starvation == health) {
+            return pos.getRandMovement();
+        }
+
         //if no target search one
         if (target == null) {
             //search new Target
@@ -74,23 +84,28 @@ public class Predator extends Animal {
             target = null;
             searchTarget();
         }
-
-        if (attacked) return escape();
-
-
-        if (starvation == health) {
-            return pos.getRandMovement();
+        if (huntingGroup == null) {
+            //search adjacent position that is the nearest to the target
+            ArrayList<Position> surPos = pos.getSurrroundingPositions();
+            Position erg;
+            for (int i = 0; i < surPos.size(); i++) {
+                if (i == 0) erg = surPos.get(i);
+                if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos())) erg = surPos.get(i);
+            }
+            return erg;
+        } else {
+            //TODO:Logic when in Group
         }
+
         return pos.getRandMovement();
-
-
     }
 
     private Position escape() {
         //TODO: escaping algorithm
+        return null;
     }
 
-    //sets the target of predator to the nearest Pres
+    //sets the target of predator to the nearest Prey
     private void searchTarget() {
         ArrayList<Prey> targets = this.inSight(true);
 

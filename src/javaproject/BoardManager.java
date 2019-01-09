@@ -9,13 +9,20 @@ import java.util.Collections;
 public class BoardManager {
 
     private static EmptyTile[][] board;
-    private static ArrayList <Animal> animals;
-    private static ArrayList <Prey> prey;
-    private static ArrayList <Predator> predators;
+    private static ArrayList<Animal> animals;
+    private static ArrayList<Prey> prey;
+    private static ArrayList<Predator> predators;
 
 
     public static EmptyTile[][] getBoard() {
         return board;
+    }
+
+    public static int[] getSize() {
+        int[] a = new int[2];
+        a[0] = board.length;
+        a[1] = board[0].length;
+        return a;
     }
 
     public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
@@ -23,9 +30,9 @@ public class BoardManager {
             throw new Exception("Too Many Animals for the Field!");
         }
         board = new EmptyTile[x][y];
-        this.animals = new ArrayList <>();
-        this.predators = new ArrayList <>();
-        this.prey = new ArrayList <>();
+        animals = new ArrayList<>();
+        predators = new ArrayList<>();
+        prey = new ArrayList<>();
         initialize(numPrey, numPred); //initialize the field
 
     }
@@ -34,9 +41,9 @@ public class BoardManager {
 
         //delete animal from the lists
         animals.remove(animal);
-        if(animal instanceof Predator){
+        if (animal instanceof Predator) {
             predators.remove(animal);
-        }else{
+        } else {
             prey.remove(animal);
         }
     }
@@ -72,7 +79,7 @@ public class BoardManager {
 
     }
 
-    //just a testing Method for sorting and printing the field without gui
+    /*//just a testing Method for sorting and printing the field without gui
     public void test() {
         Collections.sort(animals);
         for (Animal a : animals) {
@@ -90,11 +97,11 @@ public class BoardManager {
             }
             System.out.print("\n");
         }
-    }
+    }*/
 
 
     public void tick() {
-        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
+
         for (int i = 0; i < animals.size(); i++) {
             Position pos = animals.get(i).act();
 
@@ -108,7 +115,7 @@ public class BoardManager {
                move to killed
             }*/
         }
-
+        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
     }
 
     private void move(Position pos, Animal an) {

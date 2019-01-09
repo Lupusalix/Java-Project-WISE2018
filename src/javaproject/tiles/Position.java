@@ -1,5 +1,8 @@
 package javaproject.tiles;
 
+import javaproject.BoardManager;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Position {
@@ -48,6 +51,17 @@ public class Position {
                 return new Position(this.x, this.y - 1);
 
         }
+    }
+
+    //returns adjacent positions and detects walls
+    public ArrayList getSurrroundingPositions() {
+        ArrayList<Position> erg = new ArrayList<>();
+        int[] size = BoardManager.getSize();
+        if (this.x - 1 >= 0) erg.add(new Position(this.x - 1, this.y));
+        if (this.x < size[0]) erg.add(new Position(this.x + 1, this.y));
+        if (this.y - 1 >= 0) erg.add(new Position(this.x, this.y - 1));
+        if (this.y + 1 < size[1]) erg.add(new Position(this.x, this.y + 1));
+        return erg;
     }
 
 }

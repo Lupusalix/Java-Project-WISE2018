@@ -7,12 +7,26 @@ import java.util.ArrayList;
 
 public class Animal extends EmptyTile implements Comparable<Animal> {
 
+    protected final double initiative;
     protected Position pos;
     protected int sight;
-    protected final double initiative;
     protected int speed;
+    protected int speedMax;
     protected boolean alive;
 
+
+    public Animal(Position pos, int sight) {
+        this(pos, sight, 5);
+    }
+
+    public Animal(Position pos, int sight, int speed) {
+        this.pos = pos;
+        this.initiative = Math.random();
+        this.sight = sight;
+        this.alive = true;
+        this.speed = speed;
+        this.speedMax = this.speed;
+    }
 
     public boolean isAlive() {
         return alive;
@@ -24,13 +38,6 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     public double getInitiative() {
         return this.initiative;
-    }
-
-    public Animal(Position pos, int sight) {
-        this.pos = pos;
-        this.initiative = Math.random();
-        this.sight = sight;
-        this.alive = true;
     }
 
     public Position getPos() {
@@ -65,19 +72,19 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     //Returns Arraylist of prey or predators according to boolean
     public ArrayList inSight(boolean isprey) {
-
+        int[] size = BoardManager.getSize();
         ArrayList erg = new ArrayList();
         //Set Sightrectangle inside the board
         int startx, endx, starty, endy;
 
         if (pos.getX() - sight < 0) startx = 0;
         else startx = pos.getX() - sight;
-        if (pos.getX() + sight > BoardManager.getBoard().length) endx = BoardManager.getBoard().length - 1;
+        if (pos.getX() + sight > size[0]) endx = size[0];
         else endx = pos.getX() + sight;
 
         if (pos.getY() - sight < 0) starty = 0;
         else starty = pos.getY() - sight;
-        if (pos.getY() + sight > BoardManager.getBoard()[0].length) endy = BoardManager.getBoard().length - 1;
+        if (pos.getY() + sight > size[1]) endy = size[1];
         else endy = pos.getY() + sight;
 
         //Search the Sightrectangle
