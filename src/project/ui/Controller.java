@@ -9,7 +9,7 @@ package project.ui;///*
 //package com.maxhenkes.com.maxhenkes.projectai.ui;
 //
 //import com.maxhenkes.com.maxhenkes.projectai.engine.IBoardListener;
-//import com.maxhenkes.MainLoop;
+//import com.maxhenkes.GameLoop;
 //import com.maxhenkes.TileEmpty;
 //import com.maxhenkes.TilePrey;
 //import com.maxhenkes.Tile;
@@ -68,7 +68,7 @@ package project.ui;///*
 //    @FXML
 //    public TextField boardY;
 //
-//    public static MainLoop mainLoop;
+//    public static GameLoop mainLoop;
 //
 //    @FXML
 //    public GridPane grid;
@@ -94,7 +94,7 @@ package project.ui;///*
 //
 //            mainLoop.startSimulation(x, y, 2, 0);
 //
-//            MainLoop.board.addListener(this);
+//            GameLoop.board.addListener(this);
 //
 //            grid.setHgap(0);
 //            grid.setVgap(0);
@@ -108,9 +108,9 @@ package project.ui;///*
 //            for (int i = 0; i <= x; i++) {
 //                for (int f = 0; f <= y; f++) {
 //                    Pane pane = new Pane();
-//                    if (MainLoop.board.getGrid()[i][f] instanceof TileEmpty) {
+//                    if (GameLoop.board.getGrid()[i][f] instanceof TileEmpty) {
 //                        pane.setStyle(COLOREMPTY);
-//                    } else if (MainLoop.board.getGrid()[i][f] instanceof TilePrey) {
+//                    } else if (GameLoop.board.getGrid()[i][f] instanceof TilePrey) {
 //                        pane.setStyle(COLORPREY);
 //                    }
 //
@@ -127,22 +127,22 @@ package project.ui;///*
 //
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources) {
-//        mainLoop = new MainLoop();
+//        mainLoop = new GameLoop();
 //    }
 //
 //    @Override
 //    public void onChanged() {
 //
-//        int x = MainLoop.board.getSizeX();
-//        int y = MainLoop.board.getSizeY();
+//        int x = GameLoop.board.getSizeX();
+//        int y = GameLoop.board.getSizeY();
 //
 //        for (int i = 0; i <= x; i++) {
 //            for (int f = 0; f <= y; f++) {
 //
 //                Pane pane = new Pane();
-//                if (MainLoop.board.getGrid()[i][f] instanceof TileEmpty) {
+//                if (GameLoop.board.getGrid()[i][f] instanceof TileEmpty) {
 //                    pane.setStyle(COLOREMPTY);
-//                } else if (MainLoop.board.getGrid()[i][f] instanceof TilePrey) {
+//                } else if (GameLoop.board.getGrid()[i][f] instanceof TilePrey) {
 //                    pane.setStyle(COLORPREY);
 //                }
 //

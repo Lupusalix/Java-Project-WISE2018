@@ -1,7 +1,7 @@
 package project.engine.tile;
 
+import project.engine.GameLoop;
 import project.engine.HuntingGroup;
-import project.engine.MainLoop;
 import project.engine.util.BoardUtil;
 import project.engine.util.MathUtil;
 import project.engine.util.PathFindingUtil;
@@ -21,7 +21,7 @@ public class TilePredator extends TileAnimal {
 
     public TilePredator(Point2 pos) {
         super(pos, 2, 7);
-        MainLoop.board.predatorList.add(this);
+        GameLoop.board.predatorList.add(this);
         me = this;
     }
 
@@ -83,8 +83,8 @@ public class TilePredator extends TileAnimal {
         System.out.println("Finding Target");
 
         for (Point2 p : box) {
-            if (MainLoop.board.getGrid()[p.x][p.y] instanceof TilePrey) {
-                TilePrey prey = (TilePrey) MainLoop.board.getGrid()[p.x][p.y];
+            if (GameLoop.board.getGrid()[p.x][p.y] instanceof TilePrey) {
+                TilePrey prey = (TilePrey) GameLoop.board.getGrid()[p.x][p.y];
                 if (prey.isAlive()) {
                     return prey;
                 }

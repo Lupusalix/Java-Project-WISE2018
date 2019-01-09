@@ -1,7 +1,7 @@
 
 package project.engine;
 
-public class MainLoop implements Runnable {
+public class GameLoop implements Runnable {
 
     public static Board board;
     private Thread thread;
@@ -11,7 +11,7 @@ public class MainLoop implements Runnable {
     private int oneSecond = (preyInterval * 1000)/sleepTimer;
     private int preyTimer = 0;
 
-    public MainLoop() {
+    public GameLoop() {
     }
 
     /*

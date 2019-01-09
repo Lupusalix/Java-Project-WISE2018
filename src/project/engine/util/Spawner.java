@@ -1,7 +1,7 @@
 
 package project.engine.util;
 
-import project.engine.MainLoop;
+import project.engine.GameLoop;
 
 import java.util.Random;
 
@@ -16,8 +16,8 @@ public class Spawner {
         while (true) {
             Random rand = new Random();
 
-            int x = rand.nextInt(MainLoop.board.getSizeX());
-            int y = rand.nextInt(MainLoop.board.getSizeY());
+            int x = rand.nextInt(GameLoop.board.getSizeX());
+            int y = rand.nextInt(GameLoop.board.getSizeY());
 
             Point2 position = new Point2(x, y);
 

@@ -1,9 +1,8 @@
 package project.engine.tile;
 
+import project.engine.GameLoop;
 import project.engine.util.BoardUtil;
 import project.engine.util.Point2;
-import project.engine.MainLoop;
-import project.engine.util.Vector2;
 
 public class TilePrey extends TileAnimal {
 
@@ -18,7 +17,7 @@ public class TilePrey extends TileAnimal {
     public TilePrey(Point2 pos, int size) {
         super(pos, 2, 4);
         this.size = size;
-        MainLoop.board.preyList.add(this);
+        GameLoop.board.preyList.add(this);
     }
 
 
@@ -39,8 +38,8 @@ public class TilePrey extends TileAnimal {
     public void setAlive(boolean alive) {
         super.setAlive(alive);
         if(!alive){
-            MainLoop.board.preyList.remove(this);
-            MainLoop.board.setTile(pos, new TileEmpty());
+            GameLoop.board.preyList.remove(this);
+            GameLoop.board.setTile(pos, new TileEmpty());
         }
     }
 }

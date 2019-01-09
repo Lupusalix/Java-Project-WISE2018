@@ -1,6 +1,6 @@
 package project.engine.tile;
 
-import project.engine.MainLoop;
+import project.engine.GameLoop;
 import project.engine.util.Point2;
 
 public abstract class TileAnimal extends Tile{
@@ -15,7 +15,7 @@ public abstract class TileAnimal extends Tile{
     this.pos = pos;
     this.speed = speed;
     this.detectionRadius = detectionRadius;
-    MainLoop.board.setTile(pos, this);
+    GameLoop.board.setTile(pos, this);
     }
 
     public int getSpeed() {
