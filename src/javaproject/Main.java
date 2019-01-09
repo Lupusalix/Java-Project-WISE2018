@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javaproject.tiles.Prey;
 
 public class Main extends Application implements Runnable {
 
@@ -126,12 +127,12 @@ public class Main extends Application implements Runnable {
                 Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
                 Detection distance not implemented yet.
                  */
-                EmptyTile tile = b.getTiles()[row][col];
+                EmptyTile tile = b.getBoard()[row][col];
                 Rectangle square = board[row][col];
 
                 if (tile instanceof Predator) {
                     square.setFill(predatorColor);
-                } else if (tile instanceof Animal) {
+                } else if (tile instanceof Prey) {
                     square.setFill(preyColor);
                 } else if (tile != null) {
                     square.setFill(floorColor);

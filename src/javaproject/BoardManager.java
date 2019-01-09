@@ -117,24 +117,5 @@ public class BoardManager {
         an.setPos(pos);
     }
 
-    private void garbage() {
-        for (Animal a : animals) {
-            if (!a.isAlive()) {
-
-                animals.remove(a);
-            }
-        }
-        for (Predator pred : predators) {
-            if (!pred.isAlive()) {
-                predators.remove(pred);
-            }
-        }
-        for (Animal a : prey) {
-            if (!a.isAlive()) {
-                prey.remove(a);
-            }
-        }
-    }
-
 
 }
