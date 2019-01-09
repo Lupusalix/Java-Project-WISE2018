@@ -6,13 +6,15 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
-public class BoardManager {
+public class BoardManager implements Runnable {
 
     private static EmptyTile[][] board;
     private static ArrayList<Animal> animals;
     private static ArrayList<Prey> prey;
     private static ArrayList<Predator> predators;
-
+    private int genereatePrey;
+    private int genereteXSeconds;
+    private Thread thread;
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -29,7 +31,7 @@ public class BoardManager {
         return board[pos.getX()][pos.getY()];
     }
 
-    public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
+    public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
         }
@@ -39,6 +41,14 @@ public class BoardManager {
         prey = new ArrayList<>();
         initialize(numPrey, numPred); //initialize the field
 
+        this.genereatePrey = genereatePrey;
+        this.genereteXSeconds = genereteXSeconds;
+        if (genereteXSeconds > 0) {
+            this.thread = new Thread(this);
+            thread.setDaemon(true);
+            thread.start();
+
+        }
     }
 
     public static void delete(Animal animal) {
@@ -51,6 +61,13 @@ public class BoardManager {
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
     private void initialize(int numPrey, int numPred) {
+        generatePredator(numPred);
+        generatePrey(numPrey);
+        Collections.sort(animals);
+
+    }
+
+    public static void generatePredator(int numPred) {
         for (int i = 0; i < numPred; i++) {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length); //Get random Pos
@@ -63,6 +80,9 @@ public class BoardManager {
                 }
             }
         }
+    }
+
+    public static void generatePrey(int numPrey) {
         for (int i = 0; i < numPrey; i++) {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length);//Get random Pos
@@ -75,9 +95,6 @@ public class BoardManager {
                 }
             }
         }
-
-        Collections.sort(animals);
-
     }
 
 
@@ -111,5 +128,16 @@ public class BoardManager {
         an.setPos(pos);
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(genereteXSeconds * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            BoardManager.generatePrey(genereatePrey);
+        }
+    }
 
 }

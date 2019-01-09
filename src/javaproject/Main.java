@@ -1,5 +1,6 @@
 package javaproject;
 
+import javafx.application.Platform;
 import javaproject.tiles.Animal;
 import javaproject.tiles.EmptyTile;
 import javaproject.tiles.Predator;
@@ -34,7 +35,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 50;
+    private final int size = 120;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -68,7 +69,7 @@ public class Main extends Application implements Runnable {
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, 90, 10);
+        b = new BoardManager(size, size, 180, 25, 10, 1);
 
         //Sorts and prints
         //b.test();
@@ -86,7 +87,6 @@ public class Main extends Application implements Runnable {
     public static void main(String[] args) {
         launch(args);
     }
-
 
 
     /*
@@ -119,26 +119,31 @@ public class Main extends Application implements Runnable {
         Doesn't check for changes, too slow. Simply sets the color of every rectangle to the one found in our Board.
          */
 
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                for (int row = 0; row < size; row++) {
+                    for (int col = 0; col < size; col++) {
 
-                /*
-                Replace with own Array from own mainloop.
-                Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
-                Detection distance not implemented yet.
-                 */
-                EmptyTile tile = BoardManager.getBoard()[row][col];
-                Rectangle square = board[row][col];
+                            /*
+                            Replace with own Array from own mainloop.
+                            Safe to use from another thread but might cause weird rendering issues when the board changes mid update.
+                            Detection distance not implemented yet.
+                             */
+                        EmptyTile tile = BoardManager.getBoard()[row][col];
+                        Rectangle square = board[row][col];
 
-                if (tile instanceof Predator) {
-                    square.setFill(predatorColor);
-                } else if (tile instanceof Prey) {
-                    square.setFill(preyColor);
-                } else if (tile != null) {
-                    square.setFill(floorColor);
+                        if (tile instanceof Predator) {
+                            square.setFill(predatorColor);
+                        } else if (tile instanceof Prey) {
+                            square.setFill(preyColor);
+                        } else if (tile != null) {
+                            square.setFill(floorColor);
+                        }
+                    }
                 }
             }
-        }
+        });
     }
 
 }
