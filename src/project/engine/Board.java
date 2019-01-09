@@ -7,8 +7,8 @@ import project.engine.tile.TileEmpty;
 import project.engine.tile.TilePredator;
 import project.engine.tile.TilePrey;
 import project.engine.tile.Tile;
+import project.engine.util.BoardUtil;
 import project.engine.util.Point2;
-import project.engine.util.Spawner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class Board {
     private void initPredator(int x) {
 
         for (int i = 0; i < x; i++) {
-            new TilePredator(Spawner.getFreePosition());
+            new TilePredator(BoardUtil.getFreePosition());
         }
     }
 
@@ -90,7 +90,7 @@ public class Board {
         Currently spawns prey with random position
          */
         for (int i = 0; i < x; i++) {
-            new TilePrey(Spawner.getFreePosition());
+            new TilePrey(BoardUtil.getFreePosition());
             if(Misc.debug){
             }
         }

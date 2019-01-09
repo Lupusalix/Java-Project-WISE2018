@@ -6,6 +6,8 @@ import project.engine.tile.Tile;
 import project.engine.tile.TileAnimal;
 import project.engine.tile.TileEmpty;
 
+import java.util.Random;
+
 public class BoardUtil {
 
     private BoardUtil() {
@@ -84,6 +86,23 @@ public class BoardUtil {
                 break;
             }
 
+        }
+    }
+
+        public static Point2 getFreePosition() {
+
+
+        while (true) {
+            Random rand = new Random();
+
+            int x = rand.nextInt(GameLoop.board.getSizeX());
+            int y = rand.nextInt(GameLoop.board.getSizeY());
+
+            Point2 position = new Point2(x, y);
+
+            if (BoardUtil.isEmpty(position)) {
+                return position;
+            }
         }
     }
 
