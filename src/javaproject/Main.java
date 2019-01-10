@@ -32,7 +32,7 @@ public class Main extends Application implements Runnable {
     BoardManager b;
 
 
-    //TODO: Board size, change to take input from UI
+    //TODO: Board size, change to take input from UI and working on it
     private final int size = 10;
 
 
