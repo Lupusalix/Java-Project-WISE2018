@@ -31,6 +31,8 @@ public class Main extends Application implements Runnable {
     private Color preyColor = Color.GREEN;
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
+    private Color medPreyColor = Color.DARKGREEN;
+    private Color bigPreyColor = Color.DARKBLUE;
 
     private int sleep = 100;
 
@@ -38,7 +40,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 12;
+    private final int size = 120;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -74,7 +76,7 @@ public class Main extends Application implements Runnable {
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, 4, 5, 10, 1);
+        b = new BoardManager(size, size, 500, 50, 10, 1);
 
         //Sorts and prints
         //b.test();
@@ -147,10 +149,12 @@ public class Main extends Application implements Runnable {
                         } else if (tile instanceof Prey) {
                             square.setFill(preyColor);
                             if (((Prey) tile).getSize() > 1) {
-                                Text t = new Text();
+                                if (((Prey) tile).getSize() > 2) square.setFill(bigPreyColor);
+                                else square.setFill(medPreyColor);
+                                /*Text t = new Text();
                                 t.setFont(new Font(40));
                                 t.setText(((Prey) tile).getSize() + "");
-                                stack.getChildren().add(t);
+                                stack.getChildren().add(t);*/
                             }
                         } else if (tile != null) {
                             square.setFill(floorColor);
