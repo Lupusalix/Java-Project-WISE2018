@@ -140,7 +140,7 @@ public class Predator extends Animal {
     }
 
     private boolean hasTarget() {
-        return this.target != null;
+        return (this.target != null);
     }
 }
 
