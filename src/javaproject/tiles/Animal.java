@@ -110,7 +110,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     private Animal searchTarget(boolean prey) {
         ArrayList predInSight = inSight(prey);
-
+        //TODO:Working on Code duplicatiopn
         return Animal;
     }
 
