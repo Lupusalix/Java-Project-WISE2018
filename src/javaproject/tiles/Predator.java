@@ -74,30 +74,29 @@ public class Predator extends Animal {
 
     @Override
     public Position act() {
-        boolean foundTarget = false;
         if (attacked) {
             escape();
-        }
-
-        if (starvation == health) {
-            return pos.getRandMovement();
         }
         //if no target search one
         if (!hasTarget()) {
             //search new Target
-            searchTarget();
+            this.target = (Prey) getNearest(true);
+            //searchTarget();
         } else if (!target.isAlive()) { //if target isn't alive search one
-            target = null;
-            searchTarget();
+            target = (Prey) getNearest(true);
         }
         if (huntingGroup == null) {
+
+            if (starvation == health) {
+                return pos.getRandMovement();
+            }
+
             if (hasTarget()) {
                 return followTarget(this.target, true, true);
             } else return this.pos.getRandMovement();
         } else {
             //TODO:Logic when in Group
         }
-
         return pos.getRandMovement();
     }
 
@@ -122,25 +121,8 @@ public class Predator extends Animal {
         return followTarget(at, false, false);
     }
 
-
-    //sets the target of predator to the nearest Prey
-    private void searchTarget() {
-        ArrayList<Prey> targets = this.inSight(true);
-
-        for (int i = 0; i < targets.size(); i++) {
-            if (i == 0) this.target = targets.get(i);
-            else {
-                if (targets.get(i).pos.getDistance(this.pos) < target.pos.getDistance(this.pos)) {
-                    this.target = targets.get(i);
-                }
-            }
-        }
-
-
-    }
-
     private boolean hasTarget() {
         return (this.target != null);
     }
-}
 
+}

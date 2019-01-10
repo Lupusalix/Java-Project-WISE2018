@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
-public class BoardManager implements Runnable {
+public class BoardManager {
 
     private static EmptyTile[][] board;
     private static ArrayList<Animal> animals;
     private static ArrayList<Prey> prey;
     private static ArrayList<Predator> predators;
-    private int genereatePrey;
+    private int genPrey;
     private int genereteXSeconds;
+    private int preyTimer;
     private Thread thread;
     private static int nutritionPerTick;
     private static int preyKilled;
     private static int predKilled;
-
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -35,6 +35,10 @@ public class BoardManager implements Runnable {
         return board[pos.getX()][pos.getY()];
     }
 
+    public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
+        this(x, y, numPrey, numPred, 0, 0);
+    }
+
     public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
@@ -48,17 +52,10 @@ public class BoardManager implements Runnable {
         preyKilled = 0;
 
         initialize(numPrey, numPred); //initialize the field
-
-
-        this.genereatePrey = genereatePrey;
+        this.genPrey = genereatePrey;
         this.genereteXSeconds = genereteXSeconds;
-        if (genereteXSeconds > 0) {
-            this.thread = new Thread(this);
-            thread.setDaemon(true);
-            thread.start();
-
-        }
     }
+
 
     public static void delete(Animal animal) {
         board[animal.getPos().getX()][animal.getPos().getY()] = new EmptyTile();
@@ -89,7 +86,7 @@ public class BoardManager implements Runnable {
         }
     }
 
-    public static void generatePrey(int numPrey) {
+    public void generatePrey(int numPrey) {
         for (int i = 0; i < numPrey; i++) {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length);//Get random Pos
@@ -105,8 +102,14 @@ public class BoardManager implements Runnable {
     }
 
 
-    public void tick() {
-        //TODO: Get Rid of Thread
+    public void tick(int sleep) {
+        int oneSecond = (genereteXSeconds * 1000) / sleep;
+        if (genPrey > 0 && preyTimer >= oneSecond) {
+            generatePrey(genPrey);
+            preyTimer = 0;
+        }
+        preyTimer++;
+
         nutritionPerTick = 0;
         predKilled = 0;
         preyKilled = 0;
@@ -131,6 +134,7 @@ public class BoardManager implements Runnable {
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
     }
 
+
     //simply moves the animal to the new position
     public static void move(Position pos, Animal an) {
         board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
@@ -148,18 +152,6 @@ public class BoardManager implements Runnable {
 
     public static void statisticsPredatorsKilled(int a) {
         predKilled += a;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(genereteXSeconds * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            BoardManager.generatePrey(genereatePrey);
-        }
     }
 
 }

@@ -1,4 +1,4 @@
 package javaproject.tiles;
 
-public class EmptyTile{
+public class /**/EmptyTile {
 }

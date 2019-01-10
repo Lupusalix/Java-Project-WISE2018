@@ -33,20 +33,14 @@ public class Prey extends Animal {
     @Override
     public Position act() {
         //Check if Predators are in sight
-        ArrayList<Predator> predInSight = inSight(false);
 
-        if (this.size > 1 && predInSight.size() > 0) {
+
+        /*if (this.size > 1 && predInSight.size() > 0) {
             //TODO: Large Prey Attacking Logic
-        }
-
-        if (predInSight.size() > 0) {
-            Predator targettedby = predInSight.get(0);
-            for (int i = 0; i < predInSight.size(); i++) {
-                if (targettedby.getPos().getDistance(this.pos) > predInSight.get(i).getPos().getDistance(this.pos))
-                    targettedby = predInSight.get(i);
-            }
-            //get possible position as far away from nearest pred
-            return followTarget(targettedby, false, false);
+        }*/
+        Animal runFrom = getNearest(false);
+        if (runFrom != null) {
+            return followTarget(runFrom, false, false);
         }
         return super.act();
     }

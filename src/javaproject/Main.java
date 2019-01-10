@@ -101,7 +101,7 @@ public class Main extends Application implements Runnable {
             Renders the changes to our board every x seconds.
              */
             renderChanges();
-            b.tick();
+            b.tick(sleep);
 
             try {
                 Thread.sleep(sleep);

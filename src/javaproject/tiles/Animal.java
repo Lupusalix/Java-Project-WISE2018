@@ -108,10 +108,23 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         } else return this.pos;
     }
 
-    private Animal searchTarget(boolean prey) {
-        ArrayList predInSight = inSight(prey);
-        //TODO:Working on Code duplicatiopn
-        return Animal;
+    //returns nearest Animal if prey then prey else predator
+    protected Animal getNearest(boolean prey) {
+        ArrayList<Animal> targets = inSight(prey);
+        if (targets.size() > 0) {
+            Animal erg = targets.get(0);
+            for (int i = 0; i < targets.size(); i++) {
+
+
+                if (targets.get(i).pos.getDistance(this.pos) < erg.pos.getDistance(this.pos)) {
+                    erg = targets.get(i);
+                }
+
+            }
+            return erg;
+        }
+
+        return null;
     }
 
     //Returns Arraylist of prey or predators according to boolean
