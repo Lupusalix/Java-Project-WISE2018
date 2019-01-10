@@ -9,6 +9,9 @@ public class Prey extends Animal {
     private int nutrition;
     private int size;
 
+    public int getSize() {
+        return size;
+    }
 
     public int getNutrition() {
         return this.nutrition;

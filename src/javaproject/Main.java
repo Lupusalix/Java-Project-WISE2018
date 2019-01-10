@@ -11,6 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javaproject.tiles.Prey;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Main extends Application implements Runnable {
 
@@ -21,7 +24,7 @@ public class Main extends Application implements Runnable {
     GridPane root = new GridPane();
 
     //2D Array of rectangles (easy to change color) that we match with our engine array
-    private Rectangle[][] board;
+    private StackPane[][] board;
     //To update our UI we need a thread
     private Thread thread;
 
@@ -29,18 +32,18 @@ public class Main extends Application implements Runnable {
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
-    private int sleep = 10;
+    private int sleep = 100;
 
     BoardManager b;
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 120;
+    private final int size = 12;
 
 
     public void start(Stage primaryStage) throws Exception {
 
-        board = new Rectangle[size][size];
+        board = new StackPane[size][size];
 
 
         /*
@@ -48,10 +51,12 @@ public class Main extends Application implements Runnable {
          */
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
+                StackPane stack = new StackPane();
                 Rectangle tile = new Rectangle();
                 tile.setFill(floorColor);
-                board[row][col] = tile;
-                root.add(tile, row, col);
+                stack.getChildren().add(tile);
+                board[row][col] = stack;
+                root.add(stack, row, col);
 
                 /*
                 Binds the size of the individual javaproject.tiles to the window size, has some issues
@@ -69,7 +74,7 @@ public class Main extends Application implements Runnable {
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, 1337, 25, 100, 1);
+        b = new BoardManager(size, size, 4, 5, 10, 1);
 
         //Sorts and prints
         //b.test();
@@ -131,12 +136,22 @@ public class Main extends Application implements Runnable {
                             Detection distance not implemented yet.
                              */
                         EmptyTile tile = BoardManager.getBoard()[row][col];
-                        Rectangle square = board[row][col];
+                        StackPane stack = board[row][col];
+                        Rectangle square = (Rectangle) board[row][col].getChildren().get(0);
 
+                        if (stack.getChildren().size() > 1) {
+                            stack.getChildren().remove(1);
+                        }
                         if (tile instanceof Predator) {
                             square.setFill(predatorColor);
                         } else if (tile instanceof Prey) {
                             square.setFill(preyColor);
+                            if (((Prey) tile).getSize() > 1) {
+                                Text t = new Text();
+                                t.setFont(new Font(40));
+                                t.setText(((Prey) tile).getSize() + "");
+                                stack.getChildren().add(t);
+                            }
                         } else if (tile != null) {
                             square.setFill(floorColor);
                         }
