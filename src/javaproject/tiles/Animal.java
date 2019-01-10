@@ -108,11 +108,11 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         } else return this.pos;
     }
 
-    private Animal searchTarget(boolean prey) {
+   /* private Animal searchTarget(boolean prey) {
         ArrayList predInSight = inSight(prey);
         //TODO:Working on Code duplicatiopn
         return Animal;
-    }
+    }*/
 
     //Returns Arraylist of prey or predators according to boolean
     public ArrayList inSight(boolean isprey) {

@@ -1,5 +1,7 @@
 package javaproject;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.application.Platform;
 import javaproject.tiles.Animal;
 import javaproject.tiles.EmptyTile;
@@ -37,8 +39,16 @@ public class Main extends Application implements Runnable {
     //TODO: Board size, change to take input from UI
     private final int size = 120;
 
-
     public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("UI_Style.fxml"));
+        primaryStage.setTitle("Just a test");
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.show();
+
+    }
+
+
+    public void display(Stage primaryStage) throws Exception {
 
         board = new Rectangle[size][size];
 
