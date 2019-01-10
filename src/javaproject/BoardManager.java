@@ -15,6 +15,10 @@ public class BoardManager implements Runnable {
     private int genereatePrey;
     private int genereteXSeconds;
     private Thread thread;
+    private static int nutritionPerTick;
+    private static int preyKilled;
+    private static int predKilled;
+
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -39,7 +43,12 @@ public class BoardManager implements Runnable {
         animals = new ArrayList<>();
         predators = new ArrayList<>();
         prey = new ArrayList<>();
+        nutritionPerTick = 0;
+        predKilled = 0;
+        preyKilled = 0;
+
         initialize(numPrey, numPred); //initialize the field
+
 
         this.genereatePrey = genereatePrey;
         this.genereteXSeconds = genereteXSeconds;
@@ -99,7 +108,9 @@ public class BoardManager implements Runnable {
 
 
     public void tick() {
-
+        nutritionPerTick = 0;
+        predKilled = 0;
+        preyKilled = 0;
         for (int i = 0; i < animals.size(); i++) {
             Animal an = animals.get(i);
             an.setSpeed(an.getSpeedMax());
@@ -108,7 +119,7 @@ public class BoardManager implements Runnable {
                 if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
                     if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
                         ((Predator) an).kill((Prey) bGetPos(pos));
-                        System.out.println("Prey killed");
+
                     }
                     move(pos, an);
                     an.setSpeed(an.getSpeed() - 1);
@@ -118,14 +129,26 @@ public class BoardManager implements Runnable {
             if (an instanceof Predator) ((Predator) an).starve();
 
         }
-        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size());
+        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
     }
 
     //simply moves the animal to the new position
-    private void move(Position pos, Animal an) {
+    public static void move(Position pos, Animal an) {
         board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
         board[pos.getX()][pos.getY()] = an;
         an.setPos(pos);
+    }
+
+    public static void statisticsNutritionIntake(int nut) {
+        nutritionPerTick += nut;
+    }
+
+    public static void statisiticsPreysKilled(int a) {
+        preyKilled += a;
+    }
+
+    public static void statisticsPredatorsKilled(int a) {
+        predKilled += a;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Main extends Application implements Runnable {
     private Color floorColor = Color.GRAY;
     private Color predatorColor = Color.RED;
 
-    private int sleep = 100;
+    private int sleep = 10;
 
     BoardManager b;
 
@@ -69,7 +69,7 @@ public class Main extends Application implements Runnable {
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, 180, 25, 10, 1);
+        b = new BoardManager(size, size, 1337, 25, 100, 1);
 
         //Sorts and prints
         //b.test();

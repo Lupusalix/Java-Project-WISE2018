@@ -1,6 +1,5 @@
 package javaproject.tiles;
 
-import javafx.geometry.Pos;
 import javaproject.BoardManager;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ public class Predator extends Animal {
     private Prey target;
     private HuntingGroup huntingGroup;
     private boolean attacked;
+    private Prey atttackedby;
 
 
     public int getStarvation() {
@@ -65,7 +65,8 @@ public class Predator extends Animal {
     public void kill(Prey an) {
 
         this.starvation += an.getNutrition();
-        //placeholder
+        BoardManager.statisticsNutritionIntake(an.getNutrition());
+        BoardManager.statisiticsPreysKilled(1);
         this.target = null;
         an.killed();
     }
@@ -74,7 +75,10 @@ public class Predator extends Animal {
     @Override
     public Position act() {
         boolean foundTarget = false;
-        if (attacked) return escape();
+        if (attacked) {
+            escape();
+
+        }
 
         if (starvation == health) {
             return pos.getRandMovement();
@@ -114,10 +118,50 @@ public class Predator extends Animal {
         return pos.getRandMovement();
     }
 
-    private Position escape() {
-        //TODO: escaping algorithm
-        return null;
+    public void attacked(Prey an) {
+        if (this.attacked) this.killed();
+        this.attacked = true;
+        this.atttackedby = an;
+        if (this.pos.getSurrroundingPositionsPrey().size() > 1) {
+            BoardManager.move((Position) this.pos.getSurrroundingPositionsPrey().get(0), this);
+        } else this.starvation /= 2;
+
     }
+
+    private Position escape() {
+        do {
+            ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
+            if (surPos.size() > 0) {
+                Position erg = surPos.get(0);
+                for (int i = 0; i < surPos.size(); i++) {
+                    try {
+                        if (surPos.get(i).getDistance(atttackedby.getPos()) > erg.getDistance(atttackedby.getPos()))
+                            erg = surPos.get(i);
+                    } catch (Exception e) {
+                        System.out.println(e.getCause());
+                    }
+                }
+                BoardManager.move(erg, this);
+            } else BoardManager.move(this.pos, this);
+
+            this.setSpeed(this.getSpeed() - 1);
+        } while (this.speed > 1);
+        ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
+        if (surPos.size() > 0) {
+            Position erg = surPos.get(0);
+            for (int i = 0; i < surPos.size(); i++) {
+                try {
+                    if (surPos.get(i).getDistance(atttackedby.getPos()) > erg.getDistance(atttackedby.getPos()))
+                        erg = surPos.get(i);
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
+            }
+            return erg;
+        } else return this.pos;
+
+    }
+
 
     //sets the target of predator to the nearest Prey
     private void searchTarget() {
