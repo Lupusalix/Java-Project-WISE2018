@@ -32,6 +32,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return alive;
     }
 
+
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
@@ -80,6 +81,31 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     public int getSpeedMax() {
         return speedMax;
+    }
+
+    //Reformatted Code(getting rid of Code Duplication) for Following or escaping target
+    public Position followTarget(Animal target, boolean follow, boolean eatPrey) {
+        if (eatPrey) {
+            ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
+            return fTUtil(target, follow, surPos);
+        } else {
+            ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
+            return fTUtil(target, follow, surPos);
+        }
+    }
+
+    private Position fTUtil(Animal target, boolean follow, ArrayList<Position> surPos) {
+        if (surPos.size() > 0) {
+            Position erg = surPos.get(0);
+            for (int i = 0; i < surPos.size(); i++) {
+                if (follow) {
+                    if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos()))
+                        erg = surPos.get(i);
+                } else if (surPos.get(i).getDistance(target.getPos()) > erg.getDistance(target.getPos()))
+                    erg = surPos.get(i);
+            }
+            return erg;
+        } else return this.pos;
     }
 
     //Returns Arraylist of prey or predators according to boolean

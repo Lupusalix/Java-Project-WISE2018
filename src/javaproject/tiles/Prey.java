@@ -46,19 +46,7 @@ public class Prey extends Animal {
                     targettedby = predInSight.get(i);
             }
             //get possible position as far away from nearest pred
-            ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
-            if (surPos.size() > 0) {
-                Position erg = surPos.get(0);
-                for (int i = 0; i < surPos.size(); i++) {
-                    try {
-                        if (surPos.get(i).getDistance(targettedby.getPos()) > erg.getDistance(targettedby.getPos()))
-                            erg = surPos.get(i);
-                    } catch (Exception e) {
-                        System.out.println(e.getCause());
-                    }
-                }
-                return erg;
-            } else return this.pos;
+            return followTarget(targettedby, false, false);
         }
         return super.act();
     }

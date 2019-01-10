@@ -65,7 +65,6 @@ public class BoardManager implements Runnable {
         animals.remove(animal);
         prey.remove(animal);
         predators.remove(animal);
-
     }
 
     //Initialize the Board with specified Number of Prey and Predators at random positions
@@ -73,7 +72,6 @@ public class BoardManager implements Runnable {
         generatePredator(numPred);
         generatePrey(numPrey);
         Collections.sort(animals);
-
     }
 
     public static void generatePredator(int numPred) {
@@ -108,6 +106,7 @@ public class BoardManager implements Runnable {
 
 
     public void tick() {
+        //TODO: Get Rid of Thread
         nutritionPerTick = 0;
         predKilled = 0;
         preyKilled = 0;

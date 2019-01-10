@@ -77,13 +77,11 @@ public class Predator extends Animal {
         boolean foundTarget = false;
         if (attacked) {
             escape();
-
         }
 
         if (starvation == health) {
             return pos.getRandMovement();
         }
-
         //if no target search one
         if (!hasTarget()) {
             //search new Target
@@ -93,23 +91,8 @@ public class Predator extends Animal {
             searchTarget();
         }
         if (huntingGroup == null) {
-            //search adjacent position that is the nearest to the target
             if (hasTarget()) {
-                ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
-                if (surPos.size() > 0) {
-                    Position erg = surPos.get(0);
-
-                    for (int i = 0; i < surPos.size(); i++) {
-                        try {
-                            if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos()))
-                                erg = surPos.get(i);
-                        } catch (Exception e) {
-                            System.out.println(e.getCause());
-                        }
-                    }
-                    return erg;
-                } else return this.pos;
-
+                return followTarget(this.target, true, true);
             } else return this.pos.getRandMovement();
         } else {
             //TODO:Logic when in Group
@@ -130,36 +113,13 @@ public class Predator extends Animal {
 
     private Position escape() {
         do {
-            ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
-            if (surPos.size() > 0) {
-                Position erg = surPos.get(0);
-                for (int i = 0; i < surPos.size(); i++) {
-                    try {
-                        if (surPos.get(i).getDistance(atttackedby.getPos()) > erg.getDistance(atttackedby.getPos()))
-                            erg = surPos.get(i);
-                    } catch (Exception e) {
-                        System.out.println(e.getCause());
-                    }
-                }
-                BoardManager.move(erg, this);
-            } else BoardManager.move(this.pos, this);
-
+            BoardManager.move(followTarget(atttackedby, false, false), this);
             this.setSpeed(this.getSpeed() - 1);
         } while (this.speed > 1);
-        ArrayList<Position> surPos = pos.getSurrroundingPositionsPrey();
-        if (surPos.size() > 0) {
-            Position erg = surPos.get(0);
-            for (int i = 0; i < surPos.size(); i++) {
-                try {
-                    if (surPos.get(i).getDistance(atttackedby.getPos()) > erg.getDistance(atttackedby.getPos()))
-                        erg = surPos.get(i);
-                } catch (Exception e) {
-                    System.out.println(e.getCause());
-                }
-            }
-            return erg;
-        } else return this.pos;
-
+        Animal at = this.atttackedby;
+        this.atttackedby = null;
+        this.attacked = false;
+        return followTarget(at, false, false);
     }
 
 
