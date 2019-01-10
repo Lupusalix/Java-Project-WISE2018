@@ -1,5 +1,8 @@
 package javaproject.tiles;
 
+import javaproject.BoardManager;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Position {
@@ -48,6 +51,39 @@ public class Position {
                 return new Position(this.x, this.y - 1);
 
         }
+    }
+
+    //returns adjacent positions and detects walls
+    public ArrayList getSurrroundingPositions() {
+        ArrayList<Position> erg = new ArrayList<>();
+        int[] size = BoardManager.getSize();
+        if (this.x - 1 >= 0) erg.add(new Position(this.x - 1, this.y));
+        if (this.x + 1 < size[0]) erg.add(new Position(this.x + 1, this.y));
+        if (this.y - 1 >= 0) erg.add(new Position(this.x, this.y - 1));
+        if (this.y + 1 < size[1]) erg.add(new Position(this.x, this.y + 1));
+        return erg;
+    }
+
+    //returns adjacent Positions without Predatorpositions
+    public ArrayList getSurrroundingPositionsPred() {
+        ArrayList<Position> erg = getSurrroundingPositions();
+        for (int i = 0; i < erg.size(); i++) {
+            try {
+                if (BoardManager.bGetPos(erg.get(i)) instanceof Predator) erg.remove(i);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return erg;
+    }
+
+    //return adjacent Positions without Predator and Prey positions
+    public ArrayList getSurrroundingPositionsPrey() {
+        ArrayList<Position> erg = getSurrroundingPositionsPred();
+        for (int i = 0; i < erg.size(); i++) {
+            if (BoardManager.bGetPos(erg.get(i)) instanceof Prey) erg.remove(i);
+        }
+        return erg;
     }
 
 }

@@ -1,2 +1,3 @@
 # Java-Project-WISE2018
-javaproject.Main Logic from Scratch without Gui
+Completed Solo Logic
+WIP: HuntingGroups and large prey
