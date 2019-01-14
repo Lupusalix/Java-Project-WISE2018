@@ -4,8 +4,23 @@ import javaproject.BoardManager;
 
 import java.util.ArrayList;
 
+/**
+ * @author Philipp.
+ * @version 1.0.
+ * @see Animal .
+ * @see Prey .
+ */
 public class Predator extends Animal {
 
+    /**
+     * starvation: meant to measure the starvation count of the pred.
+     * health: meant to represent how physcly healthy an animal is, not to confuse with starvation.
+     * defenceChance: chance to defend against the attack of another animal.
+     * target: the Prey that the pred is trying to eat at the moment.
+     * huntingGroup: the hunting group that the pred belongs to.
+     * attacked: a boolean value that determines of the animal is infight or not (?).
+     * attackedby: the prey that is currently attacking the pred.
+     */
     private int starvation;
     private int health;
     private double defenceChance;
@@ -14,10 +29,16 @@ public class Predator extends Animal {
     private boolean attacked;
     private Prey atttackedby;
 
-
+    /**
+     * @return current starvation as an int.
+     */
     public int getStarvation() {
         return starvation;
     }
+
+    /**
+     * checks the current starvationlevel and deletes the predator if it starved.
+     */
 
     public void starve() {
         this.starvation -= 1;
@@ -26,30 +47,62 @@ public class Predator extends Animal {
         }
     }
 
+    /**
+     * @return current health.
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * @param health the new health we intend to set the predator to.
+     */
     public void setHealth(int health) {
         this.health = health;
     }
 
+    /**
+     *
+     * @return the defence value.
+     */
     public double getDefenceChance() {
         return defenceChance;
     }
 
+    /**
+     *
+     * @param defenceChance sets the ne defchance.
+     */
     public void setDefenceChance(double defenceChance) {
         this.defenceChance = defenceChance;
     }
 
+    /**
+     *
+     * @param pos .
+     * @param sight .
+     */
     public Predator(Position pos, int sight) {
         this(pos, sight, 250, 0.7);
     }
 
+    /**
+     *
+     * @param x .
+     * @param y .
+     * @param sight .
+     */
     public Predator(int x, int y, int sight) {
         this(new Position(x, y), sight, 250, 0.7);
     }
 
+    /**
+     *
+     * @param pos .
+     * @param sight .
+     * @param health .
+     * @param defenceChance .
+     */
     public Predator(Position pos, int sight, int health, double defenceChance) {
         super(pos, sight);
         this.starvation = health;
@@ -62,6 +115,12 @@ public class Predator extends Animal {
         this.speedMax = this.speed;
     }
 
+    /**
+     * This function is used to kill prey, extracted the nutration, clear the pred target
+     * and call the preys .killed function
+     * @see Prey .
+     * @param an the prey that is killed.
+     */
     public void kill(Prey an) {
 
         this.starvation += an.getNutrition();
@@ -71,7 +130,13 @@ public class Predator extends Animal {
         an.killed();
     }
 
-
+    /**
+     * The function is meant to help the pred decide what to do next. it generates a random movement if its health
+     * is equal to its starvation. if it doesn't has a target its starting to look for a new one or helpes it look for
+     * .an hunting group
+     *
+     * @return Position the position the pred intents to go to next.
+     */
     @Override
     public Position act() {
         boolean foundTarget = false;
@@ -101,6 +166,11 @@ public class Predator extends Animal {
         return pos.getRandMovement();
     }
 
+    /**
+     *
+     * @param an
+     */
+
     public void attacked(Prey an) {
         if (this.attacked) this.killed();
         this.attacked = true;
@@ -111,6 +181,11 @@ public class Predator extends Animal {
 
     }
 
+    /**
+     *
+     * @return the new position of the animal after it was attacked
+     * @see Animal .
+     */
     private Position escape() {
         do {
             BoardManager.move(followTarget(atttackedby, false, false), this);
@@ -139,6 +214,10 @@ public class Predator extends Animal {
 
     }
 
+    /**
+     *
+     * @return 'true' if the pred has a target and 'false' if not
+     */
     private boolean hasTarget() {
         return (this.target != null);
     }
