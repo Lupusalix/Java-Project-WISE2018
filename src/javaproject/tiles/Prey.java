@@ -41,6 +41,7 @@ public class Prey extends Animal {
         /*if (this.size > 1 && predInSight.size() > 0) {
             //TODO: Large Prey Attacking Logic
         }*/
+
         Animal runFrom = getNearest(false);
         if (runFrom != null) {
             return followTarget(runFrom, false, false);

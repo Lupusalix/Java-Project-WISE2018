@@ -12,6 +12,7 @@ public class BoardManager {
     private static ArrayList<Animal> animals;
     private static ArrayList<Prey> prey;
     private static ArrayList<Predator> predators;
+    private static ArrayList<HuntingGroup> groups;
     private int genPrey;
     private int genereteXSeconds;
     private int preyTimer;
@@ -64,6 +65,11 @@ public class BoardManager {
         predators.remove(animal);
     }
 
+    public static void delGrp(HuntingGroup grp) {
+        groups.remove(grp);
+    }
+
+
     //Initialize the Board with specified Number of Prey and Predators at random positions
     private void initialize(int numPrey, int numPred) {
         generatePredator(numPred);
@@ -113,6 +119,7 @@ public class BoardManager {
         nutritionPerTick = 0;
         predKilled = 0;
         preyKilled = 0;
+        //TODO: update grps
         for (int i = 0; i < animals.size(); i++) {
             Animal an = animals.get(i);
             an.setSpeed(an.getSpeedMax());
@@ -140,6 +147,11 @@ public class BoardManager {
         board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
         board[pos.getX()][pos.getY()] = an;
         an.setPos(pos);
+    }
+
+    public static void buildGroup(Predator predator, Prey target) {
+
+
     }
 
     public static void statisticsNutritionIntake(int nut) {

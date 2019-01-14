@@ -100,6 +100,15 @@ public class Predator extends Animal {
         return pos.getRandMovement();
     }
 
+    private void howl(Prey gTarget) {
+        if (this.huntingGroup == null) {
+            BoardManager.buildGroup(this, gTarget);
+        } else {
+            if (huntingGroup.getGroupTarget() != null && !huntingGroup.getGroupTarget().isAlive())
+                this.huntingGroup.setGroupTarget(gTarget);
+        }
+    }
+
     public void attacked(Prey an) {
         if (this.attacked) this.killed();
         this.attacked = true;
