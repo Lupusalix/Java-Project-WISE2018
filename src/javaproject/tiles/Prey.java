@@ -4,8 +4,21 @@ import javaproject.BoardManager;
 
 import java.util.ArrayList;
 
+/**
+ * @author Philipp.
+ * @version 1.0.
+ * @see Animal .
+ * @see Predator .
+ * <p>
+ * The Class prey which derives from Animal is the lass meant as the second actor besides the predators, it contains
+ * functions that enable them to act on our board.
+ */
 public class Prey extends Animal {
 
+    /**
+     * nutrition: the nutrition gained from eating the prey.
+     * size:the size of the prey
+     */
     private int nutrition;
     private int size;
 
@@ -13,10 +26,19 @@ public class Prey extends Animal {
         return size;
     }
 
+    /**
+     * @return the current nutrition of the prey.
+     */
     public int getNutrition() {
         return this.nutrition;
     }
 
+    /**
+     * constructor.
+     *
+     * @param pos   position of the animal to spawn.
+     * @param sight sight of the animal to spawn.
+     */
     public Prey(Position pos, int sight) {
         super(pos, sight);
         this.nutrition = 10;
@@ -26,6 +48,10 @@ public class Prey extends Animal {
         if (this.size > 1) this.nutrition *= this.size;
     }
 
+    /**
+     * method emant for attacking predators.
+     * @param pred the oredator to attack.
+     */
     public void attack(Predator pred) {
         if (Math.random() > pred.getDefenceChance()) {
             kill(pred);
@@ -33,6 +59,10 @@ public class Prey extends Animal {
         } else pred.attacked(this);
     }
 
+    /**
+     * Method to determine how the prey is going to act, if its trying to flee or attack the pred.
+     * @return the Position of the prey after it acted.
+     */
     @Override
     public Position act() {
         //Check if Predators are in sight
