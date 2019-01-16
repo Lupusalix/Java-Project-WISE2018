@@ -1,15 +1,15 @@
 
 package project.engine;
 
-import project.Main;
 import project.engine.misc.Misc;
+import project.sample.Controller;
 
 public class GameLoop {
 
     public static Board board;
     private boolean spawnPrey = true;
     private int preyInterval = 2;
-    private int oneSecond = (preyInterval * 1000) / Main.sleep;
+    private int oneSecond = (preyInterval * 1000) / Controller.sleep;
     private int preyTimer = 0;
 
     public GameLoop() {

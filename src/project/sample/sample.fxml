@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.sample.Controller">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="generate" layoutX="41.0" layoutY="187.0" mnemonicParsing="false" onAction="#onGenerate" text="Generate" />
+                  <TextField fx:id="size" layoutX="88.0" layoutY="25.0" prefHeight="25.0" prefWidth="61.0" />
+                  <Text layoutX="19.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Board size" />
+                  <TextField fx:id="pred" layoutX="89.0" layoutY="61.0" prefHeight="25.0" prefWidth="61.0" />
+                  <Text layoutX="18.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Predators" />
+                  <TextField fx:id="prey" layoutX="88.0" layoutY="102.0" prefHeight="25.0" prefWidth="61.0" />
+                  <Text layoutX="19.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preys" />
+                  <RadioButton fx:id="spawnPrey" layoutX="27.0" layoutY="143.0" mnemonicParsing="false" text="Spawn Prey" />
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+         </items>
+      </SplitPane>
+   </children>
+</Pane>
