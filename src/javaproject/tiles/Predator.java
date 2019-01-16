@@ -182,6 +182,7 @@ public class Predator extends Animal {
     }
 
     /**
+     * the animal moves away from the danger for 1 tick
      *
      * @return the new position of the animal after it was attacked
      * @see Animal .
