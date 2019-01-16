@@ -1,7 +1,6 @@
 package project.engine.tile;
 
 import project.engine.GameLoop;
-import project.engine.HuntingGroup;
 import project.engine.util.BoardUtil;
 import project.engine.util.PathFindingUtil;
 import project.engine.util.Point2;
@@ -12,10 +11,10 @@ import java.util.List;
 public class TilePredator extends TileAnimal {
 
     private HuntingGroup huntingGroup;
-    private TilePrey target = null;
+    private TilePrey target;
     private int health = 15;
     private int defence;
-
+    private Point2 groupPosition;
 
     public TilePredator(Point2 pos) {
         super(pos, 2, 7);
@@ -42,7 +41,6 @@ public class TilePredator extends TileAnimal {
                 BoardUtil.move(pos, move());
             }
         }
-
         hunger();
     }
 
@@ -51,7 +49,6 @@ public class TilePredator extends TileAnimal {
         if (health <= 0) {
             alive = false;
         }
-
     }
 
     private Point2 move() {
@@ -75,7 +72,6 @@ public class TilePredator extends TileAnimal {
 
     private TilePrey findTarget() {
         ArrayList<Point2> box = PathFindingUtil.gridBox(pos, detectionRadius);
-
         for (Point2 p : box) {
             if (GameLoop.board.getGrid()[p.x][p.y] instanceof TilePrey) {
                 TilePrey prey = (TilePrey) GameLoop.board.getGrid()[p.x][p.y];
@@ -87,6 +83,10 @@ public class TilePredator extends TileAnimal {
         }
 
         return null;
+    }
+
+    public void setGroupPosition(Point2 pos){
+        groupPosition = pos;
     }
 
 }

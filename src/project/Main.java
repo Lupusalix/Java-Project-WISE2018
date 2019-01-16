@@ -39,7 +39,7 @@ public class Main extends Application implements Runnable {
 
 
     //TODO: Board size, change to take input from UI
-    private final int size = 12;
+    private final int size = 120;
 
 
     public void start(Stage primaryStage) {
@@ -158,8 +158,8 @@ public class Main extends Application implements Runnable {
                             square.setFill(preyColor);
                             Text t = new Text();
                             t.setFont(new Font(40));
-                            t.setText(((TilePrey) tile).getSize() + "");
-                            stack.getChildren().add(t);
+                            //t.setText(((TilePrey) tile).getSize() + "");
+                           // stack.getChildren().add(t);
                         } else if (tile instanceof TilePredator) {
                             square.setFill(predatorColor);
                         }

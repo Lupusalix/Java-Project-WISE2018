@@ -3,10 +3,7 @@ package project.engine;
 
 
 import project.engine.misc.Misc;
-import project.engine.tile.TileEmpty;
-import project.engine.tile.TilePredator;
-import project.engine.tile.TilePrey;
-import project.engine.tile.Tile;
+import project.engine.tile.*;
 import project.engine.util.BoardUtil;
 import project.engine.util.Point2;
 
@@ -30,6 +27,7 @@ public class Board {
      */
     public List<TilePrey> preyList = new ArrayList<>();
     public List<TilePredator> predatorList = new ArrayList<>();
+    public List<HuntingGroup> groupList = new ArrayList<>();
 
     public Board(int x, int y, int prey, int predator) {
         this.sizeX = x;
