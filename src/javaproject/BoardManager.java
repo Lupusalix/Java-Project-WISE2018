@@ -3,7 +3,6 @@ package javaproject;
 import javaproject.tiles.*;
 
 import java.util.ArrayList;
-
 import java.util.Collections;
 
 public class BoardManager {
@@ -108,6 +107,20 @@ public class BoardManager {
     }
 
 
+    public static void buildGroup(Predator predator, Prey target) {
+        int grpRad = 15;
+        ArrayList member = predator.inSight(false, grpRad);
+        groups.add(new HuntingGroup(member, grpRad, target));
+    }
+
+
+    //simply moves the animal to the new position
+    public static void move(Position pos, Animal an) {
+        board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
+        board[pos.getX()][pos.getY()] = an;
+        an.setPos(pos);
+    }
+
     public void tick(int sleep) {
         int oneSecond = (genereteXSeconds * 1000) / sleep;
         if (genPrey > 0 && preyTimer >= oneSecond) {
@@ -120,6 +133,11 @@ public class BoardManager {
         predKilled = 0;
         preyKilled = 0;
         //TODO: update grps
+        for (int i = 0; i < groups.size(); i++) {
+            groups.get(i).update();
+        }
+
+
         for (int i = 0; i < animals.size(); i++) {
             Animal an = animals.get(i);
             an.setSpeed(an.getSpeedMax());
@@ -139,19 +157,6 @@ public class BoardManager {
 
         }
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
-    }
-
-
-    //simply moves the animal to the new position
-    public static void move(Position pos, Animal an) {
-        board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
-        board[pos.getX()][pos.getY()] = an;
-        an.setPos(pos);
-    }
-
-    public static void buildGroup(Predator predator, Prey target) {
-
-
     }
 
     public static void statisticsNutritionIntake(int nut) {

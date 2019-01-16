@@ -2,8 +2,6 @@ package javaproject.tiles;
 
 import javaproject.BoardManager;
 
-import java.util.ArrayList;
-
 /**
  * @author Philipp.
  * @version 1.0.
@@ -204,4 +202,8 @@ public class Predator extends Animal {
         return (this.target != null);
     }
 
+
+    public void joinGrp(HuntingGroup x) {
+        this.huntingGroup = x;
+    }
 }

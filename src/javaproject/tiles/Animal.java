@@ -218,13 +218,17 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return null;
     }
 
+
+    public ArrayList inSight(boolean isPrey) {
+        return inSight(isPrey, this.sight);
+    }
     /**
      * checks according to the sight value of the andimal and
      * returns Arraylist of prey or predators according to boolean.
      * @param isprey .
      * @return and array list of prey or predators.
      */
-    public ArrayList inSight(boolean isprey) {
+    public ArrayList inSight(boolean isprey, int sight) {
         int[] size = BoardManager.getSize();
         ArrayList erg = new ArrayList();
         //Set Sightrectangle inside the board

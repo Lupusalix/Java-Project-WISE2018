@@ -6,6 +6,7 @@ public class HuntingGroup {
     private ArrayList<Predator> groupMember;
     private double groupRadius;
     private Prey groupTarget;
+    private Position position;
 
     public ArrayList<Predator> getGroupMember() {
         return groupMember;
@@ -36,5 +37,14 @@ public class HuntingGroup {
         this.groupRadius = radius;
         this.groupTarget = target;
     }
+
+    private void updateGrpPos() {
+        //TODO: update the group postion
+    }
+
+    public void update() {
+        //TODO: Update group members if other pred inside group radius join grp
+    }
+
 
 }
