@@ -158,16 +158,28 @@ public class Predator extends Animal {
                 return followTarget(this.target, true, true);
             } else return this.pos.getRandMovement();
         } else {
-            //TODO:Logic when in Group
+            //TODO:variable fo getting the target position and then moving there mit follow Target.
+            return this.huntingGroup.getPredPos(this);
         }
-        return pos.getRandMovement();
     }
 
+    public HuntingGroup getHuntingGroup() {
+        return huntingGroup;
+    }
+
+    public void setHuntingGroup(HuntingGroup huntingGroup) {
+        this.huntingGroup = huntingGroup;
+    }
+
+    /**
+     * @param gTarget
+     * @see BoardManager buildGroup
+     */
     private void howl(Prey gTarget) {
         if (this.huntingGroup == null) {
             BoardManager.buildGroup(this, gTarget);
         } else {
-            if (huntingGroup.getGroupTarget() != null && !huntingGroup.getGroupTarget().isAlive())
+            if (huntingGroup.getGroupTarget() != null || !huntingGroup.getGroupTarget().isAlive())
                 this.huntingGroup.setGroupTarget(gTarget);
         }
     }

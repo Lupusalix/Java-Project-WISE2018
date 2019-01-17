@@ -167,6 +167,15 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return speedMax;
     }
 
+    /**
+     * Returns a Position according to its parameters.
+     *
+     * @param target  The target to follow or to flee from.
+     * @param follow  True: follow the target. false: flee from Target
+     * @param eatPrey True: can move to Tiles with prey on it(eat the prey)
+     * @return next Position to move to.
+     * @see fTUtil .
+     */
     //Reformatted Code(getting rid of Code Duplication) for Following or escaping target
     public Position followTarget(Animal target, boolean follow, boolean eatPrey) {
         if (eatPrey) {
@@ -179,12 +188,12 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     }
 
     /**
-     * the method returns depending on follow and eat prey a position back that follows a prey oder
-     * tries to escape and avoid tiels with prey and pred on it.
+     * the method returns depending on follow and eat prey a position back that follows a prey or
+     * tries to escape and avoid tiels with prey and predator on it.
      *
-     * @param target the actor
+     * @param target the target to follow or flee from
      * @param follow
-     * @param surPos a list of pred,prey and empty tiles surrounding the actor
+     * @param surPos a list of tiles surrounding this
      * @return returns the position to which the animal is moving now
      */
     private Position fTUtil(Animal target, boolean follow, ArrayList<Position> surPos) {

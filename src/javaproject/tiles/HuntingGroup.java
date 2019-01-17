@@ -1,5 +1,7 @@
 package javaproject.tiles;
 
+import javaproject.BoardManager;
+
 import java.util.ArrayList;
 
 public class HuntingGroup {
@@ -47,4 +49,17 @@ public class HuntingGroup {
     }
 
 
+    public Position getPredPos(Predator predator) {
+        int[] a = BoardManager.getSize();
+        return Position.ranPos(a[0], a[1]);
+
+
+        //TODO:Grouppredator positioning for the predator X!
+        /*
+
+        for pred in member ( index of)
+
+        pred i move to x
+         */
+    }
 }

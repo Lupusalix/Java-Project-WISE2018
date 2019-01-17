@@ -110,8 +110,12 @@ public class BoardManager {
 
     public static void buildGroup(Predator predator, Prey target) {
         int grpRad = 15;
-        ArrayList member = predator.inSight(false, grpRad);
-        groups.add(new HuntingGroup(member, grpRad, target));
+        ArrayList<Predator> member = predator.inSight(false, grpRad);
+        HuntingGroup hg = new HuntingGroup(member, grpRad, target);
+        groups.add(hg);
+        for (int i = 0; i < member.size(); i++) {
+            member.get(i).setHuntingGroup(hg);
+        }
     }
 
 
