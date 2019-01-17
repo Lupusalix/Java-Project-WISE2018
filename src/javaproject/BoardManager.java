@@ -54,6 +54,7 @@ public class BoardManager {
         initialize(numPrey, numPred); //initialize the field
         this.genPrey = genereatePrey;
         this.genereteXSeconds = genereteXSeconds;
+        groups = new ArrayList<>();
     }
 
 
@@ -133,6 +134,7 @@ public class BoardManager {
         predKilled = 0;
         preyKilled = 0;
         //TODO: update grps
+
         for (int i = 0; i < groups.size(); i++) {
             groups.get(i).update();
         }
