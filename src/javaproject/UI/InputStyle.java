@@ -1,25 +1,28 @@
-package javaproject;
+package javaproject.UI;
 
-import javafx.application.Platform;
-import javaproject.tiles.Animal;
-import javaproject.tiles.EmptyTile;
-import javaproject.tiles.Predator;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javaproject.BoardManager;
+import javaproject.tiles.EmptyTile;
+import javaproject.tiles.Predator;
 import javaproject.tiles.Prey;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
-public class Main extends Application implements Runnable {
+public class InputStyle implements Runnable {
 
     /*
-    Currently only renders simulation, no extra windows. Should be separated into proper classes and not run in main.
-     */
+   Currently only renders simulation, no extra windows. Should be separated into proper classes and not run in main.
+    */
     //Base Gridpane used for rendering
     GridPane root = new GridPane();
 
@@ -36,16 +39,56 @@ public class Main extends Application implements Runnable {
 
     private int sleep = 100;
 
+    int size = 0;
+
     BoardManager b;
 
+    @FXML
+    private TextField tfSize;
 
-    //TODO: Board size, change to take input from UI
-    private final int size = 120;
+    @FXML
+    private TextField tfPred;
 
+    @FXML
+    private TextField tfPrey;
 
-    public void start(Stage primaryStage) throws Exception {
+    @FXML
+    private RadioButton rbSpawn;
+
+    @FXML
+    private Button generate;
+
+    private boolean isInt(TextField text) {
+        int x;
+        try {
+            x = Integer.parseInt(text.getText());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @FXML
+    void handle_generate(ActionEvent event) throws Exception {
+
+        int predator = 0;
+        int prey = 0;
+
+        if (isInt(tfSize)) {
+            size = Integer.parseInt(tfSize.getText());
+        }
+
+        if (isInt(tfPred)) {
+            predator = Integer.parseInt(tfPred.getText());
+
+        }
+
+        if (isInt(tfPrey)) {
+            prey = Integer.parseInt(tfPrey.getText());
+        }
 
         board = new StackPane[size][size];
+
 
 
         /*
@@ -69,14 +112,17 @@ public class Main extends Application implements Runnable {
 
         }
 
-        primaryStage.setScene(new Scene(root, 800, 800));
-        primaryStage.show();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 800, 800));
+        stage.setTitle("Simulation");
+        stage.show();
 
         /*
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, 500, 50, 10, 1);
+        b = new BoardManager(size, size, prey, predator, 10, 1);
 
         //Sorts and prints
         //b.test();
@@ -90,15 +136,6 @@ public class Main extends Application implements Runnable {
 
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-
-    /*
-    IRUNNABLE thread interface.
-     */
     @Override
     public void run() {
 
@@ -119,7 +156,6 @@ public class Main extends Application implements Runnable {
 
     }
 
-
     private void renderChanges() {
 
         /*
@@ -129,6 +165,11 @@ public class Main extends Application implements Runnable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+
+                if (isInt(tfSize)) {
+                    size = Integer.parseInt(tfSize.getText());
+                }
+
                 for (int row = 0; row < size; row++) {
                     for (int col = 0; col < size; col++) {
 
@@ -164,5 +205,5 @@ public class Main extends Application implements Runnable {
             }
         });
     }
-
 }
+
