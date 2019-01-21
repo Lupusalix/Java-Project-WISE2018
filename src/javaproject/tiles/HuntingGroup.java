@@ -41,11 +41,20 @@ public class HuntingGroup {
     }
 
     private void updateGrpPos() {
-        //TODO: update the group postion
+        if (groupMember.size() > 0) {
+            int x = 0, y = 0, int i;
+            for (; i < groupMember.size(); i++) {
+                x += groupMember.get(i).getPos().getX();
+                y += groupMember.get(i).getPos().getY();
+            }
+            x /= (i + 1);
+            y /= (i + 1);
+            this.position = new Position(x, y);
+        }
     }
 
     public void update() {
-        //TODO: Update group members if other pred inside group radius join grp
+        //TODO: Update group members if other pred inside group radius join grp and dissolve group if all members dead/no member
     }
 
 
