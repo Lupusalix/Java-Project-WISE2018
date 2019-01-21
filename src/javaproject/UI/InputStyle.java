@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -24,7 +26,7 @@ public class InputStyle implements Runnable {
    Currently only renders simulation, no extra windows. Should be separated into proper classes and not run in main.
     */
     //Base Gridpane used for rendering
-    GridPane root = new GridPane();
+
 
     //2D Array of rectangles (easy to change color) that we match with our engine array
     private StackPane[][] board;
@@ -58,6 +60,13 @@ public class InputStyle implements Runnable {
     @FXML
     private Button generate;
 
+    @FXML
+    private GridPane root;
+
+
+
+
+
     private boolean isInt(TextField text) {
         int x;
         try {
@@ -90,7 +99,6 @@ public class InputStyle implements Runnable {
         board = new StackPane[size][size];
 
 
-
         /*
         Creates the initial blank board to be filled with "Actors". Currently still has issues when window is scaled.
          */
@@ -113,8 +121,10 @@ public class InputStyle implements Runnable {
         }
 
 
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("Grid.fxml"));
         Stage stage = new Stage();
-        stage.setScene(new Scene(root, 800, 800));
+        stage.setScene(new Scene(fxmlLoader.load(), 800, 800));
         stage.setTitle("Simulation");
         stage.show();
 
