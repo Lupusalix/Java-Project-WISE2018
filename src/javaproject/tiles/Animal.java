@@ -177,7 +177,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      * @see fTUtil .
      */
     //Reformatted Code(getting rid of Code Duplication) for Following or escaping target
-    public Position followTarget(Animal target, boolean follow, boolean eatPrey) {
+    public Position followTarget(Position target, boolean follow, boolean eatPrey) {
         if (eatPrey) {
             ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
             return fTUtil(target, follow, surPos);
@@ -196,14 +196,14 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      * @param surPos a list of tiles surrounding this
      * @return returns the position to which the animal is moving now
      */
-    private Position fTUtil(Animal target, boolean follow, ArrayList<Position> surPos) {
+    private Position fTUtil(Position target, boolean follow, ArrayList<Position> surPos) {
         if (surPos.size() > 0) {
             Position erg = surPos.get(0);
             for (int i = 0; i < surPos.size(); i++) {
                 if (follow) {
-                    if (surPos.get(i).getDistance(target.getPos()) < erg.getDistance(target.getPos()))
+                    if (surPos.get(i).getDistance(target) < erg.getDistance(target))
                         erg = surPos.get(i);
-                } else if (surPos.get(i).getDistance(target.getPos()) > erg.getDistance(target.getPos()))
+                } else if (surPos.get(i).getDistance(target) > erg.getDistance(target))
                     erg = surPos.get(i);
             }
             return erg;

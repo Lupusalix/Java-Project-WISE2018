@@ -155,14 +155,12 @@ public class Predator extends Animal {
             }
 
             if (hasTarget()) {
-                return followTarget(this.target, true, true);
+                return followTarget(this.target.getPos(), true, true);
             } else return this.pos.getRandMovement();
         } else {
             //TODO:variable fo getting the target position and then moving there mit follow Target.
-            Position grpWPos this.huntingGroup.getPredPos(this);
-            //return followTarget(grpWPos,)
-
-            return null;
+            Position grpWPos = this.huntingGroup.getPredPos(this);
+            return followTarget(grpWPos, true, true);
 
         }
     }
@@ -205,13 +203,13 @@ public class Predator extends Animal {
      */
     private Position escape() {
         do {
-            BoardManager.move(followTarget(atttackedby, false, false), this);
+            BoardManager.move(followTarget(atttackedby.getPos(), false, false), this);
             this.setSpeed(this.getSpeed() - 1);
         } while (this.speed > 1);
         Animal at = this.atttackedby;
         this.atttackedby = null;
         this.attacked = false;
-        return followTarget(at, false, false);
+        return followTarget(at.getPos(), false, false);
     }
 
     private boolean hasTarget() {

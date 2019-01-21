@@ -42,8 +42,8 @@ public class HuntingGroup {
 
     private void updateGrpPos() {
         if (groupMember.size() > 0) {
-            int x = 0, y = 0, int i;
-            for (; i < groupMember.size(); i++) {
+            int x = 0, y = 0, i;
+            for (i = 0; i < groupMember.size(); i++) {
                 x += groupMember.get(i).getPos().getX();
                 y += groupMember.get(i).getPos().getY();
             }

@@ -2,8 +2,6 @@ package javaproject.tiles;
 
 import javaproject.BoardManager;
 
-import java.util.ArrayList;
-
 /**
  * @author Philipp.
  * @version 1.0.
@@ -74,7 +72,7 @@ public class Prey extends Animal {
 
         Animal runFrom = getNearest(false);
         if (runFrom != null) {
-            return followTarget(runFrom, false, false);
+            return followTarget(runFrom.getPos(), false, false);
         }
         return super.act();
     }
