@@ -30,13 +30,6 @@ public class Predator extends Animal {
     private Prey atttackedby;
 
     /**
-     * @return current starvation as an int.
-     */
-    public int getStarvation() {
-        return starvation;
-    }
-
-    /**
      * checks the current starvationlevel and deletes the predator if it starved.
      */
 
@@ -48,31 +41,10 @@ public class Predator extends Animal {
     }
 
     /**
-     * @return current health.
-     */
-    public int getHealth() {
-        return health;
-    }
-
-    /**
-     * @param health the new health we intend to set the predator to.
-     */
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    /**
      * @return the defence value.
      */
     public double getDefenceChance() {
         return defenceChance;
-    }
-
-    /**
-     * @param defenceChance sets the ne defchance.
-     */
-    public void setDefenceChance(double defenceChance) {
-        this.defenceChance = defenceChance;
     }
 
     /**
@@ -81,15 +53,6 @@ public class Predator extends Animal {
      */
     public Predator(Position pos, int sight) {
         this(pos, sight, 250, 0.7);
-    }
-
-    /**
-     * @param x     .
-     * @param y     .
-     * @param sight .
-     */
-    public Predator(int x, int y, int sight) {
-        this(new Position(x, y), sight, 250, 0.7);
     }
 
     /**

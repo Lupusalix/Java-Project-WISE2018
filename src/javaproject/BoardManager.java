@@ -15,7 +15,6 @@ public class BoardManager {
     private int genPrey;
     private int genereteXSeconds;
     private int preyTimer;
-    private Thread thread;
     private static int nutritionPerTick;
     private static int preyKilled;
     private static int predKilled;

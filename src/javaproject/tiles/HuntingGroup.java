@@ -10,18 +10,6 @@ public class HuntingGroup {
     private Prey groupTarget;
     private Position position;
 
-    public ArrayList<Predator> getGroupMember() {
-        return groupMember;
-    }
-
-    public void setGroupMember(ArrayList<Predator> groupMember) {
-        this.groupMember = groupMember;
-    }
-
-    public double getGroupRadius() {
-        return groupRadius;
-    }
-
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
         this.groupRadius = radius;
@@ -34,10 +22,6 @@ public class HuntingGroup {
 
     public void setGroupTarget(Prey groupTarget) {
         this.groupTarget = groupTarget;
-    }
-
-    public void setGroupRadius(int groupRadius) {
-        this.groupRadius = groupRadius;
     }
 
     private void updateGrpPos() {
