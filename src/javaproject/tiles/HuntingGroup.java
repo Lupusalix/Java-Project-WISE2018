@@ -83,16 +83,70 @@ public class HuntingGroup {
 
     }
 
+    /**
+     * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
+     * approaches.
+     *
+     * @return 'true' if the preds should chase the target to a corner or 'false' if they should chase it to a wall.
+     */
+
+    //public boolean getTactic() {
+    //   int tarX = groupTarget.getPos().getX();
+    //   int tarY = groupTarget.getPos().getY();
+    //   Position middle = grpMid();
+    //   int grpX = middle.getX();
+    //   int grpY = middle.getY();
+    //   int distanceX,distanceY,distanceMid=0,temp1,temp2;
+    //
+    //   if (tarX > grpX) {//right sight
+    //
+    //       if (tarY > grpY) {//upper right sight
+    //           distanceX = tarY-grpY;//distance to the imaginary X-axis
+    //           if(distanceX<0){
+    //               distanceX=distanceX*-1;
+    //           }
+    //           distanceY = tarX-grpX;//distance to the imaginary Y-Axis
+    //           if(distanceY<0){
+    //               distanceY=distanceX*-1;
+    //           }
+    //           temp1=grpX-tarX;
+    //           temp2=grpX-tarX;
+    //
+    //           if(temp1<temp2){
+    //               grpX=+temp1;
+    //               grpY=+temp1;
+    //               distanceMid=tarX-grpX; //distance to the imaginary Middle-Axis
+    //           }else{
+    //
+    //               if (temp2<temp1) {
+    //                   grpX = +temp2;
+    //                   grpY = +temp2;
+    //                    distanceMid = tarX - grpX; //distance to the imaginary Middle-Axis
+    //                }
+    //           }
+    //           if(distanceMid<=distanceX){
+    //               if(distanceMid<=distanceY){
+    //                   System.out.println("Chase to corner"); //Debug
+    //                   return true;
+    //
+    //               }
+    //           }
+    //           System.out.println("Chase to wall"); //Debug
+    //           return false;
+    //
+    //
+    //       } else {//lower right sight
+    //
+    //       }
+    //   } else {//left sight
+    //       if (tarY > grpY) {//upper left sight
+    //
+    //       } else {//lower left sight
+    //       }
+    //   }
+    //
     public void tatic() {
         int groupSize = groupMember.size();
-        int tarX = groupTarget.getPos().getX();
-        int tarY = groupTarget.getPos().getY();
-        Position middle = grpMid();
-        int grpX = middle.getX();
-        int grpY = middle.getY();
-
-
-        //determine the huning approach
 
 
     }
