@@ -2,6 +2,8 @@ package javaproject.tiles;
 
 import javaproject.BoardManager;
 
+import java.util.ArrayList;
+
 /**
  * @author Philipp.
  * @version 1.0.
@@ -60,7 +62,6 @@ public class Predator extends Animal {
     }
 
     /**
-     *
      * @return the defence value.
      */
     public double getDefenceChance() {
@@ -68,7 +69,6 @@ public class Predator extends Animal {
     }
 
     /**
-     *
      * @param defenceChance sets the ne defchance.
      */
     public void setDefenceChance(double defenceChance) {
@@ -76,8 +76,7 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param pos .
+     * @param pos   .
      * @param sight .
      */
     public Predator(Position pos, int sight) {
@@ -85,9 +84,8 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param x .
-     * @param y .
+     * @param x     .
+     * @param y     .
      * @param sight .
      */
     public Predator(int x, int y, int sight) {
@@ -95,10 +93,9 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param pos .
-     * @param sight .
-     * @param health .
+     * @param pos           .
+     * @param sight         .
+     * @param health        .
      * @param defenceChance .
      */
     public Predator(Position pos, int sight, int health, double defenceChance) {
@@ -116,8 +113,9 @@ public class Predator extends Animal {
     /**
      * This function is used to kill prey, extracted the nutration, clear the pred target
      * and call the preys .killed function
-     * @see Prey .
+     *
      * @param an the prey that is killed.
+     * @see Prey .
      */
     public void kill(Prey an) {
 
@@ -143,10 +141,10 @@ public class Predator extends Animal {
         //if no target search one
         if (!hasTarget()) {
             //search new Target
-            this.target = (Prey) getNearest(true);
+            this.target = getNearest(true);
             //searchTarget();
         } else if (!target.isAlive()) { //if target isn't alive search one
-            target = (Prey) getNearest(true);
+            target = getNearest(true);
         }
         if (huntingGroup == null) {
 
@@ -164,6 +162,24 @@ public class Predator extends Animal {
 
         }
     }
+
+    @Override
+    protected Prey getNearest(boolean prey) {
+        ArrayList<Prey> targets = inSight(prey);
+        if (targets.size() > 0) {
+            Prey erg = targets.get(0);
+            if (erg.getSize() > 1) howl(erg);
+            for (int i = 0; i < targets.size(); i++) {
+                if (erg.getSize() > 1) howl(erg);
+                if (targets.get(i).pos.getDistance(this.pos) < erg.pos.getDistance(this.pos)) {
+                    erg = targets.get(i);
+                }
+            }
+            return erg;
+        }
+        return null;
+    }
+
 
     public HuntingGroup getHuntingGroup() {
         return huntingGroup;
@@ -197,7 +213,6 @@ public class Predator extends Animal {
     }
 
     /**
-     *
      * @return the new position of the animal after it was attacked
      * @see Animal .
      */

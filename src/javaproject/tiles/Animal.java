@@ -184,7 +184,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      * @param follow  True: follow the target. false: flee from Target
      * @param eatPrey True: can move to Tiles with prey on it(eat the prey)
      * @return next Position to move to.
-     * @see fTUtil .
+     //* @see Animal.ftUtil .
      */
     //Reformatted Code(getting rid of Code Duplication) for Following or escaping target
     public Position followTarget(Position target, boolean follow, boolean eatPrey) {
@@ -250,36 +250,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      * @return and array list of prey or predators.
      */
     public ArrayList inSight(boolean isprey, int sight) {
-        int[] size = BoardManager.getSize();
-        ArrayList erg = new ArrayList();
-        //Set Sightrectangle inside the board
-        int startx, endx, starty, endy;
-
-        if (pos.getX() - sight < 0) startx = 0;
-        else startx = pos.getX() - sight;
-        if (pos.getX() + sight > size[0]) endx = size[0];
-        else endx = pos.getX() + sight;
-
-        if (pos.getY() - sight < 0) starty = 0;
-        else starty = pos.getY() - sight;
-        if (pos.getY() + sight > size[1]) endy = size[1];
-        else endy = pos.getY() + sight;
-
-        //Search the Sightrectangle
-        for (int i = startx; i < endx; i++) {
-            for (int j = starty; j < endy; j++) {
-                if (isprey) {
-                    if (BoardManager.getBoard()[i][j] instanceof Prey) {
-                        erg.add(BoardManager.getBoard()[i][j]);
-                    }
-                } else {
-                    if (BoardManager.getBoard()[i][j] instanceof Predator) {
-                        erg.add(BoardManager.getBoard()[i][j]);
-                    }
-                }
-            }
-        }
-        return erg;
+        return this.pos.inSight(isprey, sight);
     }
 
 

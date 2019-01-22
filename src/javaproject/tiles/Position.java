@@ -137,4 +137,38 @@ public class Position {
         return erg;
     }
 
+
+    public ArrayList inSight(boolean isprey, int sight) {
+        int[] size = BoardManager.getSize();
+        ArrayList erg = new ArrayList();
+        //Set Sightrectangle inside the board
+        int startx, endx, starty, endy;
+
+        if (x - sight < 0) startx = 0;
+        else startx = x - sight;
+        if (x + sight > size[0]) endx = size[0];
+        else endx = x + sight;
+
+        if (y - sight < 0) starty = 0;
+        else starty = y - sight;
+        if (y + sight > size[1]) endy = size[1];
+        else endy = y + sight;
+
+        //Search the Sightrectangle
+        for (int i = startx; i < endx; i++) {
+            for (int j = starty; j < endy; j++) {
+                if (isprey) {
+                    if (BoardManager.getBoard()[i][j] instanceof Prey) {
+                        erg.add(BoardManager.getBoard()[i][j]);
+                    }
+                } else {
+                    if (BoardManager.getBoard()[i][j] instanceof Predator) {
+                        erg.add(BoardManager.getBoard()[i][j]);
+                    }
+                }
+            }
+        }
+        return erg;
+    }
+
 }

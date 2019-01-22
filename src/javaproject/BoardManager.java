@@ -116,6 +116,7 @@ public class BoardManager {
         for (int i = 0; i < member.size(); i++) {
             member.get(i).setHuntingGroup(hg);
         }
+        hg.update();
     }
 
 
@@ -130,6 +131,7 @@ public class BoardManager {
         int oneSecond = (genereteXSeconds * 1000) / sleep;
         if (genPrey > 0 && preyTimer >= oneSecond) {
             generatePrey(genPrey);
+            Collections.sort(animals);
             preyTimer = 0;
         }
         preyTimer++;

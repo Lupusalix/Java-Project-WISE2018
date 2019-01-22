@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class HuntingGroup {
     private ArrayList<Predator> groupMember;
-    private double groupRadius;
+    private int groupRadius;
     private Prey groupTarget;
     private Position position;
 
@@ -22,8 +22,10 @@ public class HuntingGroup {
         return groupRadius;
     }
 
-    public void setGroupRadius(double groupRadius) {
-        this.groupRadius = groupRadius;
+    public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
+        this.groupMember = member;
+        this.groupRadius = radius;
+        this.groupTarget = target;
     }
 
     public Prey getGroupTarget() {
@@ -34,10 +36,8 @@ public class HuntingGroup {
         this.groupTarget = groupTarget;
     }
 
-    public HuntingGroup(ArrayList<Predator> member, double radius, Prey target) {
-        this.groupMember = member;
-        this.groupRadius = radius;
-        this.groupTarget = target;
+    public void setGroupRadius(int groupRadius) {
+        this.groupRadius = groupRadius;
     }
 
     private void updateGrpPos() {
@@ -55,6 +55,18 @@ public class HuntingGroup {
 
     public void update() {
         //TODO: Update group members if other pred inside group radius join grp and dissolve group if all members dead/no member
+        if (groupMember.size() > 1) {
+            updateGrpPos();
+            joinPredInRad();
+
+        } else BoardManager.delGrp(this);
+    }
+
+    private void joinPredInRad() {
+        ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
+        for (Predator x : preds) {
+            x.joinGrp(this);
+        }
     }
 
 
