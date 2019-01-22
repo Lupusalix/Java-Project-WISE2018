@@ -137,10 +137,10 @@ public class BoardManager {
         nutritionPerTick = 0;
         predKilled = 0;
         preyKilled = 0;
-        //TODO: update grps
+
 
         for (int i = 0; i < groups.size(); i++) {
-            groups.get(i).update();
+            groups.get(i).update(); //updating the groups
         }
 
 
