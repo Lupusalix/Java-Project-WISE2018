@@ -152,8 +152,12 @@ public class BoardManager {
                 if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
                     if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
                         ((Predator) an).kill((Prey) bGetPos(pos));
-
                     }
+                    if (bGetPos(pos) instanceof Predator && an instanceof Prey) {
+                        ((Prey) an).attack((Predator) bGetPos(pos));
+                    }
+
+
                     move(pos, an);
                     an.setSpeed(an.getSpeed() - 1);
                 }

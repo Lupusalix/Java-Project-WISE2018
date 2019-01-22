@@ -124,6 +124,10 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     public Position act() {
         return pos.getRandMovement();
+        /*Position x = pos.getRandMovement();
+        if (!(BoardManager.bGetPos(x) instanceof Prey) && !(BoardManager.bGetPos(x) instanceof Predator)) {
+            return x;
+        } else return pos;*/
     }
 
     /**

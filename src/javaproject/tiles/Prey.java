@@ -2,6 +2,8 @@ package javaproject.tiles;
 
 import javaproject.BoardManager;
 
+import java.util.ArrayList;
+
 /**
  * @author Philipp.
  * @version 1.0.
@@ -48,6 +50,7 @@ public class Prey extends Animal {
 
     /**
      * method emant for attacking predators.
+     *
      * @param pred the oredator to attack.
      */
     public void attack(Predator pred) {
@@ -59,23 +62,24 @@ public class Prey extends Animal {
 
     /**
      * Method to determine how the prey is going to act, if its trying to flee or attack the pred.
+     *
      * @return the Position of the prey after it acted.
      */
     @Override
     public Position act() {
         //Check if Predators are in sight
+        ArrayList preds = inSight(false);
 
-
-        /*if (this.size > 1 && predInSight.size() > 0) {
-            //TODO: Large Prey Attacking Logic
-        }*/
-
+        if (this.size > 1 && preds.size() > 0) {
+            if (preds.size() < this.size) {
+                return followTarget(getNearest(false).getPos(), true, false); //if Predators in Sight able to attack attack
+            }
+        }
         Animal runFrom = getNearest(false);
         if (runFrom != null) {
             return followTarget(runFrom.getPos(), false, false);
         }
         return super.act();
     }
-
 
 }
