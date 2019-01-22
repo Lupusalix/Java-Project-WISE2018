@@ -70,7 +70,6 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     }
 
     /**
-     *
      * @param alive boolean para, that sets the status for alive or dead.
      */
     public void setAlive(boolean alive) {
@@ -78,7 +77,6 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     }
 
     /**
-     *
      * @return current init-value.
      */
     public double getInitiative() {
@@ -86,7 +84,6 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     }
 
     /**
-     *
      * @return current position
      */
     public Position getPos() {
@@ -95,6 +92,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * sets new position.
+     *
      * @param pos new position.
      */
     public void setPos(Position pos) {
@@ -103,6 +101,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * returns the sight.
+     *
      * @return sight as a double.
      */
     public double getSight() {
@@ -111,6 +110,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * sets sight to the param.
+     *
      * @param sight new sight.
      */
     public void setSight(int sight) {
@@ -119,6 +119,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * makes the animal move rnd.
+     *
      * @return new rnd position.
      */
 
@@ -132,6 +133,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * kills the target animal.
+     *
      * @param an target to kill.
      */
     public void kill(Animal an) {
@@ -140,6 +142,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * sets the animal alive value to 'false' and deletes the animal from the board
+     *
      * @see BoardManager .
      */
     public void killed() {
@@ -149,6 +152,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * gets the current speed value.
+     *
      * @return current speed as an int.
      */
     public int getSpeed() {
@@ -157,6 +161,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * sets speed to the new param.
+     *
      * @param speed new speed value.
      */
     public void setSpeed(int speed) {
@@ -165,6 +170,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
 
     /**
      * gets the max speed.
+     *
      * @return speedMax value.
      */
     public int getSpeedMax() {
@@ -235,9 +241,11 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     public ArrayList inSight(boolean isPrey) {
         return inSight(isPrey, this.sight);
     }
+
     /**
      * checks according to the sight value of the andimal and
      * returns Arraylist of prey or predators according to boolean.
+     *
      * @param isprey .
      * @return and array list of prey or predators.
      */
