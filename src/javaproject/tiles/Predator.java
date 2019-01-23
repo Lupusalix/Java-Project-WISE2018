@@ -89,6 +89,13 @@ public class Predator extends Animal {
         an.killed();
     }
 
+    @Override
+    public void killed() {
+        this.alive = false;
+        if (huntingGroup != null) this.huntingGroup.delPred(this);
+        BoardManager.delete(this);
+    }
+
     /**
      * The function is meant to help the pred decide what to do next. it generates a random movement if its health
      * is equal to its starvation. if it doesn't has a target its starting to look for a new one or helpes it look for
@@ -119,7 +126,6 @@ public class Predator extends Animal {
                 return followTarget(this.target.getPos(), true, true);
             } else return this.pos.getRandMovement();
         } else {
-            //TODO:variable fo getting the target position and then moving there mit follow Target.
             Position grpWPos = this.huntingGroup.getPredPos(this);
             return followTarget(grpWPos, true, true);
 

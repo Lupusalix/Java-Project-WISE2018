@@ -38,7 +38,6 @@ public class HuntingGroup {
     }
 
     public void update() {
-        //TODO: Update group members if other pred inside group radius join grp and dissolve group if all members dead/no member
         if (groupMember.size() > 1) {
             updateGrpPos();
             joinPredInRad();
@@ -53,6 +52,9 @@ public class HuntingGroup {
         }
     }
 
+    public void delPred(Predator pred) {
+        groupMember.remove(pred);
+    }
 
     public Position getPredPos(Predator predator) {
         int[] a = BoardManager.getSize();
