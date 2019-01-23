@@ -68,10 +68,9 @@ public class GridController implements Runnable{
                 Binds the size of the individual javaproject.tiles to the window size, has some issues
                  */
 
-                tile.widthProperty().set(10);
-                tile.heightProperty().set(10);
-//                tile.widthProperty().bind(root.widthProperty().divide(size));
-//                tile.heightProperty().bind(root.heightProperty().divide(size));
+
+                tile.widthProperty().bind(root.widthProperty().divide(size));
+                tile.heightProperty().bind(root.heightProperty().divide(size));
             }
 
         }

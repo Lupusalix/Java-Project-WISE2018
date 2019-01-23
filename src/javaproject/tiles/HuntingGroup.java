@@ -90,61 +90,123 @@ public class HuntingGroup {
      * @return 'true' if the preds should chase the target to a corner or 'false' if they should chase it to a wall.
      */
 
-    //public boolean getTactic() {
-    //   int tarX = groupTarget.getPos().getX();
-    //   int tarY = groupTarget.getPos().getY();
-    //   Position middle = grpMid();
-    //   int grpX = middle.getX();
-    //   int grpY = middle.getY();
-    //   int distanceX,distanceY,distanceMid=0,temp1,temp2;
-    //
-    //   if (tarX > grpX) {//right sight
-    //
-    //       if (tarY > grpY) {//upper right sight
-    //           distanceX = tarY-grpY;//distance to the imaginary X-axis
-    //           if(distanceX<0){
-    //               distanceX=distanceX*-1;
-    //           }
-    //           distanceY = tarX-grpX;//distance to the imaginary Y-Axis
-    //           if(distanceY<0){
-    //               distanceY=distanceX*-1;
-    //           }
-    //           temp1=grpX-tarX;
-    //           temp2=grpX-tarX;
-    //
-    //           if(temp1<temp2){
-    //               grpX=+temp1;
-    //               grpY=+temp1;
-    //               distanceMid=tarX-grpX; //distance to the imaginary Middle-Axis
-    //           }else{
-    //
-    //               if (temp2<temp1) {
-    //                   grpX = +temp2;
-    //                   grpY = +temp2;
-    //                    distanceMid = tarX - grpX; //distance to the imaginary Middle-Axis
-    //                }
-    //           }
-    //           if(distanceMid<=distanceX){
-    //               if(distanceMid<=distanceY){
-    //                   System.out.println("Chase to corner"); //Debug
-    //                   return true;
-    //
-    //               }
-    //           }
-    //           System.out.println("Chase to wall"); //Debug
-    //           return false;
-    //
-    //
-    //       } else {//lower right sight
-    //
-    //       }
-    //   } else {//left sight
-    //       if (tarY > grpY) {//upper left sight
-    //
-    //       } else {//lower left sight
-    //       }
-    //   }
-    //
+    //TODO: think about returning an integer designated to chasing the prey a certain way instead of a boolean
+    public boolean getTactic() {
+
+
+        int tarX = groupTarget.getPos().getX();
+        int tarY = groupTarget.getPos().getY();
+        Position middle = grpMid();
+        int grpX = middle.getX();
+        int grpY = middle.getY();
+        int distanceX, distanceY, distanceMid = 0, temp1, temp2;
+
+        if (tarY == grpY) return false;
+        if (tarX == grpX) return false;
+
+        if (tarX > grpX) {//right sight
+
+            if (tarY > grpY) {//upper right sight
+
+                distanceX = tarY - grpY;//distance to the imaginary X-axis
+                if (distanceX < 0) {
+                    distanceX = distanceX * -1;
+                }
+                distanceY = tarX - grpX;//distance to the imaginary Y-Axis
+                if (distanceY < 0) {
+                    distanceY = distanceY * -1;
+                }
+                temp1 = tarX - grpX;
+
+                grpY = +temp1;
+                distanceMid = tarY - grpY; //distance to the imaginary Middle-Axis
+
+                if (distanceMid < 0) {
+                    distanceMid = distanceX * -1;
+                }
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return true;
+
+                    }
+                }
+                System.out.println("Chase to wall"); //Debug
+                return false;
+
+
+            } else {//lower right sight
+
+                distanceX = grpY - tarY;
+
+                distanceY = tarX - grpX;
+
+                temp1 = distanceX + grpX;
+                distanceMid = tarX - temp1;
+
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return true;
+
+                    }
+                }
+                System.out.println("Chase to wall"); //Debug
+                return false;
+
+
+            }
+        } else {//left sight
+
+            if (tarY > grpY) {//upper left sight
+
+                distanceY = grpX - grpY;
+
+                distanceX = tarY - grpY;
+
+                temp1 = grpY + distanceY;
+                distanceMid = tarY - temp1;
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid < 0) {
+                    distanceMid = distanceX * -1;
+                }
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return true;
+
+                    }
+                }
+                System.out.println("Chase to wall"); //Debug
+                return false;
+            } else {//lower left sight
+
+                distanceX = grpY - tarY;
+
+                distanceY = grpX - tarX;
+
+                temp1 = tarY - distanceY;
+                distanceMid = temp1 - tarX;
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return true;
+
+                    }
+                }
+                System.out.println("Chase to wall"); //Debug
+                return false;
+            }
+        }
+
+    }
+
+
     public void tatic() {
         int groupSize = groupMember.size();
 

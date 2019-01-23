@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("Input_style.fxml"));
         primaryStage.setTitle("Input");
         primaryStage.setScene(new Scene(root, 700, 405));

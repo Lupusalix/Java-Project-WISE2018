@@ -28,6 +28,12 @@ public class InputStyle {
     @FXML
     private Button generate;
 
+    /**
+     * checks if the enetered string is an integer.
+     *
+     * @param text the textfield to check.
+     * @return false if not an integer.
+     */
 
     private boolean isInt(TextField text) {
         int x;
@@ -49,7 +55,7 @@ public class InputStyle {
         GridController controller = fxmlLoader.getController();
 
         Stage stage = new Stage();
-        stage.setScene(new Scene(root3, 800, 800));
+        stage.setScene(new Scene(root3, 1720, 1080));
         stage.setTitle("Simulation");
         stage.show();
 
