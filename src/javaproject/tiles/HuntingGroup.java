@@ -4,7 +4,6 @@ import javaproject.BoardManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author Philipp.
@@ -24,6 +23,7 @@ public class HuntingGroup {
      */
 
     private ArrayList<Predator> groupMember;
+    private ArrayList<SubGroup> subGroups;
     private int groupRadius;
     private Prey groupTarget;
     private Position position;
@@ -44,13 +44,6 @@ public class HuntingGroup {
     public void setGroupTarget(Prey groupTarget) {
         this.groupTarget = groupTarget;
     }
-
-    public HuntingGroup(ArrayList<Predator> member, double radius, Prey target) {
-        this.groupMember = member;
-        this.groupRadius = radius;
-        this.groupTarget = target;
-    }
-
 
     /**
      * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
@@ -210,17 +203,23 @@ public class HuntingGroup {
             y /= (i + 1);
             this.position = new Position(x, y);
         }
+        //TODO:Update from subgroups @philipp
     }
 
     public void update() {
         if (groupMember.size() > 1) {
             updateGrpPos();
             joinPredInRad();
+            //TODO:Subgroups @philipp
+            //TODO:Upodate tactics getrelativepostion -> Update subgroup target pos @ühilipp
 
         } else BoardManager.delGrp(this);
+        //TODO:Delete Subgroups @ophilipp
     }
 
     private void joinPredInRad() {
+
+        //TODO:if subgroups -> no @philipp
         ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
         for (Predator x : preds) {
             x.joinGrp(this);
@@ -231,12 +230,18 @@ public class HuntingGroup {
         groupMember.remove(pred);
     }
 
+    private void formSubGroups() {
+        //TODO: form Subgroups put Predator to its corresponding subgroup @henry
+
+
+    }
+
     public Position getPredPos(Predator predator) {
         int[] a = BoardManager.getSize();
         return Position.ranPos(a[0], a[1]);
 
-
-        //TODO:Grouppredator positioning for the predator X!
+        //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
+        //TODO: @henry Grouppredator positioning for the predator X!
         /*
 
         for pred in member ( index of)

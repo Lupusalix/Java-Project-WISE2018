@@ -81,7 +81,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length); //Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) { //Check if Position is free
-                    Predator pred = new Predator(pos, 10); //Create Predator
+                    Predator pred = new Predator(pos, 12); //Create Predator
                     board[pos.getX()][pos.getY()] = pred; //Place Predator
                     animals.add(pred);
                     predators.add(pred); //Add Pred to the lists
@@ -108,7 +108,7 @@ public class BoardManager {
 
 
     public static void buildGroup(Predator predator, Prey target) {
-        int grpRad = 15;
+        int grpRad = 5;
         ArrayList<Predator> member = predator.inSight(false, grpRad);
         HuntingGroup hg = new HuntingGroup(member, grpRad, target);
         groups.add(hg);
@@ -151,6 +151,7 @@ public class BoardManager {
             do {
                 Position pos = an.act();
                 if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
+                    //TODO: @Philipp Group kills
                     if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
                         ((Predator) an).kill((Prey) bGetPos(pos));
                     }
