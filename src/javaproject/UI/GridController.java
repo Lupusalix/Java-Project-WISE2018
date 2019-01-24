@@ -15,6 +15,10 @@ import javaproject.tiles.EmptyTile;
 import javaproject.tiles.Predator;
 import javaproject.tiles.Prey;
 
+/**
+ * @author Henry.
+ * the controller class for the grid as defined in our grid.fxml.
+ */
 public class GridController implements Runnable{
 
 /*
@@ -39,7 +43,9 @@ public class GridController implements Runnable{
      int size = 0;
 
     BoardManager b;
-
+    /**
+     * the elements of the Simulation GUI.
+     */
     @FXML
     private Slider sleepSlider;
 
@@ -60,7 +66,11 @@ public class GridController implements Runnable{
     @FXML
     private CheckBox showGrid;
 
-
+    /**
+     * handles the speed of the Simulation.
+     *
+     * @param event on movement of the slider.
+     */
     @FXML
     void onDroped(MouseEvent event) {
         double x= ((sleepSlider.getValue()));
@@ -68,10 +78,19 @@ public class GridController implements Runnable{
         System.out.println("I WAS CALLED AMK");
     }
 
+    /**
+     * setter methode.
+     * @param sleep new sleep.
+     */
     public void setSleep(int sleep) {
         this.sleep = sleep;
     }
 
+    /**
+     * is called everytime the user interacts with the checkbox and turns the gridlines on/off.
+     *
+     * @param event on checkbox interaction.
+     */
     @FXML
     void enableLines(ActionEvent event) {
         root.setGridLinesVisible(showGrid.isSelected());
@@ -79,6 +98,17 @@ public class GridController implements Runnable{
 
     }
 
+    /**
+     * sets the statistics-Textfields in the GUI.
+     *
+     * @param predKilled killed predators.
+     * @param preyKilled killed prey.
+     * @param nutKilled Nutrition gained.
+     * @param it    number of completed iterations of BoardManager.tick.
+     *      @see BoardManager .
+     * @param preyA number of alive prey.
+     * @param predA number of alive pred.
+     */
     @FXML
     void setStatistics(int predKilled, int preyKilled,int nutKilled,int it,int preyA,int predA){
         killsTotal.setText(Integer.toString((predKilled+preyKilled)));
@@ -88,6 +118,14 @@ public class GridController implements Runnable{
         predAlive.setText(Integer.toString(predA));
     }
 
+    /**
+     * handles the generation of the simulation/gridPane.
+     *
+     * @param size size of one side of the Gridpane.
+     * @param predator number of predators to spawn-
+     * @param prey number of prey to spawn.
+     * @throws Exception .
+     */
     public void onGenerate(int size, int predator, int prey) throws Exception {
 
 
@@ -138,6 +176,11 @@ public class GridController implements Runnable{
     }
 
     @Override
+
+    /**
+     * the loop that is done for every iteration of our program.
+     *
+      */
     public void run() {
 
         while (true) {
@@ -162,6 +205,11 @@ public class GridController implements Runnable{
 
     }
 
+    /**
+     * this methgod resembles our connection between the gridpane and our board, it checks every position on our Board
+     * and changes the color of the matching place on our gridpane thus making the grid resemble our actual Board.
+     * @see BoardManager .
+     */
     private void renderChanges() {
 
         /*
