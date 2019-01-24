@@ -176,7 +176,8 @@ public class BoardManager {
                 if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
                     //TODO: @Philipp Group kills
                     if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
-                        ((Predator) an).kill((Prey) bGetPos(pos));
+                        if (((Prey) bGetPos(pos)).getSize() > 1 && ((Predator) an).getHuntingGroup().getSize() > ((Prey) bGetPos(pos)).getSize())
+                            ((Predator) an).kill((Prey) bGetPos(pos));
                     }
                     if (bGetPos(pos) instanceof Predator && an instanceof Prey) {
                         ((Prey) an).attack((Predator) bGetPos(pos));

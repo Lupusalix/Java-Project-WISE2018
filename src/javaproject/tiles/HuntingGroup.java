@@ -220,12 +220,17 @@ public class HuntingGroup {
         if (groupMember.size() > 1) {
             updateGrpPos();
             joinPredInRad();
-            //TODO:Subgroups @philipp
             //TODO:Upodate tactics getrelativepostion -> Update subgroup target pos @ühilipp
-
-        } else BoardManager.delGrp(this);
+        } else {
+            for (SubGroup s : subGroups) {
+                s.update();
+            }
+            updateGrpPos();
+        }
+        if (groupMember.size() == 0 && subGroups.size() == 0) BoardManager.delGrp(this);
         //TODO:Delete Subgroups @ophilipp
     }
+
 
     private void joinPredInRad() {
 
@@ -262,5 +267,10 @@ public class HuntingGroup {
 
     protected void delSubGroup(SubGroup subGroup) {
         this.subGroups.remove(subGroup);
+    }
+
+    public int getSize() {
+        //TODO: Return group size with subgroups
+        return 0;
     }
 }
