@@ -3,12 +3,33 @@ package javaproject.tiles;
 import javaproject.BoardManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * @Author Philipp.
+ * @Author Henry.
+ * <p>
+ * This Class contains the logic for finding, building and hunting in and with groups.
+ */
 public class HuntingGroup {
+
+    /**
+     * groupMember: An Arraylist containing all the members of the Huntinggroup.
+     * groupRadius: the arrea in which the gorup has vision.
+     * groupTarget: the (large) prey the group is currently hunting.
+     * position:
+     * ready: an Hashmap indicating for every predator if it arrived on its targetposition and if it is ready to attack.
+     * targetPos: an Hashmap that contains the target position for every Predator.
+     */
+
     private ArrayList<Predator> groupMember;
     private int groupRadius;
     private Prey groupTarget;
     private Position position;
+    private HashMap <Predator, Boolean> ready = new HashMap <>();
+    private HashMap <Predator, Position> targetPos = new HashMap <>();
+
 
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
@@ -22,6 +43,160 @@ public class HuntingGroup {
 
     public void setGroupTarget(Prey groupTarget) {
         this.groupTarget = groupTarget;
+    }
+
+    public HuntingGroup(ArrayList<Predator> member, double radius, Prey target) {
+        this.groupMember = member;
+        this.groupRadius = radius;
+        this.groupTarget = target;
+    }
+
+
+    /**
+     * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
+     * approaches.
+     *
+     * @return returns an integer 1-8 to determine where to chase the animal to depending on it's relativ position.
+     *
+     * 1: chase to top middle.
+     * 2:chase to top-right-corner.
+     * 3:chase to right middle.
+     * 4:chas eto bottom-left-corner.
+     * 5:chase to bottom middle.
+     * 6:chase to bottom left corner.
+     * 7:chase to left middle.
+     * 8:chase to top-left corner.
+     */
+
+    //TODO: think about returning an integer designated to chasing the prey a certain way instead of a boolean
+    public int getTactic() {
+
+
+        int tarX = groupTarget.getPos().getX();
+        int tarY = groupTarget.getPos().getY();
+        updateGrpPos();
+        int grpX = this.position.getX();
+        int grpY = this.position.getY();
+        int distanceX, distanceY, distanceMid = 0, temp1, temp2;
+
+        if (tarY == grpY){
+            if(tarY<grpY)return 5;
+            else return 1;
+        }
+        if (tarX == grpX) {
+            if(tarX<grpY) return 7;
+            else return 3;
+        }
+
+        if (tarX > grpX) {//right sight
+
+            if (tarY > grpY) {//upper right sight
+
+                distanceX = tarY - grpY;//distance to the imaginary X-axis
+                if (distanceX < 0) {
+                    distanceX = distanceX * -1;
+                }
+                distanceY = tarX - grpX;//distance to the imaginary Y-Axis
+                if (distanceY < 0) {
+                    distanceY = distanceY * -1;
+                }
+                temp1 = tarX - grpX;
+
+                grpY = +temp1;
+                distanceMid = tarY - grpY; //distance to the imaginary Middle-Axis
+
+                if (distanceMid < 0) {
+                    distanceMid = distanceX * -1;
+                }
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return 2;
+
+                    }
+                }else{
+                    if(distanceX<distanceY)return 3;
+                }return 1;
+
+
+
+            } else {//lower right sight
+
+                distanceX = grpY - tarY;
+
+                distanceY = tarX - grpX;
+
+                temp1 = distanceX + grpX;
+                distanceMid = tarX - temp1;
+
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return 4;
+
+                    }
+                }else{
+                    if(distanceX<distanceY)return 3;
+                }return 5;
+
+
+
+            }
+        } else {//left sight
+
+            if (tarY > grpY) {//upper left sight
+
+                distanceY = grpX - grpY;
+
+                distanceX = tarY - grpY;
+
+                temp1 = grpY + distanceY;
+                distanceMid = tarY - temp1;
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid < 0) {
+                    distanceMid = distanceX * -1;
+                }
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return 8;
+
+                    }
+                }else{
+                    if(distanceX<distanceY)return 7;
+                }return 1;
+            } else {//lower left sight
+
+                distanceX = grpY - tarY;
+
+                distanceY = grpX - tarX;
+
+                temp1 = tarY - distanceY;
+                distanceMid = temp1 - tarX;
+                if (distanceMid < 0) distanceMid = distanceMid * -1;
+
+                if (distanceMid <= distanceX) {
+                    if (distanceMid <= distanceY) {
+                        System.out.println("Chase to corner"); //Debug
+                        return 6;
+
+                    }
+                }else{
+                    if(distanceX<distanceY)return 7;
+                }return 5;
+            }
+        }
+
+    }
+
+
+    public void tatic() {
+        int groupSize = groupMember.size();
+
+
     }
 
     private void updateGrpPos() {

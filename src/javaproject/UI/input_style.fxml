@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="javaproject.UI.InputStyle">
+    <children>
+        <TextField fx:id="tfSize" layoutX="226.0" layoutY="91.0" promptText="Size"/>
+        <TextField fx:id="tfPrey" layoutX="227.0" layoutY="165.0" promptText="Prey"/>
+        <TextField fx:id="tfPred" layoutX="227.0" layoutY="140.0" promptText="Predators"/>
+        <Text layoutX="284.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Board"/>
+        <Text layoutX="283.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players"/>
+        <Button fx:id="generate" layoutX="274.0" layoutY="219.0" mnemonicParsing="false" onAction="#handle_generate"
+                text="Generate"/>
+        <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <RadioButton fx:id="rbSpawn" layoutX="256.0" layoutY="192.0" mnemonicParsing="false" text="Spawnprey"/>
+    </children>
+</AnchorPane>

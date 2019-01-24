@@ -80,6 +80,7 @@ public class Predator extends Animal {
      * @param an the prey that is killed.
      * @see Prey .
      */
+
     public void kill(Prey an) {
 
         this.starvation += an.getNutrition();
