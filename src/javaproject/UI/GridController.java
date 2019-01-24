@@ -3,13 +3,13 @@ package javaproject.UI;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javaproject.BoardManager;
 import javaproject.tiles.EmptyTile;
 import javaproject.tiles.Predator;
@@ -36,14 +36,57 @@ public class GridController implements Runnable{
 
     private int sleep = 100;
 
-    int size = 0;
+     int size = 0;
 
     BoardManager b;
 
+    @FXML
+    private Slider sleepSlider;
 
     @FXML
     private GridPane root;
+    @FXML
+    private Text killsAvrg;
 
+    @FXML
+    private Text predAlive;
+
+    @FXML
+    private Text preyAlive;
+
+    @FXML
+    private Text killsTotal;
+
+    @FXML
+    private CheckBox showGrid;
+
+
+    @FXML
+    void onDroped(MouseEvent event) {
+        double x= ((sleepSlider.getValue()));
+        setSleep(((int) x));
+        System.out.println("I WAS CALLED AMK");
+    }
+
+    public void setSleep(int sleep) {
+        this.sleep = sleep;
+    }
+
+    @FXML
+    void enableLines(ActionEvent event) {
+        root.setGridLinesVisible(showGrid.isSelected());
+
+
+    }
+
+    @FXML
+    void setStatistics(int predKilled, int preyKilled,int nutKilled,int it,int preyA,int predA){
+        killsTotal.setText(Integer.toString((predKilled+preyKilled)));
+        double killAvrg=( (double)predKilled+(double)predKilled)/it;
+        killsAvrg.setText(Double.toString(killAvrg));
+        preyAlive.setText(Integer.toString(preyA));
+        predAlive.setText(Integer.toString(predA));
+    }
 
     public void onGenerate(int size, int predator, int prey) throws Exception {
 
@@ -114,6 +157,11 @@ public class GridController implements Runnable{
 
     }
 
+    private void displayStatistics(int predKilled,int preyKilled,int nutritionPI,int iterations){
+
+
+    }
+
     private void renderChanges() {
 
         /*
@@ -157,7 +205,12 @@ public class GridController implements Runnable{
                         }
                     }
                 }
+
+                setStatistics(b.getPredKilled(),b.getPreyKilled(),b.getNutritionPerTick(),b.getIteration(),b.getPreySize(),b.getPredSize());
+
             }
+
+
         });
     }
 }
