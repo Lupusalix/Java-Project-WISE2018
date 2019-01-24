@@ -14,6 +14,7 @@ public class SubGroup extends HuntingGroup {
         this.group = group;
     }
 
+
     @Override
     public Position getPredPos(Predator predator) {
         int[] a = BoardManager.getSize();

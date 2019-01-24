@@ -22,14 +22,17 @@ public class HuntingGroup {
      * targetPos: an Hashmap that contains the target position for every Predator.
      */
 
-    private ArrayList<Predator> groupMember;
+    protected ArrayList<Predator> groupMember;
     private ArrayList<SubGroup> subGroups;
-    private int groupRadius;
-    private Prey groupTarget;
-    private Position position;
-    private HashMap <Predator, Boolean> ready = new HashMap <>();
-    private HashMap <Predator, Position> targetPos = new HashMap <>();
+    protected int groupRadius;
+    protected Prey groupTarget;
+    protected Position position;
+    protected HashMap<Predator, Boolean> ready = new HashMap<>();
+    protected HashMap<Predator, Position> targetPos = new HashMap<>();
 
+    public Position getPosition() {
+        return this.position;
+    }
 
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
@@ -192,7 +195,7 @@ public class HuntingGroup {
 
     }
 
-    private void updateGrpPos() {
+    protected void updateGrpPos() {
         if (groupMember.size() > 0) {
             int x = 0, y = 0, i;
             for (i = 0; i < groupMember.size(); i++) {
@@ -202,8 +205,15 @@ public class HuntingGroup {
             x /= (i + 1);
             y /= (i + 1);
             this.position = new Position(x, y);
+        } else {
+            int x = 0, y = 0, i;
+            for (i = 0; i < subGroups.size(); i++) {
+                x += subGroups.get(i).getPosition().getX();
+                y += subGroups.get(i).getPosition().getY();
+            }
+            x /= (i + 1);
+            y /= (i + 1);
         }
-        //TODO:Update from subgroups @philipp
     }
 
     public void update() {
@@ -248,5 +258,9 @@ public class HuntingGroup {
 
         pred i move to x
          */
+    }
+
+    protected void delSubGroup(SubGroup subGroup) {
+        this.subGroups.remove(subGroup);
     }
 }
