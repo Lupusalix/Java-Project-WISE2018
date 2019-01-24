@@ -87,11 +87,20 @@ public class HuntingGroup {
      * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
      * approaches.
      *
-     * @return 'true' if the preds should chase the target to a corner or 'false' if they should chase it to a wall.
+     * @return returns an integer 1-8 to determine where to chase the animal to depending on it's relativ position.
+     *
+     * 1: chase to top middle.
+     * 2:chase to top-right-corner.
+     * 3:chase to right middle.
+     * 4:chas eto bottom-left-corner.
+     * 5:chase to bottom middle.
+     * 6:chase to bottom left corner.
+     * 7:chase to left middle.
+     * 8:chase to top-left corner.
      */
 
     //TODO: think about returning an integer designated to chasing the prey a certain way instead of a boolean
-    public boolean getTactic() {
+    public int getTactic() {
 
 
         int tarX = groupTarget.getPos().getX();
@@ -101,8 +110,14 @@ public class HuntingGroup {
         int grpY = middle.getY();
         int distanceX, distanceY, distanceMid = 0, temp1, temp2;
 
-        if (tarY == grpY) return false;
-        if (tarX == grpX) return false;
+        if (tarY == grpY){
+            if(tarY<grpY)return 5;
+            else return 1;
+        }
+        if (tarX == grpX) {
+            if(tarX<grpY) return 7;
+            else return 3;
+        }
 
         if (tarX > grpX) {//right sight
 
@@ -127,12 +142,13 @@ public class HuntingGroup {
                 if (distanceMid <= distanceX) {
                     if (distanceMid <= distanceY) {
                         System.out.println("Chase to corner"); //Debug
-                        return true;
+                        return 2;
 
                     }
-                }
-                System.out.println("Chase to wall"); //Debug
-                return false;
+                }else{
+                    if(distanceX<distanceY)return 3;
+                }return 1;
+
 
 
             } else {//lower right sight
@@ -149,12 +165,13 @@ public class HuntingGroup {
                 if (distanceMid <= distanceX) {
                     if (distanceMid <= distanceY) {
                         System.out.println("Chase to corner"); //Debug
-                        return true;
+                        return 4;
 
                     }
-                }
-                System.out.println("Chase to wall"); //Debug
-                return false;
+                }else{
+                    if(distanceX<distanceY)return 3;
+                }return 5;
+
 
 
             }
@@ -176,12 +193,12 @@ public class HuntingGroup {
                 if (distanceMid <= distanceX) {
                     if (distanceMid <= distanceY) {
                         System.out.println("Chase to corner"); //Debug
-                        return true;
+                        return 8;
 
                     }
-                }
-                System.out.println("Chase to wall"); //Debug
-                return false;
+                }else{
+                    if(distanceX<distanceY)return 7;
+                }return 1;
             } else {//lower left sight
 
                 distanceX = grpY - tarY;
@@ -195,12 +212,12 @@ public class HuntingGroup {
                 if (distanceMid <= distanceX) {
                     if (distanceMid <= distanceY) {
                         System.out.println("Chase to corner"); //Debug
-                        return true;
+                        return 6;
 
                     }
-                }
-                System.out.println("Chase to wall"); //Debug
-                return false;
+                }else{
+                    if(distanceX<distanceY)return 7;
+                }return 5;
             }
         }
 
