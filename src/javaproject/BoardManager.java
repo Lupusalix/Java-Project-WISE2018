@@ -15,9 +15,35 @@ public class BoardManager {
     private int genPrey;
     private int genereteXSeconds;
     private int preyTimer;
-    private static int nutritionPerTick;
+    private static int nutritionPerTick=0;
     private static int preyKilled;
     private static int predKilled;
+    private int iteration=0;
+
+    public static int getNutritionPerTick() {
+        return nutritionPerTick;
+    }
+
+    public static int getPreyKilled() {
+        return preyKilled;
+    }
+
+    public static int getPredKilled() {
+        return predKilled;
+    }
+
+    public int getIteration() {
+        return iteration;
+    }
+
+    public int getPreySize() {
+        return prey.size();
+    }
+
+    public int getPredSize(){
+        return predators.size();
+    }
+
 
     public static EmptyTile[][] getBoard() {
         return board;
@@ -134,10 +160,7 @@ public class BoardManager {
             preyTimer = 0;
         }
         preyTimer++;
-
-        nutritionPerTick = 0;
-        predKilled = 0;
-        preyKilled = 0;
+        iteration++;
 
 
         for (int i = 0; i < groups.size(); i++) {
