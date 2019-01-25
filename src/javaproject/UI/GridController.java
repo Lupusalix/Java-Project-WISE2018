@@ -18,6 +18,7 @@ import javaproject.tiles.Prey;
 /**
  * @author Henry.
  * the controller class for the grid as defined in our grid.fxml.
+ *
  */
 public class GridController implements Runnable{
 
@@ -51,6 +52,7 @@ public class GridController implements Runnable{
 
     @FXML
     private GridPane root;
+
     @FXML
     private Text killsAvrg;
 
@@ -66,6 +68,9 @@ public class GridController implements Runnable{
     @FXML
     private CheckBox showGrid;
 
+    @FXML
+    private TextArea nutritionIntake;
+
     /**
      * handles the speed of the Simulation.
      *
@@ -75,7 +80,6 @@ public class GridController implements Runnable{
     void onDroped(MouseEvent event) {
         double x= ((sleepSlider.getValue()));
         setSleep(((int) x));
-        System.out.println("I WAS CALLED AMK");
     }
 
     /**
@@ -99,7 +103,7 @@ public class GridController implements Runnable{
     }
 
     /**
-     * sets the statistics-Textfields in the GUI.
+     * sets the statistics-textfields in the GUI.
      *
      * @param predKilled killed predators.
      * @param preyKilled killed prey.
@@ -109,6 +113,7 @@ public class GridController implements Runnable{
      * @param preyA number of alive prey.
      * @param predA number of alive pred.
      */
+
     @FXML
     void setStatistics(int predKilled, int preyKilled,int nutKilled,int it,int preyA,int predA){
         killsTotal.setText(Integer.toString((predKilled+preyKilled)));
@@ -126,7 +131,7 @@ public class GridController implements Runnable{
      * @param prey number of prey to spawn.
      * @throws Exception .
      */
-    public void onGenerate(int size, int predator, int prey) throws Exception {
+    public void onGenerate(int size, int predator, int prey, boolean spawn) throws Exception {
 
 
 
@@ -161,7 +166,7 @@ public class GridController implements Runnable{
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, prey, predator, 10, 1);
+        b = new BoardManager(size, size, prey, predator, 10, 1,spawn);
 
         //Sorts and prints
         //b.test();

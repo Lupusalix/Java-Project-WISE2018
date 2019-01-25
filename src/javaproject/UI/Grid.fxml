@@ -24,11 +24,12 @@
             <Label layoutX="122.0" layoutY="330.0" text="Kills avrg.:" />
             <Slider fx:id="sleepSlider" blockIncrement="100.0" layoutX="78.0" layoutY="511.0" majorTickUnit="10.0" max="200.0" min="1.0" onMouseReleased="#onDroped" prefHeight="33.0" prefWidth="148.0" showTickMarks="true" />
             <Label layoutX="134.0" layoutY="494.0" text="Speed" />
-            <CheckBox fx:id="showGrid" layoutX="116.0" layoutY="544.0" mnemonicParsing="false" onAction="#enableLines" text="Show Grid" />
+            <CheckBox fx:id="showGrid" layoutX="116.0" layoutY="544.0" mnemonicParsing="false" onAction="#enableLines" selected="true" text="Show Grid" />
+            <ComboBox layoutX="137.0" layoutY="14.0" prefWidth="150.0" />
          </children></AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <children>
-                <GridPane fx:id="root" layoutX="57.0" layoutY="78.0" prefHeight="398.0" prefWidth="417.0" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <GridPane fx:id="root" gridLinesVisible="true" layoutX="57.0" layoutY="78.0" prefHeight="398.0" prefWidth="417.0" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="151.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="152.0" />

@@ -19,6 +19,11 @@ public class BoardManager {
     private static int preyKilled;
     private static int predKilled;
     private int iteration=0;
+    private boolean generatePrey;
+
+    public void setGeneratePrey(boolean generatePrey) {
+        this.generatePrey = generatePrey;
+    }
 
     public static int getNutritionPerTick() {
         return nutritionPerTick;
@@ -59,12 +64,12 @@ public class BoardManager {
     public static EmptyTile bGetPos(Position pos) {
         return board[pos.getX()][pos.getY()];
     }
+   //
+   // public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
+   //     this(x, y, numPrey, numPred, 0, 0);
+   // }
 
-    public BoardManager(int x, int y, int numPrey, int numPred) throws Exception {
-        this(x, y, numPrey, numPred, 0, 0);
-    }
-
-    public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds) throws Exception {
+    public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds, boolean genP) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
         }
@@ -75,6 +80,7 @@ public class BoardManager {
         nutritionPerTick = 0;
         predKilled = 0;
         preyKilled = 0;
+        this.generatePrey=genP;// sets the boolean if the programm should generate prey
 
         initialize(numPrey, numPred); //initialize the field
         this.genPrey = genereatePrey;
@@ -154,10 +160,13 @@ public class BoardManager {
 
     public void tick(int sleep) {
         int oneSecond = (genereteXSeconds * 1000) / sleep;
-        if (genPrey > 0 && preyTimer >= oneSecond) {
-            generatePrey(genPrey);
-            Collections.sort(animals);
-            preyTimer = 0;
+
+        if(generatePrey==true){
+             if (genPrey > 0 && preyTimer >= oneSecond) {
+                 generatePrey(genPrey);
+                 Collections.sort(animals);
+                preyTimer = 0;
+             }
         }
         preyTimer++;
         iteration++;

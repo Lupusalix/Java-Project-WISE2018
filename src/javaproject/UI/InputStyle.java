@@ -72,6 +72,7 @@ public class InputStyle {
         stage.show();
 
         int size = 0, predator = 0, prey = 0;
+        boolean spawn= rbSpawn.isSelected();
 
         if (isInt(tfSize)) {
             size = Integer.parseInt(tfSize.getText());
@@ -88,7 +89,7 @@ public class InputStyle {
 
 
         if(size != 0 || predator != 0 || prey != 0) {
-            controller.onGenerate(size, predator, prey);
+            controller.onGenerate(size, predator, prey, spawn);
         }
 
 
