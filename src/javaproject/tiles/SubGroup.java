@@ -3,6 +3,7 @@ package javaproject.tiles;
 import javaproject.BoardManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SubGroup extends HuntingGroup {
 
@@ -13,6 +14,7 @@ public class SubGroup extends HuntingGroup {
         super(member, radius, target);
         this.group = group;
     }
+
 
     @Override
     public Position getPredPos(Predator predator) {

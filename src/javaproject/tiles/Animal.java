@@ -104,7 +104,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      *
      * @return sight as a double.
      */
-    public double getSight() {
+    public int getSight() {
         return sight;
     }
 

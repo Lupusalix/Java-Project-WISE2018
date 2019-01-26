@@ -1,5 +1,6 @@
 package javaproject.UI;
 
+// import com.sun.java.util.jar.pack.Instruction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,6 +72,83 @@ public class GridController implements Runnable{
     @FXML
     private TextArea nutritionIntake;
 
+    @FXML
+    private RadioButton spawnPrey;
+
+    @FXML
+    private TextField spawnNumber;
+
+    @FXML
+    private ComboBox<String> colorScheme;
+
+    /**
+     * sets the color scheme of the simulation to the selected option.
+     * @param event on choosing an option in the drop-down-menu.
+     */
+
+    @FXML
+    private void onSelect(ActionEvent event){
+        switch (colorScheme.getValue()){
+
+            case "Default":
+                preyColor = Color.GREEN;
+                predatorColor = Color.RED;
+                medPreyColor = Color.DARKGREEN;
+                bigPreyColor = Color.DARKBLUE;
+                break;
+            case "Prey:Red Predator:Blue":
+                predatorColor = Color.BLUE;
+                preyColor = Color.INDIANRED;
+                medPreyColor = Color.RED;
+                bigPreyColor = Color.DARKRED;
+                break;
+            case "prey:Pink Predator:Black":
+                predatorColor = Color.BLACK;
+                preyColor = Color.LIGHTPINK;
+                medPreyColor = Color.PINK;
+                bigPreyColor = Color.HOTPINK;
+        }
+    }
+
+    /**
+     * sets the number of prey that spawns in everyTick to the entered value.
+     * @param event on the press of the Enterkey, this function is called.
+     */
+
+    @FXML
+    void handleSpawnNumber(ActionEvent event) {
+       if(isInt(spawnNumber)) b.setGenPrey(Integer.parseInt(spawnNumber.getText()));
+    }
+
+
+    /**
+     * Sets the respawn of pry during the simulation to 'true' or 'false'.
+     *
+     * @param event if the user inetracts with the radiobutton.
+     */
+    @FXML
+    void toggleSpawn(ActionEvent event) {
+        if(spawnPrey.isSelected()){
+            b.setGeneratePrey(true);
+        }else b.setGeneratePrey(false);
+    }
+
+    /**
+     * checks if the entered  value is an integer.
+     * @param text the textfield to check.
+     * @return 'true' if it is an int, false if not.
+     */
+
+    private boolean isInt(TextField text) {
+        int x;
+        try {
+            x = Integer.parseInt(text.getText());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /**
      * handles the speed of the Simulation.
      *
@@ -133,7 +211,13 @@ public class GridController implements Runnable{
      */
     public void onGenerate(int size, int predator, int prey, boolean spawn) throws Exception {
 
+        colorScheme.getItems().addAll(
+                "Default",
+                "Prey:Red Predator:Blue",
+                "prey:Pink Predator:Black"
+        );
 
+        if(spawn)spawnPrey.setSelected(true);
 
         board = new StackPane[size][size];
 
