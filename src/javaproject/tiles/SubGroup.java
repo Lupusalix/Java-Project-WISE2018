@@ -9,10 +9,32 @@ public class SubGroup extends HuntingGroup {
 
     private HuntingGroup group;
     private Position subGroupTargetPosition;
+    private HashMap<Predator,Position>waitingPosition;
+    boolean side;
 
-    public SubGroup(ArrayList<Predator> member, int radius, Prey target, HuntingGroup group) {
+   // public boolean checkIfInPosition(){
+   // }
+
+    public void allocateWaitingPosition(){
+        for(int i=0;i<group.getGroupMember().size();i++){
+            if(i==0){
+            waitingPosition.put(group.getGroupMember().get(i),subGroupTargetPosition);
+            }else {
+                if(side==false) {
+                    //mögliche bugAnflligkeit bei zu großen gruppen
+                    waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX(),subGroupTargetPosition.getY() - (-1 *2)));
+                }else{waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX()-(-1*2),subGroupTargetPosition.getY()));
+
+                }
+            }
+        }
+    }
+
+    public SubGroup(ArrayList<Predator> member, int radius, Prey target,Position waitingPosition, HuntingGroup group, boolean side) {
         super(member, radius, target);
+        subGroupTargetPosition =waitingPosition;
         this.group = group;
+        this.side=side;
     }
 
 
