@@ -6,6 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * this is the first class that is beeing called by our programm and it opens up an input window.
+ *
+ * @author Henry
+ *
+ */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {

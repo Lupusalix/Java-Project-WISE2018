@@ -10,6 +10,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * the controller class for our initial input-window.
+ * @author Henry
+ */
+
 public class InputStyle {
 
 
@@ -45,6 +50,13 @@ public class InputStyle {
         }
     }
 
+    /**
+     * this method is called as soon as our user hits the 'generate'-button.
+     * it opens up a new window and calls the "onGenerate" Method from the gridControllerclass
+     * @see GridController .
+     * @param event hitting the GenerateButton.
+     * @throws Exception .
+     */
     @FXML
     void handle_generate(ActionEvent event) throws Exception {
 
@@ -60,6 +72,7 @@ public class InputStyle {
         stage.show();
 
         int size = 0, predator = 0, prey = 0;
+        boolean spawn= rbSpawn.isSelected();
 
         if (isInt(tfSize)) {
             size = Integer.parseInt(tfSize.getText());
@@ -76,7 +89,7 @@ public class InputStyle {
 
 
         if(size != 0 || predator != 0 || prey != 0) {
-            controller.onGenerate(size, predator, prey);
+            controller.onGenerate(size, predator, prey, spawn);
         }
 
 
