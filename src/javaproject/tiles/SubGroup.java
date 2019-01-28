@@ -27,11 +27,11 @@ public class SubGroup extends HuntingGroup {
 
    public boolean checkIfInPosition(){
        boolean allReady=true;
-       for(int i=0;i<super.getGroupMember().size();i++){
-           if(super.getGroupMember().get(i).getPos()== waitingPosition.get(super.getGroupMember().get(i))){ //if pred at waitingPos
-               group.getReady().put(super.getGroupMember().get(i),true);//set his key to true
+       for(int i=0;i<groupMember.size();i++){
+           if(groupMember.get(i).getPos()== waitingPosition.get(groupMember.get(i))){ //if pred at waitingPos
+               group.getReady().put(groupMember.get(i),true);//set his key to true
            }else{
-               group.getReady().put(super.getGroupMember().get(i),false);//if not, set his key to false
+               group.getReady().put(groupMember.get(i),false);//if not, set his key to false
                allReady=false;//if someone is not in Position,, not everyone is in position, so 'allReady' is 'false'
            }
        }
@@ -67,19 +67,12 @@ public class SubGroup extends HuntingGroup {
 
 
     @Override
-    public Position getPredPos(Predator predator) {
-        int[] a = BoardManager.getSize();
-        return Position.ranPos(a[0], a[1]);
+    public void update() {
+        if (groupMember.size() > 1) {
+            updateGrpPos();
+        }
+        allocateWaitingPosition();
 
-
-        //TODO: @Henry Grouppredator positioning for the predator X!
-        /*
-
-        for pred in member ( index of)
-
-        pred i move to x
-         */
     }
-
 
 }
