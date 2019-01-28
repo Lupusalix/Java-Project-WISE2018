@@ -5,6 +5,19 @@ import javaproject.tiles.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/**
+ * @author Philipp.
+ * @author Henry (Interface-interaction).
+ *
+ * The Boardmanager is the HUB for all actions of our board, he calls the Methods of Predators and pray. He is the
+ * center of our statemaschine.
+ * @see EmptyTile .
+ * @see Animal .
+ * @see HuntingGroup .
+ * @see Predator .
+ * @see Prey .
+ */
 public class BoardManager {
 
     private static EmptyTile[][] board;
@@ -20,6 +33,12 @@ public class BoardManager {
     private static int predKilled;
     private int iteration=0;
     private boolean generatePrey;
+
+
+    public void setGenPrey(int genPrey) {
+        this.genPrey = genPrey;
+    }
+
 
     public void setGeneratePrey(boolean generatePrey) {
         this.generatePrey = generatePrey;

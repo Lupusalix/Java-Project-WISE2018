@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class HuntingGroup {
 
+
     /**
      * groupMember: An Arraylist containing all the members of the Huntinggroup.
      * groupRadius: the arrea in which the gorup has vision.
@@ -27,8 +28,9 @@ public class HuntingGroup {
     protected int groupRadius;
     protected Prey groupTarget;
     protected Position position;
-    protected HashMap<Predator, Boolean> ready = new HashMap<>();
-    protected HashMap<Predator, Position> targetPos = new HashMap<>();
+    protected HashMap <Predator, Boolean> ready = new HashMap <>();
+    protected HashMap <Predator, SubGroup> allocatedSubgroup = new HashMap <>();
+    protected boolean attack=false;
 
     public Position getPosition() {
         return this.position;
@@ -40,6 +42,19 @@ public class HuntingGroup {
         this.groupTarget = target;
     }
 
+    public HashMap <Predator, SubGroup> getAllocatedSubgroup() {
+        return allocatedSubgroup;
+    }
+
+
+    public HashMap <Predator, Boolean> getReady() {
+        return ready;
+    }
+
+    public ArrayList <Predator> getGroupMember() {
+        return groupMember;
+    }
+
     public Prey getGroupTarget() {
         return groupTarget;
     }
@@ -48,13 +63,17 @@ public class HuntingGroup {
         this.groupTarget = groupTarget;
     }
 
+    public int getGroupRadius() {
+        return groupRadius;
+    }
+
     /**
      * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
      * approaches.
      *
      * @return returns an integer 1-8 to determine where to chase the animal to depending on it's relativ position.
      *
-     * 1: chase to top middle.
+     * 1:chase to top middle.
      * 2:chase to top-right-corner.
      * 3:chase to right middle.
      * 4:chas eto bottom-left-corner.
@@ -189,10 +208,11 @@ public class HuntingGroup {
     }
 
 
-    public void tatic() {
-        int groupSize = groupMember.size();
-
-
+    public void neededSubgroups() {
+        int i=getTactic();
+        if((i%2)==0) {
+            formSubGroups(2,i);
+        }else formSubGroups(3,i);
     }
 
     protected void updateGrpPos() {
@@ -231,7 +251,6 @@ public class HuntingGroup {
         //TODO:Delete Subgroups @ophilipp
     }
 
-
     private void joinPredInRad() {
 
         //TODO:if subgroups -> no @philipp
@@ -245,24 +264,153 @@ public class HuntingGroup {
         groupMember.remove(pred);
     }
 
-    private void formSubGroups() {
+    private void formSubGroups(int numberOfSubgroupsToForm,int relativePreyPos) {
         //TODO: form Subgroups put Predator to its corresponding subgroup @henry
 
+        //those contain the targetPositions starting from the left most positiobn moving
+        //left->bottom->right->top
+        Position tarOne;
+        Position tarTwo;
+        Position tarThree;
+        ArrayList<Position> targetPositions = new ArrayList<>();
+        ArrayList<Predator> subGroupmembers = new ArrayList <>();
+        ArrayList<Predator> dummyGroupMember= groupMember; //kann üpotenziell entferhnt werden , ist genutzt um bugs zu vermeiden
+        boolean start=false; //is needed to determine the wairingPos in the subGroup
 
+        switch (relativePreyPos){
+            case 1: //top middle
+                tarOne = new Position(groupTarget.getPos().getX()-groupTarget.getSight()-1,groupTarget.getPos().getY());//links
+                targetPositions.add(tarOne);
+                tarTwo = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//unten
+                targetPositions.add(tarTwo);
+                tarThree =new Position(groupTarget.getPos().getX()+groupTarget.getSight()+1,groupTarget.getPos().getY());//rechts
+                targetPositions.add(tarThree);
+                start=false;
+                break;
+            case 2://top right corner
+                tarOne = new Position(groupTarget.getPos().getX()-groupTarget.getSight()-1,groupTarget.getPos().getY());//links
+                targetPositions.add(tarOne);
+                tarTwo = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//unten
+                targetPositions.add(tarTwo);
+                start=false;
+                break;
+            case 3://right middle
+                tarOne = new Position(groupTarget.getPos().getX()-groupTarget.getSight()-1,groupTarget.getPos().getY());//links
+                targetPositions.add(tarOne);
+                tarTwo = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//unten
+                targetPositions.add(tarTwo);
+                tarThree = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//oben
+                targetPositions.add(tarThree);
+                start=false;
+                break;
+            case 4: //right bottom corner
+                tarOne = new Position(groupTarget.getPos().getX()-groupTarget.getSight()-1,groupTarget.getPos().getY());//links
+                targetPositions.add(tarOne);
+                tarTwo = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//oben
+                targetPositions.add(tarTwo);
+                start=false;
+                break;
+            case 5: //Bottom middle
+                tarOne = new Position(groupTarget.getPos().getX()-groupTarget.getSight()-1,groupTarget.getPos().getY());//links
+                targetPositions.add(tarOne);
+                tarTwo =new Position(groupTarget.getPos().getX()+groupTarget.getSight()+1,groupTarget.getPos().getY());//rechts
+                targetPositions.add(tarTwo);
+                tarThree = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//oben
+                targetPositions.add(tarThree);
+                start=false;
+                break;
+            case 6: //bottom left corner
+                tarOne =new Position(groupTarget.getPos().getX()+groupTarget.getSight()+1,groupTarget.getPos().getY());//rechts
+                targetPositions.add(tarOne);
+                tarTwo = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//oben
+                targetPositions.add(tarTwo);
+                start=false;
+                break;
+            case 7://left middle
+                tarOne = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//unten
+                targetPositions.add(tarOne);
+                tarTwo =new Position(groupTarget.getPos().getX()+groupTarget.getSight()+1,groupTarget.getPos().getY());//rechts
+                targetPositions.add(tarTwo);
+                tarThree = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//oben
+                targetPositions.add(tarThree);
+                start=true;
+                break;
+            case 8: //left top, corner
+                tarOne = new Position(groupTarget.getPos().getX(),groupTarget.getPos().getY()-groupTarget.getSight()-1);//unten
+                targetPositions.add(tarOne);
+                tarTwo =new Position(groupTarget.getPos().getX()+groupTarget.getSight()+1,groupTarget.getPos().getY());//rechts
+                targetPositions.add(tarTwo);
+                start=true;
+                break;
+        }
+
+        HashMap<Predator,ArrayList<Double>> distance =new HashMap <>(); //this hashmap contains an array list for every Predator containing it's distance to the targetpositions
+
+        for(int i =0;i<groupMember.size();i++){
+            ArrayList<Double> temp  = new ArrayList<>();
+            for (int u=1 ;u<numberOfSubgroupsToForm;u++){
+                temp.add(groupMember.get(i).getPos().getDistance(targetPositions.get(u)));
+            }
+
+           distance.put(groupMember.get(i),temp);
+        }
+        double shortest=0;
+        Predator nearest=groupMember.get(1);
+
+        int subGroupSize = groupMember.size()/numberOfSubgroupsToForm;
+
+
+        //TODO DIESE SCHLEIFE IST EINE POTENZIELLE UND MASSIVE BUG-QUELLE, BITTE DRINGEND KORREKTURLESEN
+
+        for(int count = 0;count<= numberOfSubgroupsToForm;count++) {
+            int reverse=1;
+            for (int z = 0; z < subGroupSize; z++) {
+                for (int i = 0; i < dummyGroupMember.size(); i++) {
+                    if (distance.get(dummyGroupMember.get(i)).get(1) < shortest)
+                        shortest = distance.get(dummyGroupMember.get(i)).get(count);
+                    nearest = dummyGroupMember.get(i);
+
+                }
+                subGroupmembers.add(nearest);
+                dummyGroupMember.remove(nearest);
+            }
+            subGroups.add(new SubGroup(subGroupmembers,getGroupRadius(),getGroupTarget(),targetPositions.get(count),this,start));
+            subGroupmembers.clear();
+            if(start==true){
+                start=false;
+            }else start=true;
+
+
+            //if groubmemberSize%2 !=0  add remaining pred to any group
+        }
     }
 
     public Position getPredPos(Predator predator) {
         int[] a = BoardManager.getSize();
         return Position.ranPos(a[0], a[1]);
-
-        //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
-        //TODO: @henry Grouppredator positioning for the predator X!
-        /*
-
-        for pred in member ( index of)
-
-        pred i move to x
-         */
+       // boolean ready=false;
+       // for(int i=0;i<subGroups.size();i++){
+       //     ready=subGroups.get(i).checkIfInPosition();
+       // }
+       // if(ready){
+       //     attack=true;
+       // }else{
+       //     attack=false;
+       // }
+       // if(attack){
+       //     return groupTarget.getPos();
+       // }else{// holt die subgoup des predators aus der alocatedSubgorup, holt aus dieser subgorup seine zugewiesen waiting Position und returnd diese
+       //     return allocatedSubgroup.get(predator).getWaitingPosition().get(predator);
+       // }
+       //
+       // //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
+       // //TODO: @Henry Grouppredator positioning for the predator X!
+       // /*
+       //
+       // for pred in member ( index of)
+       //
+       // pred i move to x
+       //  */
     }
 
     protected void delSubGroup(SubGroup subGroup) {
