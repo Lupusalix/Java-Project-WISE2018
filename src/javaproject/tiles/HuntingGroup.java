@@ -31,13 +31,23 @@ public class HuntingGroup {
     private Prey groupTarget;
     private Position position;
     private HashMap <Predator, Boolean> ready = new HashMap <>();
-    private HashMap <Predator, Position> targetPos = new HashMap <>();
+    private HashMap <Predator, SubGroup> allocatedSubgroup = new HashMap <>();
+    private boolean attack=false;
 
 
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
         this.groupRadius = radius;
         this.groupTarget = target;
+    }
+
+    public HashMap <Predator, SubGroup> getAllocatedSubgroup() {
+        return allocatedSubgroup;
+    }
+
+
+    public HashMap <Predator, Boolean> getReady() {
+        return ready;
     }
 
     public ArrayList <Predator> getGroupMember() {
@@ -62,7 +72,7 @@ public class HuntingGroup {
      *
      * @return returns an integer 1-8 to determine where to chase the animal to depending on it's relativ position.
      *
-     * 1: chase to top middle.
+     * 1:chase to top middle.
      * 2:chase to top-right-corner.
      * 3:chase to right middle.
      * 4:chas eto bottom-left-corner.
@@ -324,7 +334,7 @@ public class HuntingGroup {
 
         HashMap<Predator,ArrayList<Double>> distance =new HashMap <>(); //this hashmap contains an array list for every Predator containing it's distance to the targetpositions
 
-        for(int i =1;i<groupMember.size();i++){
+        for(int i =0;i<groupMember.size();i++){
             ArrayList<Double> temp  = new ArrayList<>();
             for (int u=1 ;u<numberOfSubgroupsToForm;u++){
                 temp.add(groupMember.get(i).getPos().getDistance(targetPositions.get(u)));
@@ -340,10 +350,10 @@ public class HuntingGroup {
 
         //TODO DIESE SCHLEIFE IST EINE POTENZIELLE UND MASSIVE BUG-QUELLE, BITTE DRINGEND KORREKTURLESEN
 
-        for(int count = 1;count<= numberOfSubgroupsToForm;count++) {
+        for(int count = 0;count<= numberOfSubgroupsToForm;count++) {
             int reverse=1;
             for (int z = 0; z < subGroupSize; z++) {
-                for (int i = 1; i < dummyGroupMember.size(); i++) {
+                for (int i = 0; i < dummyGroupMember.size(); i++) {
                     if (distance.get(dummyGroupMember.get(i)).get(1) < shortest)
                         shortest = distance.get(dummyGroupMember.get(i)).get(count);
                     nearest = dummyGroupMember.get(i);
@@ -366,14 +376,28 @@ public class HuntingGroup {
     public Position getPredPos(Predator predator) {
         int[] a = BoardManager.getSize();
         return Position.ranPos(a[0], a[1]);
-
-        //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
-        //TODO: @Henry Grouppredator positioning for the predator X!
-        /*
-
-        for pred in member ( index of)
-
-        pred i move to x
-         */
+       // boolean ready=false;
+       // for(int i=0;i<subGroups.size();i++){
+       //     ready=subGroups.get(i).checkIfInPosition();
+       // }
+       // if(ready){
+       //     attack=true;
+       // }else{
+       //     attack=false;
+       // }
+       // if(attack){
+       //     return groupTarget.getPos();
+       // }else{// holt die subgoup des predators aus der alocatedSubgorup, holt aus dieser subgorup seine zugewiesen waiting Position und returnd diese
+       //     return allocatedSubgroup.get(predator).getWaitingPosition().get(predator);
+       // }
+       //
+       // //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
+       // //TODO: @Henry Grouppredator positioning for the predator X!
+       // /*
+       //
+       // for pred in member ( index of)
+       //
+       // pred i move to x
+       //  */
     }
 }

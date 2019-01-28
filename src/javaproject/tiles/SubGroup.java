@@ -12,8 +12,32 @@ public class SubGroup extends HuntingGroup {
     private HashMap<Predator,Position>waitingPosition;
     boolean side;
 
-   // public boolean checkIfInPosition(){
-   // }
+
+    public HashMap <Predator, Position> getWaitingPosition() {
+        return waitingPosition;
+    }
+
+    /**
+     * the method checks for every predator if there position is equal to there waitingposition and updates the"ready"
+     * list ccordingly if yes "all ready" remains true, if not it changes to"false".
+     *
+     * @return if every pred is in position
+     */
+
+
+   public boolean checkIfInPosition(){
+       boolean allReady=true;
+       for(int i=0;i<super.getGroupMember().size();i++){
+           if(super.getGroupMember().get(i).getPos()== waitingPosition.get(super.getGroupMember().get(i))){ //if pred at waitingPos
+               group.getReady().put(super.getGroupMember().get(i),true);//set his key to true
+           }else{
+               group.getReady().put(super.getGroupMember().get(i),false);//if not, set his key to false
+               allReady=false;//if someone is not in Position,, not everyone is in position, so 'allReady' is 'false'
+           }
+       }
+       return allReady;
+   }
+
 
     public void allocateWaitingPosition(){
         for(int i=0;i<group.getGroupMember().size();i++){
@@ -35,6 +59,10 @@ public class SubGroup extends HuntingGroup {
         subGroupTargetPosition =waitingPosition;
         this.group = group;
         this.side=side;
+        allocateWaitingPosition();
+        for(int i=0;i<member.size();i++) {
+            group.getAllocatedSubgroup().put(member.get(i), this);
+        }
     }
 
 
