@@ -23,35 +23,35 @@ public class HuntingGroup {
      * targetPos: an Hashmap that contains the target position for every Predator.
      */
 
-    protected ArrayList <Predator> groupMember;
-    private ArrayList <SubGroup> subGroups;
+    protected ArrayList<Predator> groupMember;
+    protected HashMap<Predator, Boolean> ready = new HashMap<>();
     protected int groupRadius;
     protected Prey groupTarget;
     protected Position position;
-    protected HashMap <Predator, Boolean> ready = new HashMap <>();
-    protected HashMap <Predator, SubGroup> allocatedSubgroup = new HashMap <>();
+    protected HashMap<Predator, SubGroup> allocatedSubgroup = new HashMap<>();
+    private ArrayList<SubGroup> subGroups;
     protected boolean attack = false;
 
     public Position getPosition() {
         return this.position;
     }
 
-    public HuntingGroup(ArrayList <Predator> member, int radius, Prey target) {
+    public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
         this.groupRadius = radius;
         this.groupTarget = target;
     }
 
-    public HashMap <Predator, SubGroup> getAllocatedSubgroup() {
+    public HashMap<Predator, SubGroup> getAllocatedSubgroup() {
         return allocatedSubgroup;
     }
 
 
-    public HashMap <Predator, Boolean> getReady() {
+    public HashMap<Predator, Boolean> getReady() {
         return ready;
     }
 
-    public ArrayList <Predator> getGroupMember() {
+    public ArrayList<Predator> getGroupMember() {
         return groupMember;
     }
 
@@ -209,7 +209,6 @@ public class HuntingGroup {
 
     }
 
-
     public void neededSubgroups() {
         int i = getTactic();
         if ((i % 2) == 0) {
@@ -217,7 +216,7 @@ public class HuntingGroup {
         } else formSubGroups(3, i);
     }
 
-    protected void updateGrpPos() {
+    public void updateGrpPos() {
         if (groupMember.size() > 0) {
             int x = 0, y = 0, i;
             for (i = 0; i < groupMember.size(); i++) {
@@ -227,7 +226,7 @@ public class HuntingGroup {
             x /= (i + 1);
             y /= (i + 1);
             this.position = new Position(x, y);
-        } else {
+        } else if (subGroups != null && this instanceof HuntingGroup) {
             int x = 0, y = 0, i;
             for (i = 0; i < subGroups.size(); i++) {
                 x += subGroups.get(i).getPosition().getX();
@@ -238,31 +237,34 @@ public class HuntingGroup {
         }
     }
 
+
     public void update() {
-        if (groupMember.size() > 1 && subGroups == null) {
+        if (groupMember.size() > 0 && subGroups == null) {
+            for (Predator p : groupMember) {
+                if (!p.isAlive()) this.delPred(p);
+            }
             joinPredInRad();
             updateGrpPos();
-            //TODO:Upodate tactics getrelativepostion -> Update subgroup target pos @ühilipp
         } else {
-            for (SubGroup s : subGroups) {
-                s.update();
-            }
-            updateGrpPos();
+            if (subGroups != null) {
+                for (int i = 0; i < this.subGroups.size(); i++) {
+                    subGroups.get(i).update();
+                }
+                updateGrpPos();
+            } else BoardManager.delGrp(this);
         }
 
         if (this.subGroups == null) {
-            this.subGroups = new ArrayList <SubGroup>();
-            if (getTactic() % 2 == 0) formSubGroups(2, getTactic());
-            else formSubGroups(3, getTactic());
+            this.subGroups = new ArrayList<SubGroup>();
+            neededSubgroups();
         }
-        if (groupMember.size() == 0 && subGroups.size() == 0) BoardManager.delGrp(this);
         //TODO:Delete Subgroups @ophilipp
     }
 
     private void joinPredInRad() {
 
         //TODO:if subgroups -> no @philipp
-        ArrayList <Predator> preds = this.position.inSight(false, groupRadius);
+        ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
         if (preds.size() > 0) {
             for (Predator x : preds) {
                 x.joinGrp(this);
@@ -272,13 +274,13 @@ public class HuntingGroup {
     }
 
 
-
     public void delPred(Predator pred) {
         groupMember.remove(pred);
         //TODO: Del from SG
     }
 
     private void formSubGroups(int numberOfSubgroupsToForm, int relativePreyPos) {
+        this.subGroups = new ArrayList<SubGroup>();
         //TODO: form Subgroups put Predator to its corresponding subgroup @henry
 
         //those contain the targetPositions starting from the left most positiobn moving
@@ -286,9 +288,9 @@ public class HuntingGroup {
         Position tarOne;
         Position tarTwo;
         Position tarThree;
-        ArrayList <Position> targetPositions = new ArrayList <>();
-        ArrayList <Predator> subGroupmembers = new ArrayList <>();
-        ArrayList <Predator> dummyGroupMember = groupMember; //kann üpotenziell entferhnt werden , ist genutzt um bugs zu vermeiden
+        ArrayList<Position> targetPositions = new ArrayList<>();
+        ArrayList<Predator> subGroupmembers = new ArrayList<>();
+        ArrayList<Predator> dummyGroupMember = groupMember; //kann üpotenziell entferhnt werden , ist genutzt um bugs zu vermeiden
         boolean start = false; //is needed to determine the wairingPos in the subGroup
 
         switch (relativePreyPos) {
@@ -358,10 +360,10 @@ public class HuntingGroup {
                 break;
         }
 
-        HashMap <Predator, ArrayList <Double>> distance = new HashMap <>(); //this hashmap contains an array list for every Predator containing it's distance to the targetpositions
+        HashMap<Predator, ArrayList<Double>> distance = new HashMap<>(); //this hashmap contains an array list for every Predator containing it's distance to the targetpositions
 
         for (int i = 0; i < groupMember.size(); i++) {
-            ArrayList <Double> temp = new ArrayList <>();
+            ArrayList<Double> temp = new ArrayList<>();
             for (int u = 1; u < numberOfSubgroupsToForm; u++) {
                 temp.add(groupMember.get(i).getPos().getDistance(targetPositions.get(u)));
             }
@@ -369,30 +371,36 @@ public class HuntingGroup {
             distance.put(groupMember.get(i), temp);
         }
         double shortest = 0;
-        Predator nearest = groupMember.get(1);
+        Predator nearest = groupMember.get(0);
 
         int subGroupSize = groupMember.size() / numberOfSubgroupsToForm;
 
 
         //TODO DIESE SCHLEIFE IST EINE POTENZIELLE UND MASSIVE BUG-QUELLE, BITTE DRINGEND KORREKTURLESEN
 
-        for (int count = 0; count <= numberOfSubgroupsToForm; count++) {
-            int reverse = 1;
-            for (int z = 0; z < subGroupSize; z++) {
-                for (int i = 0; i < dummyGroupMember.size(); i++) {
-                    if (distance.get(dummyGroupMember.get(i)).get(1) < shortest)
-                        shortest = distance.get(dummyGroupMember.get(i)).get(count);
-                    nearest = dummyGroupMember.get(i);
+        for (int count = 0; count < numberOfSubgroupsToForm; count++) {
 
+            for (int z = 0; z < subGroupSize; z++) {
+
+                // targetPositions.get(count) waiting target sg
+
+                for (int i = 0; i < dummyGroupMember.size(); i++) {
+                    if (i == 0) nearest = dummyGroupMember.get(i);
+                    else {
+                        if (dummyGroupMember.get(i).getPos().getDistance(targetPositions.get(count)) < nearest.getPos().getDistance(targetPositions.get(count))) {
+                            nearest = dummyGroupMember.get(i);
+                        }
+                    }
                 }
                 subGroupmembers.add(nearest);
                 dummyGroupMember.remove(nearest);
+
             }
             subGroups.add(new SubGroup(subGroupmembers, getGroupRadius(), getGroupTarget(), targetPositions.get(count), this, start));
             subGroupmembers.clear();
-            if (start == true) {
-                start = false;
-            } else start = true;
+            if (start) {
+                start = !start;
+            } else start = !start;
 
 
             //if groubmemberSize%2 !=0  add remaining pred to any group
@@ -432,7 +440,12 @@ public class HuntingGroup {
     }
 
     public int getSize() {
-        //TODO: Return group size with subgroups
-        return 0;
+        int size = 0;
+        if (subGroups != null) {
+            for (SubGroup s : subGroups) {
+                size += s.getSize();
+            }
+            return size;
+        } else return this.groupMember.size();
     }
 }

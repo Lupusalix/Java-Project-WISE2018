@@ -1,7 +1,5 @@
 package javaproject.tiles;
 
-import javaproject.BoardManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -59,6 +57,7 @@ public class SubGroup extends HuntingGroup {
         subGroupTargetPosition =waitingPosition;
         this.group = group;
         this.side=side;
+        this.waitingPosition = new HashMap<Predator, Position>();
         allocateWaitingPosition();
         for(int i=0;i<member.size();i++) {
             group.getAllocatedSubgroup().put(member.get(i), this);
@@ -68,11 +67,14 @@ public class SubGroup extends HuntingGroup {
 
     @Override
     public void update() {
-        if (groupMember.size() > 1) {
+        if (groupMember.size() > 0) {
+            for (Predator p : groupMember) {
+                if (!p.isAlive()) this.delPred(p);
+            }
             updateGrpPos();
-        }
+        } else group.delSubGroup(this);
         allocateWaitingPosition();
-
+        checkIfInPosition();
     }
 
 }
