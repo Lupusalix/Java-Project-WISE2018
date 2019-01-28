@@ -42,7 +42,7 @@ public class GridController implements Runnable{
 
     private int sleep = 100;
 
-     int size = 0;
+    int size = 0;
 
     BoardManager b;
     /**
@@ -117,7 +117,7 @@ public class GridController implements Runnable{
 
     @FXML
     void handleSpawnNumber(ActionEvent event) {
-       if(isInt(spawnNumber)) b.setGenPrey(Integer.parseInt(spawnNumber.getText()));
+        if (isInt(spawnNumber)) b.setGenPrey(Integer.parseInt(spawnNumber.getText()));
     }
 
 
@@ -269,7 +269,7 @@ public class GridController implements Runnable{
     /**
      * the loop that is done for every iteration of our program.
      *
-      */
+     */
     public void run() {
 
         while (true) {
