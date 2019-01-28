@@ -290,7 +290,6 @@ public class HuntingGroup {
         Position tarThree;
         ArrayList<Position> targetPositions = new ArrayList<>();
         ArrayList<Predator> subGroupmembers = new ArrayList<>();
-        ArrayList<Predator> dummyGroupMember = groupMember; //kann üpotenziell entferhnt werden , ist genutzt um bugs zu vermeiden
         boolean start = false; //is needed to determine the wairingPos in the subGroup
 
         switch (relativePreyPos) {
@@ -373,27 +372,32 @@ public class HuntingGroup {
         double shortest = 0;
         Predator nearest = groupMember.get(0);
 
-        int subGroupSize = groupMember.size() / numberOfSubgroupsToForm;
+        int subGroupSizeStandart = groupMember.size() / numberOfSubgroupsToForm;
+        int subGroupSize=subGroupSizeStandart;
+        int subGroupLeftOvers = groupMember.size() %numberOfSubgroupsToForm;
+
 
 
         //TODO DIESE SCHLEIFE IST EINE POTENZIELLE UND MASSIVE BUG-QUELLE, BITTE DRINGEND KORREKTURLESEN
 
         for (int count = 0; count < numberOfSubgroupsToForm; count++) {
 
+            if(subGroupLeftOvers>0)subGroupSize=+1;
+            else  subGroupSize=subGroupSizeStandart;
+
             for (int z = 0; z < subGroupSize; z++) {
 
-                // targetPositions.get(count) waiting target sg
-
-                for (int i = 0; i < dummyGroupMember.size(); i++) {
-                    if (i == 0) nearest = dummyGroupMember.get(i);
+                // targetPositions.get(count) waiting target ss
+                for (int i = 0; i < groupMember.size(); i++) {
+                    if (i == 0) nearest = groupMember.get(i);
                     else {
-                        if (dummyGroupMember.get(i).getPos().getDistance(targetPositions.get(count)) < nearest.getPos().getDistance(targetPositions.get(count))) {
-                            nearest = dummyGroupMember.get(i);
+                        if (groupMember.get(i).getPos().getDistance(targetPositions.get(count)) < nearest.getPos().getDistance(targetPositions.get(count))) {
+                            nearest = groupMember.get(i);
                         }
                     }
                 }
                 subGroupmembers.add(nearest);
-                dummyGroupMember.remove(nearest);
+                groupMember.remove(nearest);
 
             }
             subGroups.add(new SubGroup(subGroupmembers, getGroupRadius(), getGroupTarget(), targetPositions.get(count), this, start));
@@ -405,6 +409,7 @@ public class HuntingGroup {
 
             //if groubmemberSize%2 !=0  add remaining pred to any group
         }
+        subGroupLeftOvers =-1;
     }
 
     public Position getPredPos(Predator predator) {
