@@ -290,7 +290,7 @@ public class HuntingGroup {
         Position tarThree;
         ArrayList<Position> targetPositions = new ArrayList<>();
         ArrayList<Predator> subGroupmembers = new ArrayList<>();
-        boolean start = false; //is needed to determine the wairingPos in the subGroup
+        int side =0; //0: left,1:bottom,2:right,3:top
 
         switch (relativePreyPos) {
             case 1: //top middle
@@ -300,14 +300,14 @@ public class HuntingGroup {
                 targetPositions.add(tarTwo);
                 tarThree = new Position(groupTarget.getPos().getX() + groupTarget.getSight() + 1, groupTarget.getPos().getY());//rechts
                 targetPositions.add(tarThree);
-                start = false;
+                side=0;
                 break;
             case 2://top right corner
                 tarOne = new Position(groupTarget.getPos().getX() - groupTarget.getSight() - 1, groupTarget.getPos().getY());//links
                 targetPositions.add(tarOne);
                 tarTwo = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//unten
                 targetPositions.add(tarTwo);
-                start = false;
+                side=0;
                 break;
             case 3://right middle
                 tarOne = new Position(groupTarget.getPos().getX() - groupTarget.getSight() - 1, groupTarget.getPos().getY());//links
@@ -316,14 +316,14 @@ public class HuntingGroup {
                 targetPositions.add(tarTwo);
                 tarThree = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//oben
                 targetPositions.add(tarThree);
-                start = false;
+                side=0;
                 break;
             case 4: //right bottom corner
                 tarOne = new Position(groupTarget.getPos().getX() - groupTarget.getSight() - 1, groupTarget.getPos().getY());//links
                 targetPositions.add(tarOne);
                 tarTwo = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//oben
                 targetPositions.add(tarTwo);
-                start = false;
+                side = 0;
                 break;
             case 5: //Bottom middle
                 tarOne = new Position(groupTarget.getPos().getX() - groupTarget.getSight() - 1, groupTarget.getPos().getY());//links
@@ -332,14 +332,14 @@ public class HuntingGroup {
                 targetPositions.add(tarTwo);
                 tarThree = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//oben
                 targetPositions.add(tarThree);
-                start = false;
+                side = 0;
                 break;
             case 6: //bottom left corner
                 tarOne = new Position(groupTarget.getPos().getX() + groupTarget.getSight() + 1, groupTarget.getPos().getY());//rechts
                 targetPositions.add(tarOne);
                 tarTwo = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//oben
                 targetPositions.add(tarTwo);
-                start = false;
+                side = 2;
                 break;
             case 7://left middle
                 tarOne = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//unten
@@ -348,14 +348,14 @@ public class HuntingGroup {
                 targetPositions.add(tarTwo);
                 tarThree = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//oben
                 targetPositions.add(tarThree);
-                start = true;
+                side = 1;
                 break;
             case 8: //left top, corner
                 tarOne = new Position(groupTarget.getPos().getX(), groupTarget.getPos().getY() - groupTarget.getSight() - 1);//unten
                 targetPositions.add(tarOne);
                 tarTwo = new Position(groupTarget.getPos().getX() + groupTarget.getSight() + 1, groupTarget.getPos().getY());//rechts
                 targetPositions.add(tarTwo);
-                start = true;
+                side = 1;
                 break;
         }
 
@@ -400,11 +400,9 @@ public class HuntingGroup {
                 groupMember.remove(nearest);
 
             }
-            subGroups.add(new SubGroup(subGroupmembers, getGroupRadius(), getGroupTarget(), targetPositions.get(count), this, start));
+            subGroups.add(new SubGroup(subGroupmembers, getGroupRadius(), getGroupTarget(), targetPositions.get(count), this, side));
             subGroupmembers.clear();
-            if (start) {
-                start = !start;
-            } else start = !start;
+            side=(side+1)%4;
 
 
             //if groubmemberSize%2 !=0  add remaining pred to any group

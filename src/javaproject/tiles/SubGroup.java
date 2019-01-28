@@ -8,7 +8,7 @@ public class SubGroup extends HuntingGroup {
     private HuntingGroup group;
     private Position subGroupTargetPosition;
     private HashMap<Predator,Position>waitingPosition;
-    boolean side;
+    int side;
 
 
     public HashMap <Predator, Position> getWaitingPosition() {
@@ -36,23 +36,124 @@ public class SubGroup extends HuntingGroup {
        return allReady;
    }
 
-
-    public void allocateWaitingPosition(){
-        for(int i=0;i<group.getGroupMember().size();i++){
-            if(i==0){
-            waitingPosition.put(group.getGroupMember().get(i),subGroupTargetPosition);
-            }else {
-                if(side==false) {
-                    //mögliche bugAnflligkeit bei zu großen gruppen
-                    waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX(),subGroupTargetPosition.getY() - (-1 *2)));
-                }else{waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX()-(-1*2),subGroupTargetPosition.getY()));
-
-                }
-            }
-        }
+    private boolean checkIfOnBoard(int toCheck){
+       if(toCheck>=0) return true;
+       else return false;
     }
 
-    public SubGroup(ArrayList<Predator> member, int radius, Prey target,Position waitingPosition, HuntingGroup group, boolean side) {
+    private boolean checkIfToFar(boolean caseToCheck,int toCheck){
+       if(caseToCheck==false) {
+           if (toCheck > groupTarget.getPos().getY() + groupTarget.getSight() || toCheck > groupTarget.getPos().getY() - groupTarget.getSight()) {
+               return false;
+           } else return true;
+       }else{
+           if (toCheck > groupTarget.getPos().getX() + groupTarget.getSight() || toCheck > groupTarget.getPos().getX() - groupTarget.getSight()){
+               return false;
+           }else return true;
+       }
+
+       }
+
+
+    public void allocateWaitingPosition(){
+       int position=0;
+       int secondPosition=0;
+       int targetX=groupTarget.getPos().getX();
+       int targetY=groupTarget.getPos().getY();
+       int targetSight=groupTarget.getSight();
+       int reverse=-1;
+       int multiplikator=3;
+       boolean caseToCheck=false;
+       switch(side) {
+           case 0://links
+               for (int i = 0; i < groupMember.size(); i++) {
+                   if (i == 0) {
+                       position = targetX - targetSight - 1;
+                       if (checkIfOnBoard(position) == false) position = 0;
+                       waitingPosition.put(groupMember.get(i), new Position(position, targetY));
+                   } else {
+                       if (i % 2 == 0) multiplikator = 5;
+                       if (i % 4 == 0) {
+                           position = +1;
+                           multiplikator = 3;
+                       }
+                       secondPosition = targetY + (multiplikator * reverse);
+                       waitingPosition.put(groupMember.get(i), new Position(position, secondPosition));
+                       reverse = reverse * reverse;
+                   }
+               }
+               break;
+           case 1://unten
+               for (int i = 0; i < groupMember.size(); i++) {
+                   if (i == 0) {
+                       position = targetY - targetSight - 1;
+                       if (checkIfOnBoard(position) == false) position = 0;
+                       waitingPosition.put(groupMember.get(i), new Position(position, targetX));
+                   } else {
+                       if (i % 2 == 0) multiplikator = 5;
+                       if (i % 4 == 0) {
+                           position = +1;
+                           multiplikator = 3;
+                       }
+                       secondPosition = targetX + (multiplikator * reverse);
+                       waitingPosition.put(groupMember.get(i), new Position(position, secondPosition));
+                       reverse = reverse * reverse;
+                   }
+               }
+               break;
+           case 2://rechts
+               for (int i = 0; i < groupMember.size(); i++) {
+                   if (i == 0) {
+                       position = targetX + targetSight - 1;
+                       if (checkIfOnBoard(position) == false) position = 0;
+                       waitingPosition.put(groupMember.get(i), new Position(position, targetY));
+                   } else {
+                       if (i % 2 == 0) multiplikator = 5;
+                       if (i % 4 == 0) {
+                           position = +1;
+                           multiplikator = 3;
+                       }
+                       secondPosition = targetY + (multiplikator * reverse);
+                       waitingPosition.put(groupMember.get(i), new Position(position, secondPosition));
+                       reverse = reverse * reverse;
+                   }
+               }
+               break;
+           case 3://oben
+               for (int i = 0; i < groupMember.size(); i++) {
+                   if (i == 0) {
+                       position = targetY + targetSight - 1;
+                       if (checkIfOnBoard(position) == false) position = 0;
+                       waitingPosition.put(groupMember.get(i), new Position(position, targetX));
+                   } else {
+                       if (i % 2 == 0) multiplikator = 5;
+                       if (i % 4 == 0) {
+                           position = +1;
+                           multiplikator = 3;
+                       }
+                       secondPosition = targetX + (multiplikator * reverse);
+                       waitingPosition.put(groupMember.get(i), new Position(position, secondPosition));
+                       reverse = reverse * reverse;
+                   }
+               }
+               break;
+       }
+
+       }
+     //       if(i==0){
+     //       waitingPosition.put(group.getGroupMember().get(i),subGroupTargetPosition);
+     //       }else {
+     //           if(side==false) {
+     //               //mögliche bugAnflligkeit bei zu großen gruppen
+     //               waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX(),subGroupTargetPosition.getY() - (-1 *2)));
+     //           }else{waitingPosition.put(group.getGroupMember().get(i),new Position(subGroupTargetPosition.getX()-(-1*2),subGroupTargetPosition.getY()));
+     //
+     //           }
+     //       }
+     //   }
+     //}
+
+    public SubGroup(ArrayList<Predator> member, int radius, Prey target,Position waitingPosition, HuntingGroup group, int side) {
         super(member, radius, target);
         subGroupTargetPosition =waitingPosition;
         this.group = group;
