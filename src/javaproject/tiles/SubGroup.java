@@ -56,6 +56,7 @@ public class SubGroup extends HuntingGroup {
 
 
     public void allocateWaitingPosition(){
+       //TODO: make sure that the prey or pred dont get out of teh array
        int position=0;
        int secondPosition=0;
        int targetX=groupTarget.getPos().getX();
@@ -104,7 +105,7 @@ public class SubGroup extends HuntingGroup {
            case 2://rechts
                for (int i = 0; i < groupMember.size(); i++) {
                    if (i == 0) {
-                       position = targetX + targetSight - 1;
+                       position = targetX + targetSight + 1;
                        if (checkIfOnBoard(position) == false) position = 0;
                        waitingPosition.put(groupMember.get(i), new Position(position, targetY));
                    } else {
@@ -122,7 +123,7 @@ public class SubGroup extends HuntingGroup {
            case 3://oben
                for (int i = 0; i < groupMember.size(); i++) {
                    if (i == 0) {
-                       position = targetY + targetSight - 1;
+                       position = targetY + targetSight + 1;
                        if (checkIfOnBoard(position) == false) position = 0;
                        waitingPosition.put(groupMember.get(i), new Position(position, targetX));
                    } else {
