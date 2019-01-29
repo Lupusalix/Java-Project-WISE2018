@@ -257,6 +257,9 @@ public class HuntingGroup {
         if (this.subGroups == null) {
             this.subGroups = new ArrayList<SubGroup>();
             neededSubgroups();
+            for (int i = 0; i < subGroups.size(); i++) {
+                subGroups.get(i).update();
+            }
         }
         //TODO:Delete Subgroups @ophilipp
     }
