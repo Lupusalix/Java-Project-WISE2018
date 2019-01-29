@@ -138,7 +138,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length); //Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) { //Check if Position is free
-                    Predator pred = new Predator(pos, 12); //Create Predator
+                    Predator pred = new Predator(pos, 12); //Create Predator // anstatt 12 predsight aus interface
                     board[pos.getX()][pos.getY()] = pred; //Place Predator
                     animals.add(pred);
                     predators.add(pred); //Add Pred to the lists

@@ -197,6 +197,15 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         }
     }
 
+    public Position followTarget(Position target, boolean follow, int sight) {
+        ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
+        for (int i = 0; i < surPos.size(); i++) {
+            if (surPos.get(i).getDistance(target) < sight) surPos.remove(i);
+        }
+        return fTUtil(target, follow, surPos);
+
+    }
+
     /**
      * the method returns depending on follow and eat prey a position back that follows a prey or
      * tries to escape and avoid tiels with prey and predator on it.
