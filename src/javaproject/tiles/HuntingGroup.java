@@ -42,6 +42,7 @@ public class HuntingGroup {
         this.groupMember = member;
         this.groupRadius = radius;
         this.groupTarget = target;
+        updateGrpPos();
         this.relPos = getRelPos();
     }
 
@@ -119,8 +120,6 @@ public class HuntingGroup {
     }
 
 
-
-
     public void update() {
         checkTarget();
         if (groupMember.size() > 0 && subGroups == null) {
@@ -139,16 +138,18 @@ public class HuntingGroup {
                 updateGrpPos();
             } else BoardManager.delGrp(this);
         }
-        attack = true;
-        for (SubGroup s : subGroups) {
-            if (!s.rdy) attack = false;
-        }
+
 
         if (this.subGroups == null) {
             this.subGroups = new ArrayList<SubGroup>();
             buildSubgroups();
             for (int i = 0; i < subGroups.size(); i++) {
                 subGroups.get(i).update();
+            }
+        } else {
+            attack = true;
+            for (SubGroup s : subGroups) {
+                if (!s.rdy) attack = false;
             }
         }
     }
