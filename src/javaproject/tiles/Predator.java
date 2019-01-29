@@ -73,18 +73,20 @@ public class Predator extends Animal {
         this.speedMax = this.speed;
     }
 
-    /**
-     * This function is used to kill prey, extracted the nutration, clear the pred target
-     * and call the preys .killed function
-     *
-     * @param an the prey that is killed.
-     * @see Prey .
-     */
+
+    public void eat(int nutrition) {
+        this.starvation += nutrition;
+        BoardManager.statisticsNutritionIntake(nutrition);
+    }
 
     public void kill(Prey an) {
+        if (this.huntingGroup == null) {
+            this.eat(an.getNutrition());
 
-        this.starvation += an.getNutrition();
-        BoardManager.statisticsNutritionIntake(an.getNutrition());
+        } else {
+            this.huntingGroup.eat(an.getNutrition());
+            this.huntingGroup.delete();
+        }
         BoardManager.statisiticsPreysKilled(1);
         this.target = null;
         an.killed();

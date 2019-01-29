@@ -58,7 +58,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     private void calculateTargetPosition() {
-        switch (getRelPos()) {
+        switch (relPos) {
             case 0:
                 switch (subGrpNr) {
                     case 0:
@@ -141,14 +141,19 @@ public class SubGroup extends HuntingGroup {
         this.subGroupTargetPosition = new Position(x, y);
     }
 
-    private int getRelPos() {
-        return 0;
-        //TODO:@HENRY unten,links,oben,rechts int 0-4
+    @Override
+    public void eat(int nutrition) {
+        this.group.eat(nutrition);
     }
 
     @Override
     public Position getPredPos(Predator predator) {
         checkTarget();
         return subGroupTargetPosition;
+    }
+
+    @Override
+    public void delete() {
+        this.group.delete();
     }
 }

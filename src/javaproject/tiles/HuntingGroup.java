@@ -28,6 +28,7 @@ public class HuntingGroup {
     protected Position position;
     private ArrayList<SubGroup> subGroups;
     protected boolean attack = true;
+    protected int relPos;
 
     public boolean isRdy() {
         return false;
@@ -41,6 +42,7 @@ public class HuntingGroup {
         this.groupMember = member;
         this.groupRadius = radius;
         this.groupTarget = target;
+        this.relPos = getRelPos();
     }
 
     public Prey getGroupTarget() {
@@ -158,8 +160,6 @@ public class HuntingGroup {
     }
 
     private void joinPredInRad() {
-
-        //TODO:if subgroups -> no @philipp
         ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
         if (preds.size() > 0) {
             for (Predator x : preds) {
@@ -169,10 +169,27 @@ public class HuntingGroup {
 
     }
 
+    private int getRelPos() {
+
+        //TODO:@HENRY unten,links,oben,rechts int 0-3
+
+        int targetx = this.groupTarget.getPos().getX();
+        int targety = this.groupTarget.getPos().getY();
+
+        int x = Math.abs(targetx - this.position.getX());
+        int y = Math.abs(targety - this.position.getY());
+
+        if (x > y) {
+            if (this.position.getX() < targetx) return 3;
+            else return 1;
+        } else {
+            if (this.position.getY() < targety) return 0;
+            else return 2;
+        }
+    }
 
     public void delPred(Predator pred) {
         groupMember.remove(pred);
-        //TODO: Del from SG
     }
 
     public Position getPredPos(Predator predator) {
@@ -204,5 +221,15 @@ public class HuntingGroup {
             delSubGroup(s);
         }
         BoardManager.delGrp(this);
+    }
+
+
+    public void eat(int nutrition) {
+        for (SubGroup s : subGroups) {
+            for (Predator p : s.groupMember) {
+                p.eat(nutrition);
+            }
+
+        }
     }
 }
