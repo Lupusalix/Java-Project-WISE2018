@@ -139,6 +139,7 @@ public class Predator extends Animal {
         }
     }
 
+
     @Override
     protected Prey getNearest(boolean prey) {
         ArrayList<Prey> targets = inSight(prey);

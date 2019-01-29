@@ -42,6 +42,7 @@ public class HuntingGroup {
         this.groupMember = member;
         this.groupRadius = radius;
         this.groupTarget = target;
+        updateGrpPos();
         this.relPos = getRelPos();
     }
 
@@ -116,9 +117,10 @@ public class HuntingGroup {
         subGroups.add(new SubGroup(preda, this.groupRadius, this.groupTarget, 0, this));
         subGroups.add(new SubGroup(predb, this.groupRadius, this.groupTarget, 1, this));
         subGroups.add(new SubGroup(predc, this.groupRadius, this.groupTarget, 2, this));
+        for (SubGroup s : subGroups) {
+            s.calculateTargetPosition();
+        }
     }
-
-
 
 
     public void update() {
@@ -139,16 +141,20 @@ public class HuntingGroup {
                 updateGrpPos();
             } else BoardManager.delGrp(this);
         }
-        attack = true;
-        for (SubGroup s : subGroups) {
-            if (!s.rdy) attack = false;
-        }
+
 
         if (this.subGroups == null) {
+            if (this.groupMember.size() > 2) {
             this.subGroups = new ArrayList<SubGroup>();
             buildSubgroups();
             for (int i = 0; i < subGroups.size(); i++) {
                 subGroups.get(i).update();
+            }
+            }
+        } else {
+            attack = true;
+            for (int i = 0; i < subGroups.size(); i++) {
+                if (!subGroups.get(i).isRdy()) attack = false;
             }
         }
     }
@@ -192,9 +198,10 @@ public class HuntingGroup {
         groupMember.remove(pred);
     }
 
+
     public Position getPredPos(Predator predator) {
         checkTarget();
-        return null;
+        return predator.getPos().getRandMovement();
 
     }
 
@@ -217,8 +224,9 @@ public class HuntingGroup {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);
         }
-        for (SubGroup s : subGroups) {
-            delSubGroup(s);
+        for (int i = 0; i < subGroups.size(); i++) {
+            delSubGroup(subGroups.get(i));
+            i--;
         }
         BoardManager.delGrp(this);
     }

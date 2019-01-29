@@ -50,14 +50,18 @@ public class SubGroup extends HuntingGroup {
 
     private void checkInPos() {
         ArrayList<Predator> preds = subGroupTargetPosition.inSight(false, 3);
-        boolean a = true;
-        for (Predator p : groupMember) {
-            if (!preds.contains(p)) a = false;
+        if (preds == null) {
+            this.rdy = false;
+        } else {
+            boolean a = true;
+            for (Predator p : groupMember) {
+                if (!preds.contains(p)) a = false;
+            }
+            this.rdy = a;
         }
-        this.rdy = a;
     }
 
-    private void calculateTargetPosition() {
+    protected void calculateTargetPosition() {
         switch (relPos) {
             case 0:
                 switch (subGrpNr) {
@@ -133,6 +137,7 @@ public class SubGroup extends HuntingGroup {
         if (x > BoardManager.getSize()[0]) x = BoardManager.getSize()[0] - 1;
         this.subGroupTargetPosition = new Position(x, y);
     }
+
 
     private void calculateBottom() {
         int x = this.groupTarget.getPos().getX();

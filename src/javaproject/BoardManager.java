@@ -100,7 +100,7 @@ public class BoardManager {
     }
 
     public static void buildGroup(Predator predator, Prey target) {
-       /* int grpRad = 5;
+        int grpRad = 5;
         ArrayList<Predator> member = predator.inSight(false, grpRad);
         member.add(predator);
         HuntingGroup hg = new HuntingGroup(member, grpRad, target);
@@ -110,7 +110,7 @@ public class BoardManager {
         }
         predator.joinGrp(hg);
         hg.updateGrpPos();
-        hg.update();*/
+        hg.update();
     }
 
 

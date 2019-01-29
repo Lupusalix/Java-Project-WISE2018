@@ -200,7 +200,10 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
     public Position followTarget(Position target, boolean follow, int sight) {
         ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
         for (int i = 0; i < surPos.size(); i++) {
-            if (surPos.get(i).getDistance(target) < sight) surPos.remove(i);
+            if (surPos.get(i).getDistance(target) < sight) {
+                surPos.remove(i);
+                i--;
+            }
         }
         return fTUtil(target, follow, surPos);
 
