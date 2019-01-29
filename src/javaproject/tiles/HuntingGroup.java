@@ -123,6 +123,8 @@ public class HuntingGroup {
     }
 
 
+
+
     public void update() {
         checkTarget();
         if (groupMember.size() > 0 && subGroups == null) {
@@ -141,7 +143,10 @@ public class HuntingGroup {
                 updateGrpPos();
             } else BoardManager.delGrp(this);
         }
-
+        attack = true;
+        for (SubGroup s : subGroups) {
+            if (!s.rdy) attack = false;
+        }
 
         if (this.subGroups == null) {
             if (this.groupMember.size() > 2) {
@@ -197,7 +202,6 @@ public class HuntingGroup {
     public void delPred(Predator pred) {
         groupMember.remove(pred);
     }
-
 
     public Position getPredPos(Predator predator) {
         checkTarget();
