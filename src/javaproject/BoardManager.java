@@ -100,7 +100,7 @@ public class BoardManager {
     }
 
     public static void buildGroup(Predator predator, Prey target) {
-        int grpRad = 5;
+       /* int grpRad = 5;
         ArrayList<Predator> member = predator.inSight(false, grpRad);
         member.add(predator);
         HuntingGroup hg = new HuntingGroup(member, grpRad, target);
@@ -110,7 +110,7 @@ public class BoardManager {
         }
         predator.joinGrp(hg);
         hg.updateGrpPos();
-        hg.update();
+        hg.update();*/
     }
 
 
@@ -200,14 +200,17 @@ public class BoardManager {
             do {
                 Position pos = an.act();
                 if (pos.getX() < board.length && pos.getX() >= 0 && pos.getY() < board[0].length && pos.getY() >= 0) {
-                    //TODO: @Philipp Group kills
+
                     if (bGetPos(pos) instanceof Prey && an instanceof Predator) {
                         if (((Predator) an).getHuntingGroup() != null) {
                             if (((Prey) bGetPos(pos)).getSize() > 1 && ((Predator) an).getHuntingGroup().getSize() > ((Prey) bGetPos(pos)).getSize()) {
                                 ((Predator) an).kill((Prey) bGetPos(pos));
                             } else ((Prey) bGetPos(pos)).attack((Predator) an);
+                        } else {
+                            ((Predator) an).kill((Prey) bGetPos(pos));
                         }
                     }
+
                     if (bGetPos(pos) instanceof Predator && an instanceof Prey) {
                         ((Prey) an).attack((Predator) bGetPos(pos));
                     }

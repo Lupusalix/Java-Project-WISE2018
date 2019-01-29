@@ -11,18 +11,6 @@ public class SubGroup extends HuntingGroup {
     int side;
 
 
-    public SubGroup(ArrayList<Predator> member, int radius, Prey target, Position waitingPosition, HuntingGroup group, int side) {
-        super(member, radius, target);
-        subGroupTargetPosition = waitingPosition;
-        this.group = group;
-        this.side = side;
-        this.waitingPosition = new HashMap<Predator, Position>();
-        allocateWaitingPosition();
-        for (int i = 0; i < member.size(); i++) {
-            group.getAllocatedSubgroup().put(member.get(i), this);
-        }
-    }
-
     public HashMap<Predator, Position> getWaitingPosition() {
         return waitingPosition;
     }
@@ -64,6 +52,19 @@ public class SubGroup extends HuntingGroup {
             } else return true;
         }
 
+    }
+
+
+    public SubGroup(ArrayList<Predator> member, int radius, Prey target, Position waitingPosition, HuntingGroup group, int side) {
+        super(member, radius, target);
+        subGroupTargetPosition = waitingPosition;
+        this.group = group;
+        this.side = side;
+        this.waitingPosition = new HashMap<Predator, Position>();
+        allocateWaitingPosition();
+        for (int i = 0; i < member.size(); i++) {
+            group.getAllocatedSubgroup().put(member.get(i), this);
+        }
     }
     //       if(i==0){
     //       waitingPosition.put(group.getGroupMember().get(i),subGroupTargetPosition);
@@ -165,8 +166,15 @@ public class SubGroup extends HuntingGroup {
 
     }
 
+    protected void delSub() {
+        for (Predator p : groupMember) {
+            p.setHuntingGroup(null);
+        }
+    }
+
     @Override
     public void update() {
+        checkTarget();
         if (groupMember.size() > 0) {
             for (Predator p : groupMember) {
                 if (!p.isAlive()) this.delPred(p);

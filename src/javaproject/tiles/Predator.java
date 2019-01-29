@@ -166,9 +166,6 @@ public class Predator extends Animal {
     private void howl(Prey gTarget) {
         if (this.huntingGroup == null) {
             BoardManager.buildGroup(this, gTarget);
-        } else {
-            if (huntingGroup.getGroupTarget() != null || !huntingGroup.getGroupTarget().isAlive())
-                this.huntingGroup.setGroupTarget(gTarget);
         }
     }
 

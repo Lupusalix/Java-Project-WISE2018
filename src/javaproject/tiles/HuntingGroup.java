@@ -239,9 +239,12 @@ public class HuntingGroup {
 
 
     public void update() {
+        checkTarget();
         if (groupMember.size() > 0 && subGroups == null) {
-            for (Predator p : groupMember) {
-                if (!p.isAlive()) this.delPred(p);
+            for (int i = 0; i < groupMember.size(); i++) {
+                if (!groupMember.get(i).isAlive()) {
+                    this.delPred(groupMember.get(i));
+                }
             }
             joinPredInRad();
             updateGrpPos();
@@ -261,7 +264,12 @@ public class HuntingGroup {
                 subGroups.get(i).update();
             }
         }
-        //TODO:Delete Subgroups @ophilipp
+    }
+
+    protected void checkTarget() {
+        if (!groupTarget.isAlive()) {
+            this.delete();
+        }
     }
 
     private void joinPredInRad() {
@@ -414,21 +422,24 @@ public class HuntingGroup {
     }
 
     public Position getPredPos(Predator predator) {
-        int[] a = BoardManager.getSize();
-        //return Position.ranPos(a[0], a[1]);
-        boolean ready = false;
-        for (int i = 0; i < subGroups.size(); i++) {
-            ready = subGroups.get(i).checkIfInPosition();
-        }
-        if (ready) {
-            attack = true;
+        checkTarget();
+        if (getSize() != 0) {
+            boolean ready = false;
+            for (int i = 0; i < subGroups.size(); i++) {
+                ready = subGroups.get(i).checkIfInPosition();
+            }
+            if (ready) {
+                attack = true;
+            } else {
+                attack = false;
+            }
+            if (attack) {
+                return groupTarget.getPos();
+            } else {// holt die subgoup des predators aus der alocatedSubgorup, holt aus dieser subgorup seine zugewiesen waiting Position und returnd diese
+                return allocatedSubgroup.get(predator).getWaitingPosition().get(predator);
+            }
         } else {
-            attack = false;
-        }
-        if (attack) {
-            return groupTarget.getPos();
-        } else {// holt die subgoup des predators aus der alocatedSubgorup, holt aus dieser subgorup seine zugewiesen waiting Position und returnd diese
-            return allocatedSubgroup.get(predator).getWaitingPosition().get(predator);
+            return predator.getPos();
         }
 
         //TODO @Henry  prey.getpos for actual prey position !!! NO PREY Positioninf for the preds in the update method
@@ -442,6 +453,7 @@ public class HuntingGroup {
     }
 
     protected void delSubGroup(SubGroup subGroup) {
+        subGroups.get(subGroups.indexOf(subGroup)).delSub();
         this.subGroups.remove(subGroup);
     }
 
@@ -453,5 +465,15 @@ public class HuntingGroup {
             }
             return size;
         } else return this.groupMember.size();
+    }
+
+    protected void delete() {
+        for (Predator p : groupMember) {
+            p.setHuntingGroup(null);
+        }
+        for (SubGroup s : subGroups) {
+            delSubGroup(s);
+        }
+        BoardManager.delGrp(this);
     }
 }
