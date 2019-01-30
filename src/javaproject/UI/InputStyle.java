@@ -67,7 +67,7 @@ public class InputStyle {
         GridController controller = fxmlLoader.getController();
 
         Stage stage = new Stage();
-        stage.setScene(new Scene(root3, 1720, 1080));
+        stage.setScene(new Scene(root3, 800, 600));
         stage.setTitle("Simulation");
         stage.show();
 

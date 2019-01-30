@@ -215,8 +215,8 @@ public class BoardManager {
                         ((Prey) an).attack((Predator) bGetPos(pos));
                     }
 
-
-                    move(pos, an);
+                    if (an.isAlive())
+                        move(pos, an);
                     an.setSpeed(an.getSpeed() - 1);
                 }
             } while (an.getSpeed() > 0);
@@ -225,6 +225,17 @@ public class BoardManager {
 
         }
         System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
+        checkBoard();
+    }
+
+    private void checkBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (bGetPos(new Position(i, j)) instanceof Predator) {
+                    if (!predators.contains(bGetPos(new Position(i, j)))) board[i][j] = new EmptyTile();
+                }
+            }
+        }
     }
 
     public static void statisticsNutritionIntake(int nut) {

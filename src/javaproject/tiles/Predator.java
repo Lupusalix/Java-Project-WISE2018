@@ -95,7 +95,9 @@ public class Predator extends Animal {
     @Override
     public void killed() {
         this.alive = false;
-        if (huntingGroup != null) this.huntingGroup.delPred(this);
+        if (huntingGroup != null) {
+            this.huntingGroup.delPred(this);
+        }
         BoardManager.delete(this);
     }
 
@@ -119,24 +121,38 @@ public class Predator extends Animal {
         } else if (!target.isAlive()) { //if target isn't alive search one
             target = getNearest(true);
         }
+
+
         if (huntingGroup == null) {
-
-            if (starvation == health) {
-                return pos.getRandMovement();
-            }
-
-            if (hasTarget()) {
-                return followTarget(this.target.getPos(), true, true);
-            } else return this.pos.getRandMovement();
+            return soloMove();
         } else {
-            //Group Block
-            if (huntingGroup.isRdy()) {
-                return followTarget(this.huntingGroup.getGroupTarget().getPos(), true, true);
+            //Group Block#
+            if (!this.huntingGroup.isGrpFull()) {
+                return soloMove();
             } else {
-                Position grpWPos = this.huntingGroup.getPredPos(this);
-                return followTarget(grpWPos, true, huntingGroup.getGroupTarget().getSight());
+                if (huntingGroup.isRdy()) {
+                    return followTarget(this.huntingGroup.getGroupTarget().getPos(), true, true);
+                } else {
+                    Position grpWPos = this.huntingGroup.getPredPos(this);
+                    if (grpWPos == null) {
+                        return soloMove();
+                    } else if (huntingGroup.getGroupTarget().getSight() > this.pos.getDistance(huntingGroup.getGroupTarget().getPos())) {
+                        return followTarget(huntingGroup.getGroupTarget().getPos(), false, true);
+                    } else
+                        return followTarget(grpWPos, true, huntingGroup.getGroupTarget().getSight());
+                }
             }
         }
+    }
+
+    private Position soloMove() {
+        if (starvation == health) {
+            return pos.getRandMovement();
+        }
+
+        if (hasTarget()) {
+            return followTarget(this.target.getPos(), true, true);
+        } else return this.pos.getRandMovement();
     }
 
 

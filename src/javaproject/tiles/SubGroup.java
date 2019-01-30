@@ -39,9 +39,14 @@ public class SubGroup extends HuntingGroup {
     public void update() {
         checkTarget();
         if (groupMember.size() > 0) {
+            ArrayList<Predator> deadPreds = new ArrayList<>();
             for (Predator p : groupMember) {
-                if (!p.isAlive()) this.delPred(p);
+                if (!p.isAlive()) deadPreds.add(p);
             }
+            for (Predator p : deadPreds) {
+                delPred(p);
+            }
+
             this.updateGrpPos();
         } else group.delSubGroup(this);
         checkInPos();

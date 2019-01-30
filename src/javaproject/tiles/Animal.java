@@ -214,7 +214,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
      * tries to escape and avoid tiels with prey and predator on it.
      *
      * @param target the target to follow or flee from
-     * @param follow
+     * @param follow true follow target, false flee from target
      * @param surPos a list of tiles surrounding this
      * @return returns the position to which the animal is moving now
      */

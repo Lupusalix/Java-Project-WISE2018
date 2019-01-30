@@ -29,6 +29,18 @@ public class HuntingGroup {
     private ArrayList<SubGroup> subGroups;
     protected boolean attack = true;
     protected int relPos;
+    private boolean grpFull;
+
+    public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
+        this.groupMember = member;
+        this.groupRadius = radius;
+        this.groupTarget = target;
+        updateGrpPos();
+
+        grpFull = groupMember.size() > 2;
+
+        this.relPos = getRelPos();
+    }
 
     public boolean isRdy() {
         return false;
@@ -38,12 +50,8 @@ public class HuntingGroup {
         return this.position;
     }
 
-    public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
-        this.groupMember = member;
-        this.groupRadius = radius;
-        this.groupTarget = target;
-        updateGrpPos();
-        this.relPos = getRelPos();
+    public boolean isGrpFull() {
+        return grpFull;
     }
 
     public Prey getGroupTarget() {
@@ -97,6 +105,7 @@ public class HuntingGroup {
     }
 
     private void buildSubgroups() {
+        grpFull = true;
         this.subGroups = new ArrayList<>();
         ArrayList<Predator> preda = new ArrayList<>(), predb = new ArrayList<>(), predc = new ArrayList<>();
         for (int i = 0; i < groupMember.size(); i++) {
@@ -122,17 +131,20 @@ public class HuntingGroup {
         }
     }
 
-
-
+    protected void checkPreds() {
+        ArrayList<Predator> deadPreds = new ArrayList<>();
+        for (Predator p : groupMember) {
+            if (!p.isAlive()) deadPreds.add(p);
+        }
+        for (Predator p : deadPreds) {
+            delPred(p);
+        }
+    }
 
     public void update() {
         checkTarget();
         if (groupMember.size() > 0 && subGroups == null) {
-            for (int i = 0; i < groupMember.size(); i++) {
-                if (!groupMember.get(i).isAlive()) {
-                    this.delPred(groupMember.get(i));
-                }
-            }
+            checkPreds();
             joinPredInRad();
             updateGrpPos();
         } else {
@@ -143,18 +155,14 @@ public class HuntingGroup {
                 updateGrpPos();
             } else BoardManager.delGrp(this);
         }
-        attack = true;
-        for (SubGroup s : subGroups) {
-            if (!s.rdy) attack = false;
-        }
 
         if (this.subGroups == null) {
             if (this.groupMember.size() > 2) {
-            this.subGroups = new ArrayList<SubGroup>();
-            buildSubgroups();
-            for (int i = 0; i < subGroups.size(); i++) {
-                subGroups.get(i).update();
-            }
+                this.subGroups = new ArrayList<SubGroup>();
+                buildSubgroups();
+                for (int i = 0; i < subGroups.size(); i++) {
+                    subGroups.get(i).update();
+                }
             }
         } else {
             attack = true;
@@ -205,7 +213,7 @@ public class HuntingGroup {
 
     public Position getPredPos(Predator predator) {
         checkTarget();
-        return predator.getPos().getRandMovement();
+        return null;
 
     }
 
@@ -228,10 +236,11 @@ public class HuntingGroup {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);
         }
-        for (int i = 0; i < subGroups.size(); i++) {
-            delSubGroup(subGroups.get(i));
-            i--;
-        }
+        if (this.subGroups != null)
+            for (int i = 0; i < subGroups.size(); i++) {
+                delSubGroup(subGroups.get(i));
+                i--;
+            }
         BoardManager.delGrp(this);
     }
 
