@@ -95,10 +95,21 @@ public class BoardManager {
         return a;
     }
 
+    /**
+     * Returns the Tile at the given Position
+     *
+     * @param pos - The position of the tile to check
+     * @return Empty tile of the board at the given position.
+     */
     public static EmptyTile bGetPos(Position pos) {
         return board[pos.getX()][pos.getY()];
     }
 
+    /**
+     * Build a group with the Predator and the target as grouptarget
+     * @param predator the predator invoking the group building
+     * @param target the target to set as the group target.
+     */
     public static void buildGroup(Predator predator, Prey target) {
         int grpRad = 5;
         ArrayList<Predator> member = predator.inSight(false, grpRad);
@@ -114,6 +125,10 @@ public class BoardManager {
     }
 
 
+    /**
+     * Deletes the given animal from the lists and the board
+     * @param animal the animal to delete
+     */
     public static void delete(Animal animal) {
         board[animal.getPos().getX()][animal.getPos().getY()] = new EmptyTile();
         animals.remove(animal);
@@ -121,18 +136,18 @@ public class BoardManager {
         predators.remove(animal);
     }
 
+    /**
+     * Deletes the given group
+     * @param grp the group to delete
+     */
     public static void delGrp(HuntingGroup grp) {
         groups.remove(grp);
     }
 
-
-    //Initialize the Board with specified Number of Prey and Predators at random positions
-    private void initialize(int numPrey, int numPred) {
-        generatePredator(numPred);
-        generatePrey(numPrey);
-        Collections.sort(animals);
-    }
-
+    /**
+     * Generates @param number of predators at random and free tiles
+     * @param numPred number of predators to create
+     */
     public static void generatePredator(int numPred) {
         for (int i = 0; i < numPred; i++) {
             while (true) {
@@ -148,6 +163,40 @@ public class BoardManager {
         }
     }
 
+    /**
+     * simply moves the animal to the given position
+     *
+     * @param pos the position to move to
+     * @param an  the animal to move
+     */
+    //simply moves the animal to the new position
+    public static void move(Position pos, Animal an) {
+        board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
+        board[pos.getX()][pos.getY()] = an;
+        an.setPos(pos);
+    }
+
+    /**
+     * Initializes the board
+     *
+     * @param numPrey number of initial prey
+     * @param numPred number of initial predators
+     */
+    //Initialize the Board with specified Number of Prey and Predators at random positions
+    private void initialize(int numPrey, int numPred) {
+        generatePredator(numPred);
+        generatePrey(numPrey);
+        Collections.sort(animals);
+    }
+
+    public int getPredSize() {
+        return predators.size();
+    }
+
+    /**
+     * Generates @param number of prey at random and free tiles
+     * @param numPrey number of prey to generate
+     */
     public void generatePrey(int numPrey) {
         for (int i = 0; i < numPrey; i++) {
             while (true) {
@@ -163,18 +212,10 @@ public class BoardManager {
         }
     }
 
-    public int getPredSize() {
-        return predators.size();
-    }
-
-
-    //simply moves the animal to the new position
-    public static void move(Position pos, Animal an) {
-        board[an.getPos().getX()][an.getPos().getY()] = new EmptyTile();
-        board[pos.getX()][pos.getY()] = an;
-        an.setPos(pos);
-    }
-
+    /**
+     * Tick the board one turn
+     * @param sleep number of seconds. spawns generatePrey each seconds
+     */
     public void tick(int sleep) {
         int oneSecond = (genereteXSeconds * 1000) / sleep;
 
@@ -224,10 +265,13 @@ public class BoardManager {
             if (an instanceof Predator) ((Predator) an).starve();
 
         }
-        System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
+        //System.out.println("Pred : " + predators.size() + "Prey: " + prey.size() + "Predators killed: " + predKilled + "Prey eaten / nutriton intake: " + preyKilled + "/" + nutritionPerTick);
         checkBoard();
     }
 
+    /**
+     * check if all predators are removed from the board and removes non existent predators from the board
+     */
     private void checkBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
