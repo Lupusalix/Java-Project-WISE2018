@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -19,19 +20,83 @@ public class InputStyle {
 
 
     @FXML
+    private Label PredHGError;
+
+    @FXML
     private TextField tfSize;
 
     @FXML
     private TextField tfPred;
 
     @FXML
-    private TextField tfPrey;
+    private Label PredSightError;
 
     @FXML
     private RadioButton rbSpawn;
 
     @FXML
+    private TextField preyMoveTf;
+
+    @FXML
+    private Label preySizeError;
+
+    @FXML
+    private Label preyMoveError;
+
+    @FXML
+    private TextField preyMaxSizeTf;
+
+    @FXML
+    private Label predError;
+
+    @FXML
+    private TextField PredMovementTf;
+
+    @FXML
+    private Label preyError;
+
+    @FXML
+    private TextField tfPrey;
+
+    @FXML
     private Button generate;
+
+    @FXML
+    private Label predMoveError;
+
+    @FXML
+    private Label errorMessage;
+
+    @FXML
+    private TextField predMovementTf;
+
+    @FXML
+    private Label predSightError;
+
+    @FXML
+    private TextField predSightTf;
+
+    @FXML
+    private Label predHGError;
+
+    @FXML
+    private TextField hgSizeTf;
+
+    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSize=0;
+
+    private int setValue(TextField textField,Label error){
+        int toSet;
+        if (isInt(textField)) {
+            error.setVisible(false);
+            toSet = Integer.parseInt(textField.getText());
+            return toSet;
+
+        }else{
+            error.setVisible(true);
+            return -1;
+        }
+    }
+
 
     /**
      * checks if the enetered string is an integer.
@@ -43,9 +108,12 @@ public class InputStyle {
     private boolean isInt(TextField text) {
         int x;
         try {
+            errorMessage.setVisible(false);
             x = Integer.parseInt(text.getText());
             return true;
         } catch (Exception e) {
+            errorMessage.setText("One or more entered values are not valid Numbers");
+            errorMessage.setVisible(true);
             return false;
         }
     }
@@ -60,35 +128,33 @@ public class InputStyle {
     @FXML
     void handle_generate(ActionEvent event) throws Exception {
 
-        Parent root2 = FXMLLoader.load(getClass().getResource("Grid.fxml"));
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
-        GridController controller = fxmlLoader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root3, 800, 600));
-        stage.setTitle("Simulation");
-        stage.show();
-
-        int size = 0, predator = 0, prey = 0;
         boolean spawn= rbSpawn.isSelected();
 
         if (isInt(tfSize)) {
             size = Integer.parseInt(tfSize.getText());
         }
 
-        if (isInt(tfPred)) {
-            predator = Integer.parseInt(tfPred.getText());
+        prey =setValue(tfPrey,preyError);
+        preyMove=setValue(preyMoveTf,preyMoveError);
+        preySize =setValue(preyMaxSizeTf,preySizeError);
+        predator =setValue(tfPred,predError);
+        predMove=setValue(predMovementTf,predMoveError);
+        predSight =setValue(predSightTf,predSightError);
+        hgSize =setValue(hgSizeTf,predHGError);
 
-        }
-
-        if (isInt(tfPrey)) {
-            prey = Integer.parseInt(tfPrey.getText());
-        }
 
 
-        if(size != 0 || predator != 0 || prey != 0) {
+        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSize > -1) {
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
+            GridController controller = fxmlLoader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root3, 800, 600));
+            stage.setTitle("Simulation");
+            stage.show();
+
             controller.onGenerate(size, predator, prey, spawn);
         }
 
