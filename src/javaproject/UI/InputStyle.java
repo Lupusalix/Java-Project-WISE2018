@@ -154,8 +154,8 @@ public class InputStyle {
             stage.setScene(new Scene(root3, 800, 600));
             stage.setTitle("Simulation");
             stage.show();
-
-            controller.onGenerate(size, predator, prey, spawn);
+        //TODO: input korrekt an die Simulation übergeben.
+            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSize);
         }
 
 

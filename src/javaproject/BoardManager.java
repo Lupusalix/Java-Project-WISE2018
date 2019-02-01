@@ -33,6 +33,35 @@ public class BoardManager {
     private static int predKilled;
     private int iteration = 0;
     private boolean generatePrey;
+    private int preySight;
+    private int preySpeed;
+    private int predSight;
+    private int predMove;
+
+    public void setPredSight(int predSight) {
+        this.predSight = predSight;
+    }
+
+    public void setPredMove(int predMove) {
+        this.predMove = predMove;
+    }
+
+    public int getPredSight() {
+        return predSight;
+    }
+
+    public int getPredMove() {
+        return predMove;
+    }
+
+    public void setPreySight(int preySight) {
+        this.preySight = preySight;
+    }
+
+    public void setPreySpeed(int preySpeed) {
+        this.preySpeed = preySpeed;
+    }
+
 
 
     public void setGenPrey(int genPrey) {
@@ -148,12 +177,12 @@ public class BoardManager {
      * Generates @param number of predators at random and free tiles
      * @param numPred number of predators to create
      */
-    public static void generatePredator(int numPred) {
+    public void generatePredator(int numPred) {
         for (int i = 0; i < numPred; i++) {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length); //Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) { //Check if Position is free
-                    Predator pred = new Predator(pos, 12); //Create Predator // anstatt 12 predsight aus interface
+                    Predator pred = new Predator(pos, 10,5); //Create Predator // anstatt 12 predsight aus interface
                     board[pos.getX()][pos.getY()] = pred; //Place Predator
                     animals.add(pred);
                     predators.add(pred); //Add Pred to the lists
@@ -202,7 +231,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length);//Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) {//Check if Position is free
-                    Prey an = new Prey(pos, 10);//Create Animal
+                    Prey an = new Prey(pos,10, preySpeed);//Create Animal
                     board[pos.getX()][pos.getY()] = an;//Place Animal
                     animals.add(an);
                     prey.add(an); //Add Prey to the lists

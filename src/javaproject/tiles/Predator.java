@@ -51,8 +51,8 @@ public class Predator extends Animal {
      * @param pos   .
      * @param sight .
      */
-    public Predator(Position pos, int sight) {
-        this(pos, sight, 250, 0.7);
+    public Predator(Position pos, int sight, int speed) {
+        this(pos, sight,speed, 250, 0.7);
     }
 
     /**
@@ -61,7 +61,7 @@ public class Predator extends Animal {
      * @param health        .
      * @param defenceChance .
      */
-    public Predator(Position pos, int sight, int health, double defenceChance) {
+    public Predator(Position pos, int sight,int speed, int health, double defenceChance) {
         super(pos, sight);
         this.starvation = health;
         this.health = health;
@@ -69,7 +69,7 @@ public class Predator extends Animal {
         this.target = null;
         this.attacked = false;
         this.huntingGroup = null;
-        this.speed -= 2;
+        this.speed =speed;
         this.speedMax = this.speed;
     }
 

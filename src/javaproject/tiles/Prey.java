@@ -39,8 +39,9 @@ public class Prey extends Animal {
      * @param pos   position of the animal to spawn.
      * @param sight sight of the animal to spawn.
      */
-    public Prey(Position pos, int sight) {
+    public Prey(Position pos, int sight, int speed) {
         super(pos, sight);
+        this.speed=speed;
         this.nutrition = 10;
         if (Math.random() > 0.9) this.size = 3;
         else if (Math.random() > 0.7) this.size = 2;
