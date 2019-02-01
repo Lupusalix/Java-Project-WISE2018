@@ -250,10 +250,7 @@ public class GridController implements Runnable{
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, prey, predator, 10, 1,spawn);
-        b.setPreySpeed(preyMove);
-        b.setPredMove(predMove);
-        b.setPredSight(predSight);
+        b = new BoardManager(size, size, prey, predator, 10, 1,spawn,preyMove,predMove,predSight);
 
         //Sorts and prints
         //b.test();

@@ -62,15 +62,15 @@ public class Predator extends Animal {
      * @param defenceChance .
      */
     public Predator(Position pos, int sight,int speed, int health, double defenceChance) {
-        super(pos, sight);
+        super(pos, sight,speed);
         this.starvation = health;
         this.health = health;
         this.defenceChance = defenceChance;
         this.target = null;
         this.attacked = false;
         this.huntingGroup = null;
-        this.speed =speed;
-        this.speedMax = this.speed;
+//        this.speed =speed;
+//        this.speedMax = this.speed;
     }
 
 
