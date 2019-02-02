@@ -89,6 +89,7 @@ public class InputStyle {
         if (isInt(textField)) {
             error.setVisible(false);
             toSet = Integer.parseInt(textField.getText());
+            if(toSet<0)error.setVisible(true);
             return toSet;
 
         }else{
