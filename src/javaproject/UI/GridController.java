@@ -16,6 +16,8 @@ import javaproject.tiles.EmptyTile;
 import javaproject.tiles.Predator;
 import javaproject.tiles.Prey;
 
+import javax.swing.*;
+
 /**
  * @author Henry.
  * the controller class for the grid as defined in our grid.fxml.
@@ -80,6 +82,8 @@ public class GridController implements Runnable{
 
     @FXML
     private ComboBox<String> colorScheme;
+    @FXML
+    private SplitPane split;
 
     /**
      * sets the color scheme of the simulation to the selected option.
@@ -209,14 +213,13 @@ public class GridController implements Runnable{
      * @param prey number of prey to spawn.
      * @throws Exception .
      */
-    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int preySize, int predMove, int predSight, int hgSize) throws Exception {
+    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int preySize, int predMove, int predSight, int hgSight) throws Exception {
 
         colorScheme.getItems().addAll(
                 "Default",
                 "Prey:Red Predator:Blue",
                 "prey:Pink Predator:Black"
         );
-
         if(spawn)spawnPrey.setSelected(true);
 
         board = new StackPane[size][size];
@@ -250,7 +253,7 @@ public class GridController implements Runnable{
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, prey, predator, 10, 1,spawn,preyMove,predMove,predSight);
+        b = new BoardManager(size, size, prey, predator, 10, 1,spawn,preyMove,predMove,predSight,hgSight);
 
         //Sorts and prints
         //b.test();

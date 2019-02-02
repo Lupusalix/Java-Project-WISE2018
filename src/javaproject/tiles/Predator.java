@@ -28,6 +28,7 @@ public class Predator extends Animal {
     private HuntingGroup huntingGroup;
     private boolean attacked;
     private Prey atttackedby;
+    private int grpRad;
 
     /**
      * checks the current starvationlevel and deletes the predator if it starved.
@@ -51,8 +52,8 @@ public class Predator extends Animal {
      * @param pos   .
      * @param sight .
      */
-    public Predator(Position pos, int sight, int speed) {
-        this(pos, sight,speed, 250, 0.7);
+    public Predator(Position pos, int sight, int speed, int GrpRad) {
+        this(pos, sight,speed, 250, 0.7,GrpRad);
     }
 
     /**
@@ -61,7 +62,7 @@ public class Predator extends Animal {
      * @param health        .
      * @param defenceChance .
      */
-    public Predator(Position pos, int sight,int speed, int health, double defenceChance) {
+    public Predator(Position pos, int sight,int speed, int health, double defenceChance, int grpTad) {
         super(pos, sight,speed);
         this.starvation = health;
         this.health = health;
@@ -69,6 +70,7 @@ public class Predator extends Animal {
         this.target = null;
         this.attacked = false;
         this.huntingGroup = null;
+        this.grpRad=grpRad;
 //        this.speed =speed;
 //        this.speedMax = this.speed;
     }
@@ -188,7 +190,7 @@ public class Predator extends Animal {
      */
     private void howl(Prey gTarget) {
         if (this.huntingGroup == null) {
-            BoardManager.buildGroup(this, gTarget);
+            BoardManager.buildGroup(this, gTarget,grpRad);
         }
     }
 

@@ -80,9 +80,9 @@ public class InputStyle {
     private Label predHGError;
 
     @FXML
-    private TextField hgSizeTf;
+    private TextField hgSightTf;
 
-    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSize=0;
+    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSight=0;
 
     private int setValue(TextField textField,Label error){
         int toSet;
@@ -140,11 +140,11 @@ public class InputStyle {
         predator =setValue(tfPred,predError);
         predMove=setValue(predMovementTf,predMoveError);
         predSight =setValue(predSightTf,predSightError);
-        hgSize =setValue(hgSizeTf,predHGError);
+        hgSight =setValue(hgSightTf,predHGError);
 
 
 
-        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSize > -1) {
+        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSight > -1) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
@@ -153,9 +153,12 @@ public class InputStyle {
             Stage stage = new Stage();
             stage.setScene(new Scene(root3, 800, 600));
             stage.setTitle("Simulation");
+            stage.setOnCloseRequest(e -> System.exit(1));
             stage.show();
         //TODO: input korrekt an die Simulation übergeben.
-            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSize);
+            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSight);
+            generate.getScene().getWindow().hide();
+
         }
 
 
