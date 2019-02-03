@@ -157,13 +157,15 @@ public class Position {
         //Search the Sightrectangle
         for (int i = startx; i < endx; i++) {
             for (int j = starty; j < endy; j++) {
-                if (isprey) {
-                    if (BoardManager.getBoard()[i][j] instanceof Prey) {
-                        erg.add(BoardManager.getBoard()[i][j]);
-                    }
-                } else {
-                    if (BoardManager.getBoard()[i][j] instanceof Predator) {
-                        erg.add(BoardManager.getBoard()[i][j]);
+                if (this.getDistance(i, j) < sight) {
+                    if (isprey) {
+                        if (BoardManager.getBoard()[i][j] instanceof Prey) {
+                            erg.add(BoardManager.getBoard()[i][j]);
+                        }
+                    } else {
+                        if (BoardManager.getBoard()[i][j] instanceof Predator) {
+                            erg.add(BoardManager.getBoard()[i][j]);
+                        }
                     }
                 }
             }
