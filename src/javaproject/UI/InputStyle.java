@@ -26,6 +26,9 @@ public class InputStyle {
     private TextField tfSize;
 
     @FXML
+    private TextField preyMaxSizeTf;
+
+    @FXML
     private TextField tfPred;
 
     @FXML
@@ -43,8 +46,6 @@ public class InputStyle {
     @FXML
     private Label preyMoveError;
 
-    @FXML
-    private TextField preyMaxSizeTf;
 
     @FXML
     private Label predError;
@@ -91,6 +92,12 @@ public class InputStyle {
 
     int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSight=0, initialPreySpawn=0;
 
+    /**
+     * this method calls isInt to check if the given value is an valid Integer, if it is it returns the corrct value, if not it returns-1 .
+     * @param textField the text field to check.
+     * @param error the error associated with the textfield.
+     * @return the integer entered or -1 if it wasn't a valid integer.
+     */
     private int setValue(TextField textField,Label error){
         int toSet;
         if (isInt(textField)) {

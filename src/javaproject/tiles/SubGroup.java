@@ -13,6 +13,14 @@ public class SubGroup extends HuntingGroup {
     private Position subGroupTargetPosition;
     private int subGrpNr;
 
+    /**
+     *
+     * @param member
+     * @param radius
+     * @param target
+     * @param subGrpNr
+     * @param group
+     */
     public SubGroup(ArrayList<Predator> member, int radius, Prey target, int subGrpNr, HuntingGroup group) {
         super(member, radius, target);
         this.subGrpNr = subGrpNr;
@@ -24,17 +32,25 @@ public class SubGroup extends HuntingGroup {
         return rdy && this.attack;
     }
 
+    /**
+     * @return
+     */
     public Position getSubGroupTargetPosition() {
         return subGroupTargetPosition;
     }
 
-
+    /**
+     *
+     */
     protected void delSub() {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void update() {
         checkTarget();
@@ -66,6 +82,9 @@ public class SubGroup extends HuntingGroup {
         }
     }
 
+    /**
+     *
+     */
     protected void calculateTargetPosition() {
         switch (relPos) {
             case 0:

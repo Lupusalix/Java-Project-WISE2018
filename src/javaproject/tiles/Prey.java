@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Philipp.
+ * @author Henry (GUI additions).
  * @version 1.0.
  * @see Animal .
  * @see Predator .

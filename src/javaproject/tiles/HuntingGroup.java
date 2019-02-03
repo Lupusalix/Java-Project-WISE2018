@@ -67,22 +67,8 @@ public class HuntingGroup {
     }
 
     /**
-     * the function determines in which sector the prey is standing and based on the result delivers one of two hunting
-     * approaches.
      *
-     * @return returns an integer 1-8 to determine where to chase the animal to depending on it's relativ position.
-     * <p>
-     * 1:chase to top middle.
-     * 2:chase to top-right-corner.
-     * 3:chase to right middle.
-     * 4:chas eto bottom-left-corner.
-     * 5:chase to bottom middle.
-     * 6:chase to bottom left corner.
-     * 7:chase to left middle.
-     * 8:chase to top-left corner.
      */
-
-
     public void updateGrpPos() {
         if (groupMember.size() > 0) {
             int x = 0, y = 0, i;
@@ -104,6 +90,9 @@ public class HuntingGroup {
         }
     }
 
+    /**
+     *
+     */
     private void buildSubgroups() {
         grpFull = true;
         this.subGroups = new ArrayList<>();
@@ -131,6 +120,9 @@ public class HuntingGroup {
         }
     }
 
+    /**
+     *
+     */
     protected void checkPreds() {
         ArrayList<Predator> deadPreds = new ArrayList<>();
         for (Predator p : groupMember) {
@@ -141,6 +133,9 @@ public class HuntingGroup {
         }
     }
 
+    /**
+     *
+     */
     public void update() {
         checkTarget();
         if (groupMember.size() > 0 && subGroups == null) {
@@ -172,12 +167,18 @@ public class HuntingGroup {
         }
     }
 
+    /**
+     *
+     */
     protected void checkTarget() {
         if (!groupTarget.isAlive()) {
             this.delete();
         }
     }
 
+    /**
+     *
+     */
     private void joinPredInRad() {
         ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
         if (preds.size() > 0) {
@@ -188,9 +189,11 @@ public class HuntingGroup {
 
     }
 
+    /**
+     *
+     * @return
+     */
     private int getRelPos() {
-
-        //TODO:@HENRY unten,links,oben,rechts int 0-3
 
         int targetx = this.groupTarget.getPos().getX();
         int targety = this.groupTarget.getPos().getY();
@@ -207,21 +210,38 @@ public class HuntingGroup {
         }
     }
 
+    /**
+     *
+     * @param pred
+     */
     public void delPred(Predator pred) {
         groupMember.remove(pred);
     }
 
+    /**
+     *
+     * @param predator
+     * @return
+     */
     public Position getPredPos(Predator predator) {
         checkTarget();
         return null;
 
     }
 
+    /**
+     *
+     * @param subGroup
+     */
     protected void delSubGroup(SubGroup subGroup) {
         subGroups.get(subGroups.indexOf(subGroup)).delSub();
         this.subGroups.remove(subGroup);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSize() {
         int size = 0;
         if (subGroups != null) {
@@ -232,6 +252,9 @@ public class HuntingGroup {
         } else return this.groupMember.size();
     }
 
+    /**
+     *
+     */
     protected void delete() {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);
@@ -244,7 +267,10 @@ public class HuntingGroup {
         BoardManager.delGrp(this);
     }
 
-
+    /**
+     *
+     * @param nutrition
+     */
     public void eat(int nutrition) {
         for (SubGroup s : subGroups) {
             for (Predator p : s.groupMember) {

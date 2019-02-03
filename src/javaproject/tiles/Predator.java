@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Philipp.
+ * @author Henry (GUI-additions).
  * @version 1.0.
  * @see Animal .
  * @see Prey .
@@ -75,12 +76,20 @@ public class Predator extends Animal {
 //        this.speedMax = this.speed;
     }
 
+    /**
+     *
+     * @param nutrition
+     */
 
     public void eat(int nutrition) {
         this.starvation += nutrition;
         BoardManager.statisticsNutritionIntake(nutrition);
     }
 
+    /**
+     *
+     * @param an
+     */
     public void kill(Prey an) {
         if (this.huntingGroup == null) {
             this.eat(an.getNutrition());
@@ -111,6 +120,10 @@ public class Predator extends Animal {
      * @return Position the position the pred intents to go to next.
      */
     @Override
+
+    /**
+     *
+     */
     public Position act() {
         if (attacked) {
             escape();
@@ -147,6 +160,10 @@ public class Predator extends Animal {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     private Position soloMove() {
         if (starvation == health) {
             return pos.getRandMovement();
@@ -157,6 +174,11 @@ public class Predator extends Animal {
         } else return this.pos.getRandMovement();
     }
 
+    /**
+     *
+     * @param prey
+     * @return
+     */
 
     @Override
     protected Prey getNearest(boolean prey) {
@@ -194,6 +216,10 @@ public class Predator extends Animal {
         }
     }
 
+    /**
+     *
+     * @param an
+     */
     public void attacked(Prey an) {
         if (this.attacked) this.killed();
         this.attacked = true;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  *
  * @version 1.0.
  * @Author Philipp .
+ * @author Henry (GUI additions).
  * @see EmptyTile .
  * @see Position .
  */
@@ -232,6 +233,11 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         } else return this.pos;
     }
 
+    /**
+     *
+     * @param prey
+     * @return
+     */
     //returns nearest Animal if prey then prey else predator
     protected Animal getNearest(boolean prey) {
         ArrayList<Animal> targets = inSight(prey);
@@ -249,7 +255,11 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         return null;
     }
 
-
+    /**
+     *
+     * @param isPrey
+     * @return
+     */
     public ArrayList inSight(boolean isPrey) {
         return inSight(isPrey, this.sight);
     }
