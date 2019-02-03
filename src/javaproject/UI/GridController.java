@@ -213,7 +213,7 @@ public class GridController implements Runnable{
      * @param prey number of prey to spawn.
      * @throws Exception .
      */
-    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int preySize, int predMove, int predSight, int hgSight) throws Exception {
+    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int preySize, int predMove, int predSight, int hgSight, int preySpawn) throws Exception {
 
         colorScheme.getItems().addAll(
                 "Default",
@@ -253,7 +253,7 @@ public class GridController implements Runnable{
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, prey, predator, 10, 1,spawn,preyMove,predMove,predSight,hgSight);
+        b = new BoardManager(size, size, prey, predator, preySpawn, 1,spawn,preyMove,predMove,predSight,hgSight);
 
         //Sorts and prints
         //b.test();

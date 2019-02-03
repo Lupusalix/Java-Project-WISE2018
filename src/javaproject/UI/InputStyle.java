@@ -82,7 +82,14 @@ public class InputStyle {
     @FXML
     private TextField hgSightTf;
 
-    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSight=0;
+    @FXML
+    private TextField initialPreySpawnTf;
+
+    @FXML
+    private Label initialPreySpawnError;
+
+
+    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSight=0, initialPreySpawn=0;
 
     private int setValue(TextField textField,Label error){
         int toSet;
@@ -119,6 +126,10 @@ public class InputStyle {
         }
     }
 
+    @FXML
+    void showSpawnTf(ActionEvent event) {
+        initialPreySpawnTf.setVisible(rbSpawn.isSelected());
+    }
     /**
      * this method is called as soon as our user hits the 'generate'-button.
      * it opens up a new window and calls the "onGenerate" Method from the gridControllerclass
@@ -142,10 +153,14 @@ public class InputStyle {
         predMove=setValue(predMovementTf,predMoveError);
         predSight =setValue(predSightTf,predSightError);
         hgSight =setValue(hgSightTf,predHGError);
+        if(spawn){
+            initialPreySpawn =setValue(initialPreySpawnTf,initialPreySpawnError);
+        }else initialPreySpawn=10;
 
 
 
-        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSight > -1) {
+
+        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSight > -1 && initialPreySpawn >-1) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
@@ -156,7 +171,7 @@ public class InputStyle {
             stage.setTitle("Simulation");
             stage.setOnCloseRequest(e -> System.exit(1));
             stage.show();
-            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSight);
+            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSight,initialPreySpawn);
             generate.getScene().getWindow().hide();
 
         }
