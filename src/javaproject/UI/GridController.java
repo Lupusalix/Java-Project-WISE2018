@@ -121,7 +121,7 @@ public class GridController implements Runnable{
      */
 
     @FXML
-    void handleSpawnNumber(ActionEvent event) {
+    private void handleSpawnNumber(ActionEvent event) {
         if (isInt(spawnNumber)) b.setGenPrey(Integer.parseInt(spawnNumber.getText()));
     }
 
@@ -129,10 +129,10 @@ public class GridController implements Runnable{
     /**
      * Sets the respawn of pry during the simulation to 'true' or 'false'.
      *
-     * @param event if the user inetracts with the radiobutton.
+     * @param event if the user interacts with the radiobutton.
      */
     @FXML
-    void toggleSpawn(ActionEvent event) {
+    private void toggleSpawn(ActionEvent event) {
         if(spawnPrey.isSelected()){
             b.setGeneratePrey(true);
         }else b.setGeneratePrey(false);
@@ -160,7 +160,7 @@ public class GridController implements Runnable{
      * @param event on movement of the slider.
      */
     @FXML
-    void onDroped(MouseEvent event) {
+    private void onDroped(MouseEvent event) {
         double x= ((sleepSlider.getValue()));
         setSleep(((int) x));
     }
@@ -179,7 +179,7 @@ public class GridController implements Runnable{
      * @param event on checkbox interaction.
      */
     @FXML
-    void enableLines(ActionEvent event) {
+    private void enableLines(ActionEvent event) {
         root.setGridLinesVisible(showGrid.isSelected());
 
 
@@ -198,22 +198,33 @@ public class GridController implements Runnable{
      */
 
     @FXML
-    void setStatistics(int predKilled, int preyKilled,int nutKilled,int it,int preyA,int predA){
+    private void setStatistics(int predKilled, int preyKilled, int nutKilled, int it, int preyA, int predA) {
         killsTotal.setText(Integer.toString((predKilled+preyKilled)));
         double killAvrg=( (double)predKilled+(double)predKilled)/it;
         killsAvrg.setText(Double.toString(killAvrg));
         preyAlive.setText(Integer.toString(preyA));
         predAlive.setText(Integer.toString(predA));
+
         itOut.setText(Integer.toString(it));
     }
 
     /**
-     * handles the generation of the simulation/gridPane.
+     * this is one of the corepart of our Application, if the method is called it initializes our Gridpane with empty
+     * tiles and it also initializes some of the display options with default settings or settings according to
+     * selections made in the input window
+     * @see InputStyle .
      *
      * @param size size of one side of the Gridpane.
-     * @param predator number of predators to spawn-
+     * @param predator number of predators to spawn.
      * @param prey number of prey to spawn.
-     * @throws Exception .
+     * @param spawn boolean if prey shpuld be spawn every iteration.
+     * @param preyMove how far a prey can move per iteration.
+     * @param predStarve how long a pred can go without food.
+     * @param predMove how far a pred can move.
+     * @param predSight ho far a pred can see.
+     * @param hgSight the size of the Huntinggroups group Radius.
+     * @param preySpawn  how mutch prey should be spawned uf spawn is true.
+     * @throws Exception
      */
     public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int predStarve, int predMove, int predSight, int hgSight, int preySpawn) throws Exception {
 

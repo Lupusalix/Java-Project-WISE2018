@@ -95,6 +95,24 @@ public class BoardManager {
         return prey.size();
     }
 
+    /**
+     * Constructor.
+     *
+     * @param x                size on the X-axis.
+     * @param y                size on the >-axis.
+     * @param numPrey          number of initial prey to spawn.
+     * @param numPred          number of initial pred to spawn.
+     * @param genereatePrey    number of prey to generate per iteration
+     * @param genereteXSeconds interval in which prey shoudl be spawned
+     * @param genP             boolena, 'true' if pred shozld be generated.
+     * @param preyMove         value of how far a prey can mov per iteration.
+     * @param predMove         value of how far a pred can mov per iteration.
+     * @param predSight        value of how far a pred can see.
+     * @param grpRad           size of the huntingsgroups-radius
+     * @param predStarve       starvation for the pred.
+     * @throws Exception .
+     */
+
     public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds, boolean genP, int preyMove, int predMove, int predSight, int grpRad, int predStarve) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
@@ -132,9 +150,9 @@ public class BoardManager {
     }
 
     /**
-     * Returns the Tile at the given Position
+     * Returns the Tile at the given Position.
      *
-     * @param pos - The position of the tile to check
+     * @param pos - The position of the tile to check.
      * @return Empty tile of the board at the given position.
      */
     public static EmptyTile bGetPos(Position pos) {
@@ -142,10 +160,10 @@ public class BoardManager {
     }
 
     /**
-     * Build a group with the Predator and the target as grouptarget
-     * @param predator the predator invoking the group building
+     * Build a group with the Predator and the target as grouptarget.
+     * @param predator the predator invoking the group building.
      * @param target the target to set as the group target.
-     * @param grpRad the group radius
+     * @param grpRad the group radius.
      */
     public static void buildGroup(Predator predator, Prey target,int grpRad) {
         ArrayList<Predator> member = predator.inSight(false, grpRad);
@@ -162,8 +180,8 @@ public class BoardManager {
 
 
     /**
-     * Deletes the given animal from the lists and the board
-     * @param animal the animal to delete
+     * Deletes the given animal from the lists and the board.
+     * @param animal the animal to delete.
      */
     public static void delete(Animal animal) {
         board[animal.getPos().getX()][animal.getPos().getY()] = new EmptyTile();
@@ -173,16 +191,16 @@ public class BoardManager {
     }
 
     /**
-     * Deletes the given group
-     * @param grp the group to delete
+     * Deletes the given group.
+     * @param grp the group to delete.
      */
     public static void delGrp(HuntingGroup grp) {
         groups.remove(grp);
     }
 
     /**
-     * Generates @param number of predators at random and free tiles
-     * @param numPred number of predators to create
+     * Generates @param number of predators at random and free tiles.
+     * @param numPred number of predators to create.
      */
     public void generatePredator(int numPred) {
         for (int i = 0; i < numPred; i++) {
@@ -200,10 +218,10 @@ public class BoardManager {
     }
 
     /**
-     * simply moves the animal to the given position
+     * simply moves the animal to the given position.
      *
-     * @param pos the position to move to
-     * @param an  the animal to move
+     * @param pos the position to move to.
+     * @param an  the animal to move.
      */
     //simply moves the animal to the new position
     public static void move(Position pos, Animal an) {
@@ -213,10 +231,10 @@ public class BoardManager {
     }
 
     /**
-     * Initializes the board
+     * Initializes the board.
      *
-     * @param numPrey number of initial prey
-     * @param numPred number of initial predators
+     * @param numPrey number of initial prey.
+     * @param numPred number of initial predators.
      */
     //Initialize the Board with specified Number of Prey and Predators at random positions
     private void initialize(int numPrey, int numPred) {
@@ -249,8 +267,8 @@ public class BoardManager {
     }
 
     /**
-     * Tick the board one turn
-     * @param sleep number of seconds. spawns generatePrey each seconds
+     * Tick the board one turn.
+     * @param sleep number of seconds. spawns generatePrey each seconds.
      */
     public void tick(int sleep) {
         int oneSecond = (genereteXSeconds * 1000) / sleep;
@@ -306,7 +324,7 @@ public class BoardManager {
     }
 
     /**
-     * check if all predators are removed from the board and removes non existent predators from the board
+     * check if all predators are removed from the board and removes non existent predators from the board.
      */
     private void checkBoard() {
         for (int i = 0; i < board.length; i++) {

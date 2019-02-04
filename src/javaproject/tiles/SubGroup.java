@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class SubGroup extends HuntingGroup {
 
-
     private HuntingGroup group;
 
     boolean rdy = false;
@@ -15,12 +14,13 @@ public class SubGroup extends HuntingGroup {
     private int subGrpNr;
 
     /**
-     * Constructor
-     * @param member the member of the group
-     * @param radius the radius of the group
-     * @param target the target of the group
-     * @param subGrpNr the number of the subgroup
-     * @param group the group, which formed the subgroups
+     * Constructor.
+     *
+     * @param member .
+     * @param radius .
+     * @param target .
+     * @param subGrpNr .
+     * @param group .
      */
     public SubGroup(ArrayList<Predator> member, int radius, Prey target, int subGrpNr, HuntingGroup group) {
         super(member, radius, target);
@@ -29,9 +29,9 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * This method returns a boolean if this subgroup is in position
+     * method to check if this Pred is ready to attack.
      *
-     * @return boolean indicating that the subgroup is ready to engage
+     * @return 'true' if it should attack,'false' if not.
      */
     @Override
     public boolean isRdy() {
@@ -44,6 +44,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
+     *d
      * This mothed deletes the group from the predators
      */
     protected void delSub() {
@@ -53,7 +54,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * The update method of the Subgroup
+     * The update method of the Subgroup.
      */
     @Override
     public void update() {
@@ -87,7 +88,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * This method calculates the target positions for the group
+     * This method calculates the target positions for the group.
      */
     protected void calculateTargetPosition() {
         switch (relPos) {
@@ -186,9 +187,9 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * This method  feeds the groupmembers the nutrition provided as a parameter
+     * This method  feeds the groupmembers the nutrition provided as a parameter.
      *
-     * @param nutrition the nutrition to feed the predators
+     * @param nutrition the nutrition to feed the predators.
      */
     @Override
     public void eat(int nutrition) {
@@ -196,9 +197,9 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * This method returns the the position a predator shoul move to
-     * @param predator the predator which wants a position
-     * @return the position the predator needs to move to
+     * This method returns the the position a predator shoul move to.
+     * @param predator the predator which wants a position.
+     * @return the position the predator needs to move to.
      */
     @Override
     public Position getPredPos(Predator predator) {
@@ -207,7 +208,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     * This method deletes the group
+     * This method deletes the group.
      */
     @Override
     public void delete() {
