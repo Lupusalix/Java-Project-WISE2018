@@ -56,9 +56,9 @@ public class Position {
     }
 
     /**
-     * returns the distance between the current position and another position
-     * @param d the other position to which we compare our current position
-     * @return double value containing the distance
+     * returns the distance between the current position and another position.
+     * @param d the other position to which we compare our current position.
+     * @return double value containing the distance.
      */
     public double getDistance(Position d) {
         return Math.sqrt(Math.pow(d.getX() - x, 2) + Math.pow(d.getY() - y, 2));
@@ -75,6 +75,11 @@ public class Position {
         return Math.sqrt(Math.pow(a - x, 2) + Math.pow(b - y, 2));
     }
 
+    /**
+     * method returns a random Position.
+     *
+     * @returna a Position of which the X and Y coordinates are attributed randomly.
+     */
     //for testing purpose
     public Position getRandMovement() {
         Random ran = new Random();
@@ -93,9 +98,9 @@ public class Position {
     }
 
     /**
-     * //creating a random position within boundaries x and y
+     * //creating a random position within boundaries x and y.
      *
-     * @return ArrayList
+     * @return ArrayList.
      */
 
     public ArrayList getSurrroundingPositions() {

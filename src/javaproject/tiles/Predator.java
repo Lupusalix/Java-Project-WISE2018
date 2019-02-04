@@ -154,7 +154,7 @@ public class Predator extends Animal {
                     } else if (huntingGroup.getGroupTarget().getSight() > this.pos.getDistance(huntingGroup.getGroupTarget().getPos())) {
                         return followTarget(huntingGroup.getGroupTarget().getPos(), false, true);
                     } else
-                        return followTarget(grpWPos, true, huntingGroup.getGroupTarget().getSight());
+                        return followTarget(grpWPos, this.huntingGroup.getGroupTarget().getPos(), true, huntingGroup.getGroupTarget().getSight());
                 }
             }
         }

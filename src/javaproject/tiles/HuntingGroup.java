@@ -34,9 +34,9 @@ public class HuntingGroup {
     /**
      * Concsturctor creating a HuntingGroup object with the given parameters and then updating its position and relative position to the target.
      *
-     * @param member The member of the group
-     * @param radius The groupradius
-     * @param target The target the group is hunting
+     * @param member The member of the group.
+     * @param radius The groupradius.
+     * @param target The target the group is hunting.
      */
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
@@ -51,16 +51,16 @@ public class HuntingGroup {
 
     /**
      * Placeholder for determining the readiness of the subgroups.
-     * It is overridden by the subgroup
-     * @return false
+     * It is overridden by the subgroup.
+     * @return false.
      */
     public boolean isRdy() {
         return false;
     }
 
     /**
-     * Getter for the group position
-     * @return the actual group position
+     * Getter for the group position.
+     * @return the actual group position.
      */
     public Position getPosition() {
         return this.position;
@@ -107,7 +107,7 @@ public class HuntingGroup {
     }
 
     /**
-     *This method forms the subgroups
+     *This method forms the subgroups.
      */
     private void buildSubgroups() {
         grpFull = true;
@@ -210,8 +210,8 @@ public class HuntingGroup {
     }
 
     /**
-     * This method calculates the relative  position indicating to which border the prey is hunted
-     * @return an integer standing for which border to chase
+     * This method calculates the relative  position indicating to which border the prey is hunted.
+     * @return an integer standing for which border to chase.
      */
     private int getRelPos() {
 
@@ -240,8 +240,8 @@ public class HuntingGroup {
 
     /**
      * Placeholde method is overriden by the subgroup.
-     * @param predator the predator which wants a position
-     * @return the posittion the predator should go
+     * @param predator the predator which wants a position.
+     * @return the position the predator should go.
      */
     public Position getPredPos(Predator predator) {
         checkTarget();
@@ -259,8 +259,8 @@ public class HuntingGroup {
     }
 
     /**
-     * This method returns the size of the group
-     * @return The size of the group
+     * This method returns the size of the group.
+     * @return The size of the group.
      */
     public int getSize() {
         int size = 0;
@@ -273,7 +273,7 @@ public class HuntingGroup {
     }
 
     /**
-     * This method deletes the group
+     * This method deletes the group.
      */
     protected void delete() {
         for (Predator p : groupMember) {
@@ -289,7 +289,7 @@ public class HuntingGroup {
 
     /**
      * This method feeds every predator of the group the nutrition given by the parameter.
-     * @param nutrition the nutrition to feed the predators
+     * @param nutrition the nutrition to feed the predators.
      */
     public void eat(int nutrition) {
         for (SubGroup s : subGroups) {

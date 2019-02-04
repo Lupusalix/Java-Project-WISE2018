@@ -198,10 +198,19 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
         }
     }
 
-    public Position followTarget(Position target, boolean follow, int sight) { //TODO: Logic error?
+    /**
+     * This is an overload of the followTarget-method that should guide the calling pred to its target, withpout enetring
+     * the preys sightradius.
+     *
+     * @param target the target-position to travel to.
+     * @param follow
+     * @param sight  value to avoid-
+     * @return
+     */
+    public Position followTarget(Position target, Position avoid, boolean follow, int sight) {
         ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
         for (int i = 0; i < surPos.size(); i++) {
-            if (surPos.get(i).getDistance(target) < sight) {
+            if (surPos.get(i).getDistance(avoid) < sight) {
                 surPos.remove(i);
                 i--;
             }
