@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class SubGroup extends HuntingGroup {
 
+
     private HuntingGroup group;
 
     boolean rdy = false;
@@ -14,12 +15,12 @@ public class SubGroup extends HuntingGroup {
     private int subGrpNr;
 
     /**
-     *
-     * @param member
-     * @param radius
-     * @param target
-     * @param subGrpNr
-     * @param group
+     * Constructor
+     * @param member the member of the group
+     * @param radius the radius of the group
+     * @param target the target of the group
+     * @param subGrpNr the number of the subgroup
+     * @param group the group, which formed the subgroups
      */
     public SubGroup(ArrayList<Predator> member, int radius, Prey target, int subGrpNr, HuntingGroup group) {
         super(member, radius, target);
@@ -27,6 +28,11 @@ public class SubGroup extends HuntingGroup {
         this.group = group;
     }
 
+    /**
+     * This method returns a boolean if this subgroup is in position
+     *
+     * @return boolean indicating that the subgroup is ready to engage
+     */
     @Override
     public boolean isRdy() {
         return rdy && this.attack;
@@ -38,7 +44,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     *
+     * This mothed deletes the group from the predators
      */
     protected void delSub() {
         for (Predator p : groupMember) {

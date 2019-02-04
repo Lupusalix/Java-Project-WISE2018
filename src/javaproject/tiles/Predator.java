@@ -77,7 +77,7 @@ public class Predator extends Animal {
     }
 
     /**
-     *
+     * This method feeds the predator with the given nutrition .
      * @param nutrition
      */
 
@@ -87,8 +87,8 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param an
+     * this method kills the prey and calls the feeding method of the predator .
+     * @param an the prey to kill .
      */
     public void kill(Prey an) {
         if (this.huntingGroup == null) {
@@ -103,6 +103,9 @@ public class Predator extends Animal {
         an.killed();
     }
 
+    /**
+     * This method kills the predator and calls the according statistic methods from the Boardmanager
+     */
     @Override
     public void killed() {
         this.alive = false;
@@ -113,16 +116,8 @@ public class Predator extends Animal {
     }
 
     /**
-     * The function is meant to help the pred decide what to do next. it generates a random movement if its health
-     * is equal to its starvation. if it doesn't has a target its starting to look for a new one or helpes it look for
-     * .an hunting group
-     *
-     * @return Position the position the pred intents to go to next.
-     */
-    @Override
-
-    /**
-     *
+     * This method returns the position the predater is moving to.
+     * It asseces the state of the predator and chooses what is best for him.
      */
     public Position act() {
         if (attacked) {
@@ -161,8 +156,8 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @return
+     * This method executes the solo movement of a predator
+     * @return the new position of the predator
      */
     private Position soloMove() {
         if (starvation == health) {
@@ -175,9 +170,10 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param prey
-     * @return
+     * Overridden get Nearest from animal, since the predator needs to howl if a large prey is inside its sight radius.
+     * @param prey boolean if to search for prey or predators
+     * @return the nearest prey or predator according to the prey parameter
+     * @see Animal getNearest .
      */
 
     @Override
@@ -207,8 +203,9 @@ public class Predator extends Animal {
     }
 
     /**
-     * @param gTarget
-     * @see BoardManager buildGroup
+     * The howl method calls for near Predator to form a group.
+     * @param gTarget The target that the formed group will have.
+     * @see BoardManager buildGroup .
      */
     private void howl(Prey gTarget) {
         if (this.huntingGroup == null) {
@@ -217,8 +214,11 @@ public class Predator extends Animal {
     }
 
     /**
-     *
-     * @param an
+     * This method is called when an predator is attacked by a big prey.
+     * It is checking if the predator already has been attacked and if so it is killed.
+     * If it is the first time being attacked it evades to a surrounding cell and its starvation is halved.
+     * If it can not evade to another cell it is considered killed.
+     * @param an the prey attacking the predator .
      */
     public void attacked(Prey an) {
         if (this.attacked) this.killed();
@@ -231,7 +231,8 @@ public class Predator extends Animal {
     }
 
     /**
-     * @return the new position of the animal after it was attacked
+     * The escape method moves the predator away from its attacker.
+     * @return the new position of the animal after it was attacked .
      * @see Animal .
      */
     private Position escape() {
@@ -245,11 +246,19 @@ public class Predator extends Animal {
         return followTarget(at.getPos(), false, false);
     }
 
+    /**
+     * This method checks if the predator has a target.
+     *
+     * @return true if it has a target.
+     */
     private boolean hasTarget() {
         return (this.target != null);
     }
 
-
+    /**
+     * This method joins the predator to a group.
+     * @param x the group the predator joins .
+     */
     public void joinGrp(HuntingGroup x) {
         this.huntingGroup = x;
     }
