@@ -38,6 +38,7 @@ public class BoardManager {
     private int predSight;
     private int predMove;
     private int grpRad;
+    private int predStarve;
 
     public void setPredSight(int predSight) {
         this.predSight = predSight;
@@ -94,7 +95,7 @@ public class BoardManager {
         return prey.size();
     }
 
-    public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds, boolean genP,int preyMove,int predMove,int predSight, int grpRad) throws Exception {
+    public BoardManager(int x, int y, int numPrey, int numPred, int genereatePrey, int genereteXSeconds, boolean genP, int preyMove, int predMove, int predSight, int grpRad, int predStarve) throws Exception {
         if (numPred + numPrey > x * y) { //Throw Error if the number of Animals is bigger than the field
             throw new Exception("Too Many Animals for the Field!");
         }
@@ -110,6 +111,7 @@ public class BoardManager {
         this.predMove=predMove;
         this.predSight=predSight;
         this.grpRad=grpRad;
+        this.predStarve = predStarve;
 
         initialize(numPrey, numPred); //initialize the field
         this.genPrey = genereatePrey;
@@ -186,7 +188,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length); //Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) { //Check if Position is free
-                    Predator pred = new Predator(pos, predSight,predMove,grpRad); //Create Predator // anstatt 12 predsight aus interface
+                    Predator pred = new Predator(pos, predSight, predMove, grpRad, predStarve); //Create Predator // anstatt 12 predsight aus interface
                     board[pos.getX()][pos.getY()] = pred; //Place Predator
                     animals.add(pred);
                     predators.add(pred); //Add Pred to the lists
@@ -235,7 +237,7 @@ public class BoardManager {
             while (true) {
                 Position pos = Position.ranPos(board.length, board[0].length);//Get random Pos
                 if (!(board[pos.getX()][pos.getY()] instanceof Animal)) {//Check if Position is free
-                    Prey an = new Prey(pos, 7, preySpeed);//Create Animal
+                    Prey an = new Prey(pos, 5, preySpeed);//Create Animal
                     board[pos.getX()][pos.getY()] = an;//Place Animal
                     animals.add(an);
                     prey.add(an); //Add Prey to the lists

@@ -53,8 +53,8 @@ public class Predator extends Animal {
      * @param pos   .
      * @param sight .
      */
-    public Predator(Position pos, int sight, int speed, int GrpRad) {
-        this(pos, sight,speed, 250, 0.7,GrpRad);
+    public Predator(Position pos, int sight, int speed, int GrpRad, int predStarve) {
+        this(pos, sight, speed, predStarve, 0.8, GrpRad);
     }
 
     /**

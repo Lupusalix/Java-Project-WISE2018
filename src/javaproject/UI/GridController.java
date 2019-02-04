@@ -1,6 +1,7 @@
 package javaproject.UI;
 
 // import com.sun.java.util.jar.pack.Instruction;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +16,6 @@ import javaproject.BoardManager;
 import javaproject.tiles.EmptyTile;
 import javaproject.tiles.Predator;
 import javaproject.tiles.Prey;
-
-import javax.swing.*;
 
 /**
  * @author Henry.
@@ -84,6 +83,8 @@ public class GridController implements Runnable{
     private ComboBox<String> colorScheme;
     @FXML
     private SplitPane split;
+    @FXML
+    private Text itOut;
 
     /**
      * sets the color scheme of the simulation to the selected option.
@@ -203,6 +204,7 @@ public class GridController implements Runnable{
         killsAvrg.setText(Double.toString(killAvrg));
         preyAlive.setText(Integer.toString(preyA));
         predAlive.setText(Integer.toString(predA));
+        itOut.setText(Integer.toString(it));
     }
 
     /**
@@ -213,7 +215,7 @@ public class GridController implements Runnable{
      * @param prey number of prey to spawn.
      * @throws Exception .
      */
-    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int preySize, int predMove, int predSight, int hgSight, int preySpawn) throws Exception {
+    public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int predStarve, int predMove, int predSight, int hgSight, int preySpawn) throws Exception {
 
         colorScheme.getItems().addAll(
                 "Default",
@@ -253,7 +255,7 @@ public class GridController implements Runnable{
         Create our initial gameloop object.
          */
 
-        b = new BoardManager(size, size, prey, predator, preySpawn, 1,spawn,preyMove,predMove,predSight,hgSight);
+        b = new BoardManager(size, size, prey, predator, preySpawn, 1, spawn, preyMove, predMove, predSight, hgSight, predStarve);
 
         //Sorts and prints
         //b.test();

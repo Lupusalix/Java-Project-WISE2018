@@ -89,8 +89,13 @@ public class InputStyle {
     @FXML
     private Label initialPreySpawnError;
 
+    @FXML
+    private TextField predStarveTf;
 
-    int size = 0, predator = 0, prey = 0,preyMove =0,preySize=0,predMove=0,predSight=0,hgSight=0, initialPreySpawn=0;
+    @FXML
+    private Label predStarveError;
+
+    int size = 0, predator = 0, prey = 0, preyMove = 0, predStarve = 0, predMove = 0, predSight = 0, hgSight = 0, initialPreySpawn = 0;
 
     /**
      * this method calls isInt to check if the given value is an valid Integer, if it is it returns the corrct value, if not it returns-1 .
@@ -159,12 +164,13 @@ public class InputStyle {
         predMove=setValue(predMovementTf,predMoveError);
         predSight =setValue(predSightTf,predSightError);
         hgSight =setValue(hgSightTf,predHGError);
+        predStarve = setValue(predStarveTf, predStarveError);
         if(spawn){
             initialPreySpawn =setValue(initialPreySpawnTf,initialPreySpawnError);
         }else initialPreySpawn=10;
 
 
-        if (size > 0 && predator > -1 && prey > -1 && preyMove > -1 && predMove > -1 && predSight > -1 && hgSight > -1 && initialPreySpawn > -1) {
+        if (size > 0 && predator > -1 && prey > -1 && preyMove > -1 && predMove > -1 && predSight > -1 && hgSight > -1 && initialPreySpawn > -1 && predStarve > -1) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
@@ -175,7 +181,7 @@ public class InputStyle {
             stage.setTitle("Simulation");
             stage.setOnCloseRequest(e -> System.exit(1));
             stage.show();
-            controller.onGenerate(size, predator, prey, spawn,preyMove,preySize,predMove,predSight,hgSight,initialPreySpawn);
+            controller.onGenerate(size, predator, prey, spawn, preyMove, predStarve, predMove, predSight, hgSight, initialPreySpawn);
             generate.getScene().getWindow().hide();
 
         }

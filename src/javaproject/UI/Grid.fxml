@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.text.*?>
 <SplitPane fx:id="split" dividerPositions="0.1740395809080326" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaproject.UI.GridController">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" onDragDetected="#onDroped" prefHeight="160.0" prefWidth="100.0">
@@ -24,6 +21,8 @@
                 <ComboBox fx:id="colorScheme" layoutX="3.0" layoutY="2.0" onAction="#onSelect" prefWidth="150.0" promptText="Seletct Color Scheme" />
                 <RadioButton fx:id="spawnPrey" layoutX="111.0" layoutY="561.0" mnemonicParsing="false" onAction="#toggleSpawn" text="Spawn Prey" />
                 <TextField fx:id="spawnNumber" layoutX="78.0" layoutY="578.0" onAction="#handleSpawnNumber" promptText="Number of prey to spawn" />
+                <Label layoutX="112.0" layoutY="79.0" text="Iteration Count"/>
+                <Text fx:id="itOut" layoutX="137.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
             </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
