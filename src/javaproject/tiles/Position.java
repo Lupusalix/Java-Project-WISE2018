@@ -78,7 +78,7 @@ public class Position {
     /**
      * method returns a random Position.
      *
-     * @returna a Position of which the X and Y coordinates are attributed randomly.
+     * @return a Position of which the X and Y coordinates are attributed randomly.
      */
     //for testing purpose
     public Position getRandMovement() {

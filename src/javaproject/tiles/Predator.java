@@ -49,20 +49,12 @@ public class Predator extends Animal {
         return defenceChance;
     }
 
-    /**
-     * @param pos   .
-     * @param sight .
-     */
+
     public Predator(Position pos, int sight, int speed, int GrpRad, int predStarve) {
         this(pos, sight, speed, predStarve, 0.8, GrpRad);
     }
 
-    /**
-     * @param pos           .
-     * @param sight         .
-     * @param health        .
-     * @param defenceChance .
-     */
+
     public Predator(Position pos, int sight,int speed, int health, double defenceChance, int grpTad) {
         super(pos, sight,speed);
         this.starvation = health;
@@ -78,7 +70,7 @@ public class Predator extends Animal {
 
     /**
      * This method feeds the predator with the given nutrition .
-     * @param nutrition
+     * @param nutrition the nutrition to feed the predator
      */
 
     public void eat(int nutrition) {

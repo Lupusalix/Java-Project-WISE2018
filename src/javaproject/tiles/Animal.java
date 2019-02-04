@@ -203,7 +203,7 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
      * the preys sightradius.
      *
      * @param target the target-position to travel to.
-     * @param follow
+     * @param follow whether to follow or flee from the target
      * @param sight  value to avoid-
      * @return
      */
