@@ -37,7 +37,9 @@ public class SubGroup extends HuntingGroup {
         return subGroupTargetPosition;
     }
 
-
+    /**
+     *
+     */
     protected void delSub() {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);
@@ -45,7 +47,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     *
+     * The update method of the Subgroup
      */
     @Override
     public void update() {
@@ -79,7 +81,7 @@ public class SubGroup extends HuntingGroup {
     }
 
     /**
-     *
+     * This method calculates the target positions for the group
      */
     protected void calculateTargetPosition() {
         switch (relPos) {
@@ -137,6 +139,9 @@ public class SubGroup extends HuntingGroup {
         }
     }
 
+    /**
+     * This method calculates a position left of the target and outside of its sight radius.
+     */
     private void calculateLeft() {
         int x = this.groupTarget.getPos().getX() - groupTarget.getSight() - 2;
         int y = this.groupTarget.getPos().getY();
@@ -144,6 +149,9 @@ public class SubGroup extends HuntingGroup {
         this.subGroupTargetPosition = new Position(x, y);
     }
 
+    /**
+     * This method calculates a position top of the target and outside of its sight radius.
+     */
     private void calculateTop() {
         int x = this.groupTarget.getPos().getX();
         int y = this.groupTarget.getPos().getY() - groupTarget.getSight() - 2;
@@ -151,6 +159,9 @@ public class SubGroup extends HuntingGroup {
         this.subGroupTargetPosition = new Position(x, y);
     }
 
+    /**
+     * This method calculates a position right of the target and outside of its sight radius.
+     */
     private void calculateRight() {
         int x = this.groupTarget.getPos().getX() + groupTarget.getSight() + 2;
         int y = this.groupTarget.getPos().getY();
@@ -158,7 +169,9 @@ public class SubGroup extends HuntingGroup {
         this.subGroupTargetPosition = new Position(x, y);
     }
 
-
+    /**
+     * This method calculates a position bottom of the target and outside of its sight radius.
+     */
     private void calculateBottom() {
         int x = this.groupTarget.getPos().getX();
         int y = this.groupTarget.getPos().getY() + groupTarget.getSight() + 2;
@@ -166,17 +179,30 @@ public class SubGroup extends HuntingGroup {
         this.subGroupTargetPosition = new Position(x, y);
     }
 
+    /**
+     * This method  feeds the groupmembers the nutrition provided as a parameter
+     *
+     * @param nutrition the nutrition to feed the predators
+     */
     @Override
     public void eat(int nutrition) {
         this.group.eat(nutrition);
     }
 
+    /**
+     * This method returns the the position a predator shoul move to
+     * @param predator the predator which wants a position
+     * @return the position the predator needs to move to
+     */
     @Override
     public Position getPredPos(Predator predator) {
         checkTarget();
         return subGroupTargetPosition;
     }
 
+    /**
+     * This method deletes the group
+     */
     @Override
     public void delete() {
         this.group.delete();
