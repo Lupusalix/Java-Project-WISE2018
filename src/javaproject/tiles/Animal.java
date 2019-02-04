@@ -203,9 +203,10 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
      * the preys sightradius.
      *
      * @param target the target-position to travel to.
-     * @param follow whether to follow or flee from the target
+     * @param avoid the position to avoid.
+     * @param follow decides on following or fleeing.
      * @param sight  value to avoid-
-     * @return
+     * @return the next position to move to.
      */
     public Position followTarget(Position target, Position avoid, boolean follow, int sight) {
         ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();

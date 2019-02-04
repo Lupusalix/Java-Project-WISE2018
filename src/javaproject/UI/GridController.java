@@ -224,7 +224,7 @@ public class GridController implements Runnable{
      * @param predSight ho far a pred can see.
      * @param hgSight the size of the Huntinggroups group Radius.
      * @param preySpawn  how mutch prey should be spawned uf spawn is true.
-     * @throws Exception
+     * @throws Exception throws an Exception.
      */
     public void onGenerate(int size, int predator, int prey, boolean spawn, int preyMove, int predStarve, int predMove, int predSight, int hgSight, int preySpawn) throws Exception {
 
