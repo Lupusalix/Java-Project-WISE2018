@@ -32,16 +32,12 @@ public class SubGroup extends HuntingGroup {
         return rdy && this.attack;
     }
 
-    /**
-     * @return
-     */
+
     public Position getSubGroupTargetPosition() {
         return subGroupTargetPosition;
     }
 
-    /**
-     *
-     */
+
     protected void delSub() {
         for (Predator p : groupMember) {
             p.setHuntingGroup(null);

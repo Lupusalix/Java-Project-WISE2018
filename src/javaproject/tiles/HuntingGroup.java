@@ -5,8 +5,8 @@ import javaproject.BoardManager;
 import java.util.ArrayList;
 
 /**
- * @Author Philipp.
- * @Author Henry.
+ * @author Philipp.
+ * @author Henry.
  * <p>
  * This Class contains the logic for finding, building and hunting in and with groups.
  */
@@ -17,7 +17,7 @@ public class HuntingGroup {
      * groupMember: An Arraylist containing all the members of the Huntinggroup.
      * groupRadius: the arrea in which the gorup has vision.
      * groupTarget: the (large) prey the group is currently hunting.
-     * position:
+     * position: the position of the hunting group.
      * ready: an Hashmap indicating for every predator if it arrived on its targetposition and if it is ready to attack.
      * targetPos: an Hashmap that contains the target position for every Predator.
      */
@@ -31,6 +31,13 @@ public class HuntingGroup {
     protected int relPos;
     private boolean grpFull;
 
+    /**
+     * Concsturctor creating a HuntingGroup object with the given parameters and then updating its position and relative position to the target.
+     *
+     * @param member The member of the group
+     * @param radius The groupradius
+     * @param target The target the group is hunting
+     */
     public HuntingGroup(ArrayList<Predator> member, int radius, Prey target) {
         this.groupMember = member;
         this.groupRadius = radius;
@@ -42,10 +49,19 @@ public class HuntingGroup {
         this.relPos = getRelPos();
     }
 
+    /**
+     * Placeholder for determining the readiness of the subgroups.
+     * It is overridden by the subgroup
+     * @return false
+     */
     public boolean isRdy() {
         return false;
     }
 
+    /**
+     * Getter for the group position
+     * @return the actual group position
+     */
     public Position getPosition() {
         return this.position;
     }
@@ -67,7 +83,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     * This method updates the group position according to its member or subgroup positions.
      */
     public void updateGrpPos() {
         if (groupMember.size() > 0) {
@@ -91,7 +107,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     *This method forms the subgroups
      */
     private void buildSubgroups() {
         grpFull = true;
@@ -121,7 +137,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     * This method checks the predators of the group and deletes not living predators from the group.
      */
     protected void checkPreds() {
         ArrayList<Predator> deadPreds = new ArrayList<>();
@@ -134,7 +150,11 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     * The method first checks if the target is still valid; if it is not valid the group is dissolved.
+     * It updates then the group position.
+     * After that it checks if is has enough members to form subgroups and if subgroups exist it updates the subgroups.
+     * If no subgroup exist and enough members are in a group it builds the subgroups.
+     * It also ensures that the group is dissolved if no members exist in either itself or the subgroups.
      */
     public void update() {
         checkTarget();
@@ -168,7 +188,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     *This method checks if the target is alive. If it is not alive this group is deleted.
      */
     protected void checkTarget() {
         if (!groupTarget.isAlive()) {
@@ -177,7 +197,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     * This method joins predators inside the groupradius to this group.
      */
     private void joinPredInRad() {
         ArrayList<Predator> preds = this.position.inSight(false, groupRadius);
@@ -190,8 +210,8 @@ public class HuntingGroup {
     }
 
     /**
-     *
-     * @return
+     * This method calculates the relative  position indicating to which border the prey is hunted
+     * @return an integer standing for which border to chase
      */
     private int getRelPos() {
 
@@ -211,17 +231,17 @@ public class HuntingGroup {
     }
 
     /**
-     *
-     * @param pred
+     * Deletes a given predator from the group.
+     * @param pred the predator to delete from the group.
      */
     public void delPred(Predator pred) {
         groupMember.remove(pred);
     }
 
     /**
-     *
-     * @param predator
-     * @return
+     * Placeholde method is overriden by the subgroup.
+     * @param predator the predator which wants a position
+     * @return the posittion the predator should go
      */
     public Position getPredPos(Predator predator) {
         checkTarget();
@@ -230,8 +250,8 @@ public class HuntingGroup {
     }
 
     /**
-     *
-     * @param subGroup
+     * This method deletes the given subgroup.
+     * @param subGroup the subgroup to delete.
      */
     protected void delSubGroup(SubGroup subGroup) {
         subGroups.get(subGroups.indexOf(subGroup)).delSub();
@@ -239,8 +259,8 @@ public class HuntingGroup {
     }
 
     /**
-     *
-     * @return
+     * This method returns the size of the group
+     * @return The size of the group
      */
     public int getSize() {
         int size = 0;
@@ -253,7 +273,7 @@ public class HuntingGroup {
     }
 
     /**
-     *
+     * This method deletes the group
      */
     protected void delete() {
         for (Predator p : groupMember) {
@@ -268,8 +288,8 @@ public class HuntingGroup {
     }
 
     /**
-     *
-     * @param nutrition
+     * This method feeds every predator of the group the nutrition given by the parameter.
+     * @param nutrition the nutrition to feed the predators
      */
     public void eat(int nutrition) {
         for (SubGroup s : subGroups) {

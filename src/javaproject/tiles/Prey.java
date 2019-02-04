@@ -39,7 +39,7 @@ public class Prey extends Animal {
      *
      * @param pos   position of the animal to spawn.
      * @param sight sight of the animal to spawn.
-     * @param speed
+     * @param speed the movement points of the prey
      */
     public Prey(Position pos, int sight, int speed) {
         super(pos, sight);

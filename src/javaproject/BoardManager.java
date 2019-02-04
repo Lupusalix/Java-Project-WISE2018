@@ -145,6 +145,7 @@ public class BoardManager {
      * Build a group with the Predator and the target as grouptarget
      * @param predator the predator invoking the group building
      * @param target the target to set as the group target.
+     * @param grpRad the group radius
      */
     public static void buildGroup(Predator predator, Prey target,int grpRad) {
         ArrayList<Predator> member = predator.inSight(false, grpRad);

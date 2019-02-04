@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * for both of them.
  *
  * @version 1.0.
- * @Author Philipp .
+ * @author Philipp .
  * @author Henry (GUI additions).
  * @see EmptyTile .
  * @see Position .
@@ -234,9 +234,9 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
     }
 
     /**
-     *
-     * @param prey
-     * @return
+     * The getNearest method returns an Animal. The prey boolean decides whether it is a prey or a predator.
+     * @param prey boolean determining the nearest animal.
+     * @return Returns the nearest Animal
      */
     //returns nearest Animal if prey then prey else predator
     protected Animal getNearest(boolean prey) {
@@ -256,19 +256,21 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
     }
 
     /**
-     *
-     * @param isPrey
-     * @return
+     * checks according to the sight value of the animal and
+     * returns ArrayList of prey or predators according to boolean.
+     * @param isPrey boolean determining whether a prey or predator list is returned.
+     * @return ArrayList of either Prey or Predator
      */
     public ArrayList inSight(boolean isPrey) {
         return inSight(isPrey, this.sight);
     }
 
     /**
-     * checks according to the sight value of the andimal and
-     * returns Arraylist of prey or predators according to boolean.
+     * checks according to the sight value of the animal and
+     * returns ArrayList of prey or predators according to boolean.
      *
-     * @param isprey .
+     * @param isprey boolean determining whether a prey or predator list is returned.
+     * @param sight the sight radius to check.
      * @return and array list of prey or predators.
      */
     public ArrayList inSight(boolean isprey, int sight) {
@@ -280,7 +282,7 @@ public abstract class Animal extends EmptyTile implements Comparable <Animal> {
      * Comparable Method for sorting descending by the initiative.
      *
      * @param o the animal to compare to.
-     * @return the higher initive.
+     * @return the animal with the higher initiative.
      * @see Animal .
      */
     @Override
