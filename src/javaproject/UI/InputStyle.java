@@ -155,7 +155,6 @@ public class InputStyle {
 
         prey =setValue(tfPrey,preyError);
         preyMove=setValue(preyMoveTf,preyMoveError);
-        preySize =setValue(preyMaxSizeTf,preySizeError);
         predator =setValue(tfPred,predError);
         predMove=setValue(predMovementTf,predMoveError);
         predSight =setValue(predSightTf,predSightError);
@@ -165,16 +164,14 @@ public class InputStyle {
         }else initialPreySpawn=10;
 
 
-
-
-        if(size > 0 && predator > -1 && prey > -1 && preyMove > -1 && preySize > -1 && predMove > -1 && predSight > -1 && hgSight > -1 && initialPreySpawn >-1) {
+        if (size > 0 && predator > -1 && prey > -1 && preyMove > -1 && predMove > -1 && predSight > -1 && hgSight > -1 && initialPreySpawn > -1) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root3 = fxmlLoader.load(getClass().getResource("Grid.fxml").openStream());
             GridController controller = fxmlLoader.getController();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root3, 800, 600));
+            stage.setScene(new Scene(root3, 1600, 800));
             stage.setTitle("Simulation");
             stage.setOnCloseRequest(e -> System.exit(1));
             stage.show();

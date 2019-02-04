@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @see EmptyTile .
  * @see Position .
  */
-public class Animal extends EmptyTile implements Comparable<Animal> {
+public abstract class Animal extends EmptyTile implements Comparable <Animal> {
 
     /**
      * Initiative: value that helpes decide which animal is to act first.
@@ -198,7 +198,7 @@ public class Animal extends EmptyTile implements Comparable<Animal> {
         }
     }
 
-    public Position followTarget(Position target, boolean follow, int sight) {
+    public Position followTarget(Position target, boolean follow, int sight) { //TODO: Logic error?
         ArrayList<Position> surPos = pos.getSurrroundingPositionsPred();
         for (int i = 0; i < surPos.size(); i++) {
             if (surPos.get(i).getDistance(target) < sight) {

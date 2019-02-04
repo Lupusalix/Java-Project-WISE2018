@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Philipp.
- * @author Henry (GUI additions).
+ * @author Henry (GUI addition).
  * @version 1.0.
  * @see Animal .
  * @see Predator .
@@ -44,8 +44,8 @@ public class Prey extends Animal {
         super(pos, sight);
         this.speed=speed;
         this.nutrition = 10;
-        if (Math.random() > 0.9) this.size = 3;
-        else if (Math.random() > 0.7) this.size = 2;
+        if (Math.random() > 0.95) this.size = 3;
+        else if (Math.random() > 0.85) this.size = 2;
         else this.size = 1;
         if (this.size > 1) this.nutrition *= this.size;
     }
