@@ -99,7 +99,7 @@ public class BoardManager {
      * Constructor.
      *
      * @param x                size on the X-axis.
-     * @param y                size on the >-axis.
+     * @param y                size on the Y-axis.
      * @param numPrey          number of initial prey to spawn.
      * @param numPred          number of initial pred to spawn.
      * @param genereatePrey    number of prey to generate per iteration
