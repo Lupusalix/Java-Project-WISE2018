@@ -7,8 +7,8 @@
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" onDragDetected="#onDroped" prefHeight="160.0" prefWidth="100.0">
             <children>
-                <Label layoutX="108.0" layoutY="141.0" text="Predators alive;" />
-                <Label layoutX="123.0" layoutY="201.0" text="Prey alive" />
+                <Label layoutX="108.0" layoutY="141.0" text="Predators alive:"/>
+                <Label layoutX="123.0" layoutY="201.0" text="Prey alive:"/>
                 <Label layoutX="123.0" layoutY="265.0" text="Kills total:" />
                 <Text fx:id="predAlive" layoutX="137.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                 <Text fx:id="preyAlive" layoutX="137.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
@@ -18,10 +18,11 @@
                 <Slider fx:id="sleepSlider" blockIncrement="100.0" layoutX="78.0" layoutY="511.0" majorTickUnit="10.0" max="150.0" min="1.0" onMouseReleased="#onDroped" prefHeight="33.0" prefWidth="148.0" showTickMarks="true" value="100.0" />
                 <Label layoutX="134.0" layoutY="494.0" text="Speed" />
                 <CheckBox fx:id="showGrid" layoutX="114.0" layoutY="544.0" mnemonicParsing="false" onAction="#enableLines" selected="true" text="Show Grid" />
-                <ComboBox fx:id="colorScheme" layoutX="3.0" layoutY="2.0" onAction="#onSelect" prefWidth="150.0" promptText="Seletct Color Scheme" />
+                <ComboBox fx:id="colorScheme" layoutX="3.0" layoutY="2.0" onAction="#onSelect" prefWidth="150.0"
+                          promptText="Select Color Scheme"/>
                 <RadioButton fx:id="spawnPrey" layoutX="111.0" layoutY="561.0" mnemonicParsing="false" onAction="#toggleSpawn" text="Spawn Prey" />
                 <TextField fx:id="spawnNumber" layoutX="78.0" layoutY="578.0" onAction="#handleSpawnNumber" promptText="Number of prey to spawn" />
-                <Label layoutX="112.0" layoutY="79.0" text="Iteration Count"/>
+                <Label layoutX="112.0" layoutY="79.0" text="Iteration Count:"/>
                 <Text fx:id="itOut" layoutX="137.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
             </children>
         </AnchorPane>

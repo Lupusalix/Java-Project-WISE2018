@@ -16,9 +16,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Input_style.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("input_style.fxml"));
         primaryStage.setTitle("Input");
-        primaryStage.setScene(new Scene(root, 700, 405));
+        primaryStage.setScene(new Scene(root, 600, 405));
         primaryStage.setOnCloseRequest(e->System.exit(1));
         primaryStage.show();
     }
